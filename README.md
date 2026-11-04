@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Deployment preparation
+
+See [Docker and Dokploy deployment](docs/deployment.md) for image design, environment variables, local Docker checks, Bangladesh latency considerations and future PostgreSQL integration.
+
 ## Getting Started
 
 First, run the development server:
