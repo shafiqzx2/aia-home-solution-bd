@@ -23,6 +23,18 @@
 # misc
 .DS_Store
 *.pem
+*.key
+*.p12
+*.pfx
+*.jks
+.npmrc*
+.pgpass
+pgpass.conf
+.pg_service.conf
+.aws/
+.ssh/
+.secrets/
+secrets/
 
 # debug
 npm-debug.log*
@@ -32,7 +44,22 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-!.env.example
+!/.env.example
+
+# Local database data/backups (Compose uses a named volume, not a bind mount)
+postgres-data/
+db-data/
+backups/
+*.sql
+*.sql.*
+*.dump
+*.dump.*
+*.backup
+*.bak
+*.tar
+*.tar.gz
+*.tgz
+!/prisma/migrations/**/migration.sql
 
 # vercel
 .vercel
