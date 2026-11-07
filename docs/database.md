@@ -1,5 +1,7 @@
 # Local database backup and restore
 
+Architecture update (2026-11-07): production durable business data now targets **Supabase PostgreSQL**, with media binaries in **Cloudflare R2**. Follow the [storage and fetching plan](./data-store-logic.md) for the proposed migration, pooling, schema/security, pagination, caching, and recovery work. The procedures below remain the existing **local Compose PostgreSQL** backup workflow. The backup helper does not follow a remote `DATABASE_URL`; it is not a Supabase backup tool. Add and test a separate Supabase backup/restore procedure and R2 object recovery policy before cutover. No migration has been performed by this documentation update.
+
 Use the existing PostgreSQL Compose service and Prisma migrations. No hosting account, cloud SDK, or provider-specific format is involved. Run these commands from the project root with Node 24, pnpm, and the existing Docker engine running. On Windows, use `pnpm.cmd` if PowerShell blocks `pnpm`.
 
 ## Environment and routine verification

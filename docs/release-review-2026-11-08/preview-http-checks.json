@@ -1,0 +1,56 @@
+[
+  {
+    "path": "/",
+    "status": 307,
+    "location": "/en",
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/en",
+    "status": 200,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/bn",
+    "status": 200,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/en/products",
+    "status": 200,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/en/login",
+    "status": 200,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/en/admin/login",
+    "status": 307,
+    "location": "/en/login",
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/bn/admin/login",
+    "status": 307,
+    "location": "/bn/login",
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/en/not-a-real-page",
+    "status": 404,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/favicon.ico",
+    "status": 200,
+    "location": null,
+    "robots": "noindex, nofollow, noarchive"
+  }
+]

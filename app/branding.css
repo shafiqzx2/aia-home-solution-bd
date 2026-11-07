@@ -1,0 +1,29 @@
+/* Official artwork retains its intrinsic proportions in every placement. */
+.brand-header { width: 118px; max-width: 100%; }
+.brand-footer { width: 162px; max-width: 100%; }
+.brand-artwork { position: relative; display: block; width: 100%; aspect-ratio: var(--brand-ratio); }
+.brand-logo-image { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.brand-appearance-theme .brand-on-light { display: none; }
+html[data-theme="light"] .brand-appearance-theme .brand-on-dark { display: none; }
+html[data-theme="light"] .brand-appearance-theme .brand-on-light { display: block; }
+.brand-appearance-dark { color: #f7f4ed; }
+.brand-appearance-light { color: #191e1a; }
+.brand-image-fallback { display: flex; align-items: center; width: 100%; height: 100%; font: 500 12px/1.5 var(--font-geist-sans), sans-serif; }
+.brand-loading-page { min-width: 0; }
+.branded-loading { display: grid; place-items: center; min-height: clamp(220px, 32svh, 310px); padding: 24px; color: var(--foreground); background: var(--background); }
+.branded-loading-compact { min-height: 220px; }
+.branded-loading-visual { display: block; width: clamp(132px, 26vw, 176px); max-width: 100%; opacity: 0; animation: brand-loading-appear 160ms ease-out 120ms both; }
+.brand-edge-light { pointer-events: none; position: absolute; inset: 0; opacity: .85; background: linear-gradient(105deg, transparent 34%, #d8bc88 44%, #fff1d0 49%, #dec392 54%, transparent 64%); background-size: 200% 100%; background-position: 130% 50%; -webkit-mask: var(--brand-edge-mask) center / contain no-repeat; mask: var(--brand-edge-mask) center / contain no-repeat; animation: brand-edge-travel 6s ease-in-out infinite; }
+@keyframes brand-edge-travel { 0% { background-position: 130% 50%; } 100% { background-position: -30% 50%; } }
+@keyframes brand-loading-appear { from { opacity: 0; } to { opacity: 1; } }
+@supports not (mask-image: url("")) { .brand-edge-light { display: none; } }
+@media (max-width: 767px) {
+  .brand-header { width: 100px; }
+  .brand-footer { width: 148px; }
+  .site-header .brand-artwork { max-height: 62px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .branded-loading-visual { animation: none; opacity: 1; }
+  .brand-edge-light { animation: none; display: none; }
+}
+@media print { .branded-loading, .brand-loading-page { display: none; } }

@@ -1,5 +1,7 @@
 # Docker, PostgreSQL, and future hosting
 
+Architecture update (2026-11-07): the selected data/media targets are **Supabase PostgreSQL and Cloudflare R2**, as specified in the [storage and fetching plan](./data-store-logic.md). This replaces the generic provider choice in the historical hosting notes below. Local Compose remains a development service; application hosting (standalone Docker, Vercel, or another runtime) is a separate decision. Serve business images directly through Cloudflare, including responsive variants, without routing bytes through the app or Vercel optimizer. Multi-instance cached reads need verified shared invalidation/Redis or cache bypass before scaling. This is planning, not an executed hosting change.
+
 The local foundation uses Next.js 16.4.4, Prisma 6.19.0, Node 24, pnpm 12.16.1, and standard PostgreSQL 16. No AWS resources, VPS, or paid service is needed. Hosting steps below are instructions for a future, separately authorized migration, not permission to deploy.
 
 ## Preserve the existing development database
@@ -23,9 +25,9 @@ For a genuinely new checkout only, copy [.env.example](../.env.example) to `.env
 
 ## Image design and local validation
 
-The multi-stage [Dockerfile](../Dockerfile) uses Debian Bookworm slim and installs OpenSSL and CA certificates in the shared base before dependency installation or Prisma Client generation. Generation and runtime therefore use the same Linux/OpenSSL family. The builder generates Prisma Client and builds the Next.js standalone app with a frozen lockfile; it does not contact the database or run migrations.
+The multi-stage [Dockerfile](../Dockerfile) uses Debian Bookworm slim and installs OpenSSL and CA certificates in the shared base before dependency installation or Prisma Client generation. Generation and runtime therefore use the same Linux/OpenSSL family. The builder opts into standalone output with the non-secret `BUILD_STANDALONE` build flag. The shared package build generates Prisma Client and builds Next.js with a frozen lockfile; it does not contact the database or run migrations. Ordinary local/Vercel builds use native Next output so the framework does not copy local environment files into a standalone bundle.
 
-The final image contains the traced standalone server, static files, and public assets. It runs as the unprivileged `node` user and starts with `node server.js`; pnpm and migration tooling are not required for app startup. Its HTTP healthcheck requests `/` and expects 200. The current pages do not query the database, so verify the generated Prisma engine separately before introducing database-backed routes or changing the base image or CPU architecture.
+The final image contains the traced standalone server, static files, and public assets. It runs as the unprivileged `node` user and starts with `node server.js`; pnpm and migration tooling are not required for app startup. Its HTTP healthcheck requests `/en` and expects 200, avoiding the locale redirect at `/`. The current pages do not query the database, so verify the generated Prisma engine separately before introducing database-backed routes or changing the base image or CPU architecture.
 
 Run from the repository root; on Windows use `pnpm.cmd` if PowerShell blocks `pnpm`:
 
@@ -61,7 +63,7 @@ Keep the raw database password and the URL's encoded password consistent. Never 
 
 When hosting is authorized:
 
-1. Choose standard PostgreSQL in the same private region/network as the app. Use the host's required TLS verification and a private reachable database hostname; `localhost` inside an app container refers to that container.
+1. Use the selected Supabase PostgreSQL project, choosing a nearby app region and validating network reachability/TLS. Configure separate Prisma runtime pooling and migration-capable connections as described in the [storage plan](./data-store-logic.md#3-supabase-data-model-and-access); `localhost` inside an app container refers to that container. Do not assume the provider shares the application's private network.
 2. Create new hosting credentials, not copies of local credentials. Use a least-privilege app role and a separately controlled migration/owner role. The local image's `POSTGRES_USER` is a bootstrap administrator, not a recommended production app role.
 3. Create a backup and test restoration in isolation. Restore into a separate, explicitly reviewed target; never overwrite the local source. Provision roles and grants separately and retain an approved rollback/backup plan.
 4. Apply reviewed migrations, verify application connectivity, and plan pooling and connection limits before adding app replicas.

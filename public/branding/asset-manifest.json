@@ -1,0 +1,57 @@
+{
+  "originals": [
+    {
+      "file": "originals/AIA_LOGO.png",
+      "sha256": "fbc76911a86c6ae357ab5adf30df2c917ccc36ff9db6790155c89ee8dc363c85",
+      "crop": {
+        "left": 83,
+        "top": 143,
+        "width": 858,
+        "height": 516
+      }
+    },
+    {
+      "file": "originals/AIA_LOGO_G.png",
+      "sha256": "def6941738a4308e69b7de59d259eee8fe883a7f4ba7fb0cc5ba8ce85283511f",
+      "markCrop": {
+        "left": 51,
+        "top": 169,
+        "width": 652,
+        "height": 342
+      }
+    }
+  ],
+  "light": {
+    "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+    "width": 640,
+    "height": 385
+  },
+  "dark": {
+    "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+    "width": 640,
+    "height": 385
+  },
+  "edgeMask": {
+    "src": "/branding/aia-logo-edges.64259d22fbcf.webp",
+    "width": 640,
+    "height": 385
+  },
+  "favicon": {
+    "light": {
+      "src": "/branding/aia-icon-light.4f11efa6fb36.png",
+      "width": 32,
+      "height": 32
+    },
+    "dark": {
+      "src": "/branding/aia-icon-dark.b33b0ba6b6fe.png",
+      "width": 32,
+      "height": 32
+    },
+    "apple": {
+      "src": "/branding/aia-apple-icon.8ef78ee2ae8e.png",
+      "width": 180,
+      "height": 180
+    },
+    "fallback": "/favicon.ico"
+  }
+}

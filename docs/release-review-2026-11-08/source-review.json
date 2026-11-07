@@ -1,0 +1,2511 @@
+{
+  "date": "2026-11-07T21:14:45.554Z",
+  "base": "bd973366c2e41cc0ed06300b14e8decfcb1a3ae4",
+  "branch": "main",
+  "stagedFiles": [],
+  "files": [
+    {
+      "path": ".dockerignore",
+      "bytes": 997,
+      "sha256": "c35ee4417ad84caac12a7a5c51c50bb3bbe7bc25317110570bdb6d29558f976b",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": ".env.example",
+      "bytes": 418,
+      "sha256": "df0ada83d705dd0abaf849ec5d2baad27b6b8519950327c7f2a55f0ee8dbd1c8",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 1343,
+      "sha256": "680d267eee39c6da24e6cb3a3c9a057a2a9a89571cd243e7ef3e39352029e5be",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": ".vercelignore",
+      "bytes": 1353,
+      "sha256": "fea235ce4657f99d3455d95a5f5ff48ae9a5bbc9a7de8d12edee6e425a120d4e",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 679,
+      "sha256": "063098f6cb31bb44c6f8fbea25b3876de7ee1e5f7d00a50dbab506f6415eb7f0",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 1306,
+      "sha256": "2e9bfd095fda864e1323cc4a07eb879f42f7faf9c62e8f5a4e92f84447d551b1",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "README.md",
+      "bytes": 4808,
+      "sha256": "f9ccea8c5d0f4e08b5700575b8f4a3e7426564ea560661eee8ff6ac94fbd561a",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "app/[lang]/(public)/[[...slug]]/loading.tsx",
+      "bytes": 77,
+      "sha256": "3e10a1b6ba59fea9c5e769329982fb2d427e8f4c5df4f299573c69ebd0470ed9",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/(public)/[[...slug]]/page.tsx",
+      "bytes": 3093,
+      "sha256": "266cd2a77b27c98cc6766afe33096b89d8a6309f6ed3dd42276c7aa38e44e376",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/(public)/layout.tsx",
+      "bytes": 625,
+      "sha256": "412d47d2e6fda7745056fd1b1e554cdc56df9431a9e9ad9c615ab78d5f098ca1",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/error.tsx",
+      "bytes": 835,
+      "sha256": "70ded0ed9d9dd58252f3a488e2667a9019a8d0928b1918b8bbd0a201dcfded28",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/layout.tsx",
+      "bytes": 2889,
+      "sha256": "75c5ebbde606744a3e25ffc8b60ef4f7d84ba0efabcfa6a634c8cec8d0fd2906",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/loading.tsx",
+      "bytes": 77,
+      "sha256": "3e10a1b6ba59fea9c5e769329982fb2d427e8f4c5df4f299573c69ebd0470ed9",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/login/page.tsx",
+      "bytes": 819,
+      "sha256": "2aa6f5ef50937305e9e8b474969441944925ec153ddb3278741e39dc303d88e2",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/[lang]/not-found.tsx",
+      "bytes": 825,
+      "sha256": "1cf636fa3782d40e30cfab8e541a121b3a2d3204e0df4d851bdf7e3923408870",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/branding.css",
+      "bytes": 2352,
+      "sha256": "c0fc8ed371d91f2cc58aefbe16bca78f4e574caa4ab61ce34a1736ef9a2e3a87",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/business.css",
+      "bytes": 29717,
+      "sha256": "a6301e6815534409bd82377edabe9fa668e87ffad749a62f0713ff5636df70f6",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/favicon.ico",
+      "bytes": 2407,
+      "sha256": "636e4d7c1cd182ed75c641441eee6a639db097a71b9af1541912290e61be16a6",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 31878,
+      "sha256": "6bb78f2e15c7ec941edbfbf297ed77eea3109b28a1112185eb535c6faf4cbaaf",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/refinements.css",
+      "bytes": 12299,
+      "sha256": "3b1556790807005f4ce96789a9fe95eb7dc12cb1382db79cbf844a81b3167664",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/auth/login-panel.tsx",
+      "bytes": 3428,
+      "sha256": "ae225fe2dd8c3ab1b0ba7309edc17d832617522a7e0a8d11b1507beb43459459",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/brand-artwork.tsx",
+      "bytes": 1493,
+      "sha256": "e82482ef0b06bfecdcd9a0975782d926b190aa7efa8ea266b6acbbf6ab4f192d",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/brand.tsx",
+      "bytes": 688,
+      "sha256": "a7e1b6a5f827a5101bb405e1b9aaf6925639a6aaef470ff9623f1b6f5c583ad4",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/branded-loading.tsx",
+      "bytes": 1267,
+      "sha256": "5208caffde1611ce89b0b274801a533f236799b2909cdc1b9c281eba35b16185",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/cart-page.tsx",
+      "bytes": 4996,
+      "sha256": "29ac8a3c34d666e6e4b7ecf62cf8d5f50e23d5be7bfd39a20d8e43484c6af857",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/catalog.tsx",
+      "bytes": 4498,
+      "sha256": "8e9d7a476c665d30a1c001859db1f2afb61c687211ae39207c25acf4eda49f93",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/category-filter.tsx",
+      "bytes": 3733,
+      "sha256": "cceeaa44d31a969d65695a63fbbe4c3f779e6b72e1e1d50eb21f4f05a16f4122",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/contact-details.tsx",
+      "bytes": 3010,
+      "sha256": "8f0e52bb128b6dc4dc978360590181e453d58a0b43ab42af40524c82b9414f34",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/floating-tools.tsx",
+      "bytes": 4918,
+      "sha256": "b8d085f4d0775cceceede40fcc5e5e190a80c91cbad7e33c4c4cad567de38b1c",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/footer-links.tsx",
+      "bytes": 792,
+      "sha256": "81e9010589fdf9c87032d1b55ff6128e2ee993f241fb584cb7f7c51baba5e120",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/footer.tsx",
+      "bytes": 2305,
+      "sha256": "07743fae0bec005f15e0400697a220918a0d635f501b23909fd52e3b914fdc2c",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/header.tsx",
+      "bytes": 5454,
+      "sha256": "0760b07ad271d07169819bca0f23402e58bbdac5e5014009918b51baf18e59b4",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/hero.tsx",
+      "bytes": 4443,
+      "sha256": "f2a04c3fb5987c93b2283db80a4262f8c080f6c8f10d5fd16674d17228ed0c53",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/home-content.tsx",
+      "bytes": 10182,
+      "sha256": "799e5c52857f85e3ece4ee2da88d88c5beb387b9b013966b86ce241f2a42fe73",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/home-sections.tsx",
+      "bytes": 8301,
+      "sha256": "2771a06a1662438e4f67de4f9d882b1d99d439137daea0f048105932b9258e70",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/media-gallery.tsx",
+      "bytes": 1342,
+      "sha256": "e2de6938893edf9f8ea3ec9b1feb937ed7b2c42d782b26e487c624e5ef5949f3",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/mobile-navigation.tsx",
+      "bytes": 4073,
+      "sha256": "c51345b3537779965cccfcd8893effd8978d3713d5f6734d1fc36cb7a4541305",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/navigation-scroll.tsx",
+      "bytes": 1839,
+      "sha256": "b4fd751d246caf0fb4c186f2535040a1801e5a674ae463dda08f3ef2455da01a",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/product-actions.tsx",
+      "bytes": 2649,
+      "sha256": "7f0c214aba1e76d4167a18f3bdea0303dad8c919823e35383b9bc50953beb112",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/product-art.tsx",
+      "bytes": 564,
+      "sha256": "c2bcae8f0baf2bb037accd68f2b30ef3b7f7cfd2680776ae48a16f07627948e5",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/product-card.tsx",
+      "bytes": 4006,
+      "sha256": "3d8579e7b68167a9fa6453f2008487011315bdbb06bad898fb672b0823481f0e",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/product-showcase.tsx",
+      "bytes": 7348,
+      "sha256": "fb8deaa5869cdda5bafeb9f51e227b94a523a08bd6cfa8ddcd0fb710cc471259",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/project-brief.tsx",
+      "bytes": 6054,
+      "sha256": "6eda9217f09af237ffc8599e96627adf6827625405ffae4c855f3ed58b827177",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/public-page.tsx",
+      "bytes": 17959,
+      "sha256": "079b7236d255543ed056bfca8679bfbe5c3d0ec4c9de3b68bbb3e7d5501b20c5",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/related-products.tsx",
+      "bytes": 885,
+      "sha256": "cad48a290f1e78df4259ba8c30ffa06afa8540758e0597b7bc5ba275a116788e",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/request-document.tsx",
+      "bytes": 3944,
+      "sha256": "8c3fed38ad57da98d8c0022adcd9bebb251d4257c685bf20aa26d770edee814e",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/request-flow.tsx",
+      "bytes": 22222,
+      "sha256": "9680e06d3d1537b89bf5c4f315c83f7316477a9a2fdb18cc911ec5b12aa7fc43",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/review-preview.tsx",
+      "bytes": 2150,
+      "sha256": "c58acd2cbea4fc049e7c14c7023ef8b8309c2b1ddd7076e8cbad91a437e7f3fe",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/service-actions.tsx",
+      "bytes": 800,
+      "sha256": "d7a42c01c8642937b7828be7bc5ef02c7f675f4c2f676a7a2af9d95ceae70586",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/service-catalog.tsx",
+      "bytes": 4377,
+      "sha256": "f81bcf90b3eecd1673a250e60932bea93839d956eaa1676e97175d2e64674de4",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/solution-art.tsx",
+      "bytes": 3428,
+      "sha256": "09e9f288246106ae4db57eae3628409a7000e070d0da9fcfd282b11e3a7b9b7a",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/theme-initialization.tsx",
+      "bytes": 602,
+      "sha256": "d02f8305d02d36562eb21c75d9f29e276a047f8d31aafc329423b97dde8919ba",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/trust-preview.tsx",
+      "bytes": 1688,
+      "sha256": "af1575a89dced27634d2fa4273708f2e2700f4511ba7ab29771137aede3ff9bb",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/site/use-media-query.ts",
+      "bytes": 515,
+      "sha256": "813435dafb061946430c7adecbaa4ecc03695c00767eff9d7d7a18c9fbd08b15",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/ui/icon.tsx",
+      "bytes": 3712,
+      "sha256": "64f35a54f51f8d193dda1078046699d9e4d5ee3b6673ccd451e071d73d9e6677",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/ui/section-heading.tsx",
+      "bytes": 488,
+      "sha256": "28bfbfb39f53ebfe52c8276ef1618043e005542e69b251984bb502dd4470ac74",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "docker-compose.yml",
+      "bytes": 679,
+      "sha256": "e18e934f77193de99bfc1949dce5142afe0f73e4e485a1d4966ccf17d49237fe",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-integration-verification.md",
+      "bytes": 12984,
+      "sha256": "7dd645e5230c43a9ed938f29af8f01a53b2aaab880cf009555e0a48e0b034e92",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/fast-checks.json",
+      "bytes": 16425,
+      "sha256": "5752aec5e03e1da3305185b8dc5e32c40edbd3adecc988e65feae67c22f26068",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/footer-390-dark.png",
+      "bytes": 64834,
+      "sha256": "62e3f520b9d9a0b17550a8bbd24fcfed8111c85965c21763ca14170d64c715c4",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/footer-390-light.png",
+      "bytes": 64974,
+      "sha256": "b55779d07460dae4f2b0d1b740b8d67b3f7f173785587e845bc9b182172021d4",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-1440-dark.png",
+      "bytes": 801361,
+      "sha256": "3d7ff18953e327fadf8b936dd35d99bcbcd7efdfe3c9f899e7f543de95ebe853",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-1440-light.png",
+      "bytes": 801758,
+      "sha256": "81297fe6b3a2239159e07f9cb9dc4adbd236b59d906550fb0778e46853e095df",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-320-dark.png",
+      "bytes": 209567,
+      "sha256": "edc600ca36e7a8a460f277ad1a4cd2a1125e102f4d0890bd1a760e9db69f6348",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-320-light.png",
+      "bytes": 209182,
+      "sha256": "7f5263ccecde42bf6f10ccc652e2ef09e75a8269b3bf837b6f52c723d0699214",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-390-dark.png",
+      "bytes": 237999,
+      "sha256": "b1680ab8654a68bdb80d313446082fa4ae9824bce22c8f3aa7c11d07a22dc7e5",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-390-light.png",
+      "bytes": 237571,
+      "sha256": "7986b634825b0cf103bd38fffb59995fc7fd63da42c5abf26b4a37c5651b84cc",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/image-fallback-390.png",
+      "bytes": 219964,
+      "sha256": "faea9e5fce9d232aff31179641362733b1a950e6e876e735f1b16749a4f46ac5",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-1440-dark.png",
+      "bytes": 76262,
+      "sha256": "9021b5ee679873c4c44092bd4686e7b45e169c21d49562f728e08dc3d4879a33",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-1440-light.png",
+      "bytes": 74711,
+      "sha256": "f6bd41b07a4d314b9013ea12ef914830ff691926f891bd2f1b68da23071ce783",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-390-dark.png",
+      "bytes": 52094,
+      "sha256": "79c8fffb4e3d332239819cb9e1f6c1b7c81fc3b325ff8ca23efe76a8f98ca81d",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-390-gold-edge.png",
+      "bytes": 53117,
+      "sha256": "3d6933f80996700a76eed0799748b5819d7dba7ad32626d98938d1d50a946487",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-390-light.png",
+      "bytes": 51003,
+      "sha256": "ff3d64e9cc26f8514aa86cbe8d438b97d0af2102a2db2ff6654e2a4f57d27d77",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/loading-390-reduced-motion.png",
+      "bytes": 51780,
+      "sha256": "3a362cc738c64843b58e635eab696bd33eb70088fa01e06448bf240db16dbfda",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/login-390-dark.png",
+      "bytes": 193756,
+      "sha256": "9be193dcb194a50cad032634546adcd9cfb081990847580d7db285fa6a8b3400",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/login-390-light.png",
+      "bytes": 193714,
+      "sha256": "78c37c41756b42f5c8a6cbe7500ecac02961a11ad16425bd31753e8a545f3970",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/slow-checks.json",
+      "bytes": 4429,
+      "sha256": "6a5a84ca9d2e126a5fd89a0370f48a70039479e184fe4670faaba83cdb626ab7",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/slow-navigation-retains-content-390.png",
+      "bytes": 222264,
+      "sha256": "5976e7f20f4e67c4f38558d1f7b35810795485e1006ffe7da603075785386db9",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/business-delivery.md",
+      "bytes": 14800,
+      "sha256": "49cd1d0ed8a76e098024da3044ea35b394ea0692833edbe671a37095b519d28f",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/data-store-logic.md",
+      "bytes": 33398,
+      "sha256": "b22b79d09e791b068843ea750765d73e5dba86ccaf2dd42bdfcdfb8ff10bc672",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/database.md",
+      "bytes": 10258,
+      "sha256": "3c2aa99dc8af6def9a1f8743d433142a395298f7e919b981ee3dc6e074e3fc85",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/deployment.md",
+      "bytes": 9728,
+      "sha256": "c059843b2041201d859ac50b04a05e54607834144e39631ad83478363247d02f",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/design-refinement.md",
+      "bytes": 11759,
+      "sha256": "7d5a8a3da458b5d9b6e65e2bd1ac434f4670c960ef614aa0ac1ecd700cecae48",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/final-release-readiness.md",
+      "bytes": 19175,
+      "sha256": "7e448b28910212f452a4f020c3c1fb9e3a2953d93ed8c31f37fa3c3948c9750e",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/media-requirements.md",
+      "bytes": 5227,
+      "sha256": "537bde38640021c2855ef610a8fde650bbda54278f7fa0e7c27b39732d5a09fb",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/phase1-validation.md",
+      "bytes": 10206,
+      "sha256": "f83c0952fcec87a56022f21daca52cb1e112c95d0de0086741d1c79eab83c927",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/phase3-ui.md",
+      "bytes": 11204,
+      "sha256": "1d9afb1d1c65bb8eb8e9786489856ac461986111c18d152f9d57fd2aa072f60b",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/predeployment-readiness-audit.md",
+      "bytes": 28113,
+      "sha256": "9c014d818378a42d24a7a4234ad8ef8ae9b2171230875f6441dc644b38ecab39",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/product-blueprint.md",
+      "bytes": 22125,
+      "sha256": "5265f591e453760cf883c944da1aec5248a9ce4954fb311f510cfb6eefb4bdf4",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/browser-checks.json",
+      "bytes": 36633,
+      "sha256": "5523caf56ef564d783d0fd2681f9d1957e53436eb167e48a88ae2f2055e9a51e",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-1440-light.png",
+      "bytes": 93181,
+      "sha256": "61ad4d7c761ed4718a38fd74f8f52d0c8d62b1230e03c20be1b7cecbbf2ab65f",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-320-light.png",
+      "bytes": 53389,
+      "sha256": "b494c4675b5e09ece0411419c7d8bd7456847a9dba1d0227c8d22f8db6efb094",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-390-light.png",
+      "bytes": 54273,
+      "sha256": "09f154ecc1444d55bc50a1c4bec561b6fd38e38921bf03ccbac01b5764656765",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-cards-1440-light.png",
+      "bytes": 194907,
+      "sha256": "03caf5d6b42a51e5ea9de577633e0827df537bda48a0030a3a42decdd9b99fae",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-cards-320-light.png",
+      "bytes": 89811,
+      "sha256": "41f2bf5d19b67352377507320d344286f82fce1286c623f8d11674508ad6415f",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/catalog-cards-390-dark.png",
+      "bytes": 112672,
+      "sha256": "764aef89ed5e7225cd78728599ffba8ce696807c8d954dd044f5a811fb0fe553",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/footer-390.png",
+      "bytes": 57015,
+      "sha256": "491de0992376470d8ef511c0c32696b6998f022be0c65c7b69bd4c2dcc8924a7",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/home-1440-light.png",
+      "bytes": 801735,
+      "sha256": "b7bb721a55f0407cc5bfdf85b8af64dc7efa8c7c5668dae0723791760dda3266",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/home-320-light.png",
+      "bytes": 197308,
+      "sha256": "02c5f2d2e3958798c13000d9f3a9986cbc692fd8d20851db97d996f302b186e0",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/home-390-light.png",
+      "bytes": 221950,
+      "sha256": "5fdfe1bababab47c116b50bf7a6f2aa9fd91473b080b9a0492bd5ad64b75c325",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/home-categories-390-light.png",
+      "bytes": 67414,
+      "sha256": "5c196bb1f39af58f463beda1f647ed9f0d826b924beae559e4b5b9a1806ffa31",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/isolated-build.json",
+      "bytes": 3580,
+      "sha256": "15d24de52d587d3e92175f9fb80ec5ceb2ba865f14a5db95bec3b1bc961b37d9",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/loading-390-reduced-motion.png",
+      "bytes": 51780,
+      "sha256": "3a362cc738c64843b58e635eab696bd33eb70088fa01e06448bf240db16dbfda",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/login-390.png",
+      "bytes": 192026,
+      "sha256": "c9191de2f89f4dd3df8d54737ea834782242ee37bb6d41c29273c5a91ad1b81a",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/preview-http-checks.json",
+      "bytes": 1106,
+      "sha256": "fe9de59f0c704771d6576d9dc9cf95d6cf3b4625df3b38c77eee116cb9c75c08",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/request-390-bengali.png",
+      "bytes": 55914,
+      "sha256": "94f5d8391273499c1f2196c9eadf83011422edea0eefbb76adb556ecac533a35",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/source-review.json",
+      "bytes": 63433,
+      "sha256": null,
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-review-2026-11-08/visual-review.json",
+      "bytes": 165,
+      "sha256": "575957755fa8644e5f12b6e475a6e9244bd12ed036c280a5c8f81d6f0dad82b6",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/release-reviewed-paths.txt",
+      "bytes": 5804,
+      "sha256": "0e8d84e1b87562d4fd29f35f0bba7cffe4f8c595db9d286e081032106c1c35d8",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/request-backend-plan.md",
+      "bytes": 12511,
+      "sha256": "fed6b5d63e166c517de46b8dcda948ceb6b301cf2da5c61ef6102bdbdfaafd6e",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-corrections-verification.md",
+      "bytes": 10055,
+      "sha256": "b4dc63b6f8dbd53efcc7c7036923092f869bc601135d9014bb3b63d5b893d7e4",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/browser-checks.json",
+      "bytes": 17774,
+      "sha256": "7b2d98147fea55d4585eccb18f31f92ff9039360daf5d02c8be9ee097d7a4264",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/catalog-desktop-1440-light.png",
+      "bytes": 187834,
+      "sha256": "f37b4f37c116f3fc42eb22be14db8ae42e045818ea16753462fd9bd5cd77b9a3",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/catalog-mobile-320-light.png",
+      "bytes": 88887,
+      "sha256": "037a5e07d06a98865d7c865d9255bb21bc577e6b5faa0eb4f7101f86de34e1bd",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/catalog-mobile-390-dark.png",
+      "bytes": 116857,
+      "sha256": "57b34cac9cc74481ad81e4a633d120c1e5474f11c21451cbf516f844c9ee9c26",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/categories-mobile-390-light.png",
+      "bytes": 76190,
+      "sha256": "644b15e5b38a7eb0462095e1117fad96aca75f589b84750a19d8180a8d940560",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/footer-desktop-1440-dark.png",
+      "bytes": 88741,
+      "sha256": "1e32e98dcbd73527524b22ff08e809353f2b2542292918097a70a7a05e4fd095",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/footer-mobile-390-light.png",
+      "bytes": 55827,
+      "sha256": "4c61bdd0babab35ace7f0c55a7c118f5269aa681a46a1ecb10533a7eb4211e69",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/home-desktop-1440-dark.png",
+      "bytes": 808728,
+      "sha256": "65c25919d8f2e925039a2eeff68b8f665dabec9d664e24195dc921fd6dec124b",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/home-mobile-320-light.png",
+      "bytes": 203609,
+      "sha256": "a2db2f97df255b6d68e56aebd438340459692458b11d5f3647454fef4ab34baa",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/home-mobile-390-dark.png",
+      "bytes": 218299,
+      "sha256": "750e278358902b407de5834492d603919cd3a39b43133d9cfc33025a3b141031",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/mobile-dock-checks.json",
+      "bytes": 158,
+      "sha256": "05b2a649d4d970753f4b9977fa9697e6a3a259edd8c8807d27c0cca1b7b0b34c",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/quick-view-mobile-390-dark.png",
+      "bytes": 44330,
+      "sha256": "6cb1b7394cde13eb64e611dee8e48abddc05972d3cabf1d03beb922c1974bb57",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/ui-review-2026-11-08/request-mobile-390-light.png",
+      "bytes": 40907,
+      "sha256": "0fd265649165ac678d001b6b9cbcf48bc4ccd040461b5147938206766b60cc1e",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/vercel-preview-preparation.md",
+      "bytes": 12654,
+      "sha256": "b68199f49d53475b7b50b4acda4065f56514a41c8aeef7cbef07fcbf10e8361e",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "docs/vercel-preview-staging-manifest.md",
+      "bytes": 21241,
+      "sha256": "397d78360c52254975889699458290c6390e35810954b256027c5ecc3876cea4",
+      "docker": false,
+      "vercel": false
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 465,
+      "sha256": "870f1adccecf3051cbcd9fd307cef51d7633cf510979c181a81f4b1797273493",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/branding.ts",
+      "bytes": 1027,
+      "sha256": "f22f90edda58f1e21a2265670286aaf6c87516d133c5939f6d7786117ab76505",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/cart.ts",
+      "bytes": 2698,
+      "sha256": "58bc9a1810bf0ef771850747379d5d6d614d7f5d6a765a0c7f37b0a722888ce9",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/category-tree.ts",
+      "bytes": 912,
+      "sha256": "f46f5f71240ad0b6db779991f2e5cb8c9e3f4d3905ed3a06d9d21de9fa5d8c3e",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/i18n.ts",
+      "bytes": 23671,
+      "sha256": "6e302d047eab267d0f5968f3ca092695e7764fb0fe9a4c59c1bc1339289d94b3",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/prisma.ts",
+      "bytes": 374,
+      "sha256": "53f7b548394d5b0ea04e2c0f84e67151b54d3c5181863243f3275489ba1f1cd9",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/public-content.ts",
+      "bytes": 22907,
+      "sha256": "ad04cc1f21fdb51ad9aa394c00a64174bf328f6e901d9c7c3c83e717b306c528",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/request-copy.ts",
+      "bytes": 11070,
+      "sha256": "e8e79ec3ddbb9ad8251f2769d339f12fba6a22f59ac59b56c685f4290fc9145b",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/request-draft.ts",
+      "bytes": 1983,
+      "sha256": "36fda09be2ec86afb2cc09b7eb02026f2c397f97309a5004113c272725fbdbea",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/request-validation.ts",
+      "bytes": 642,
+      "sha256": "cac459a07ef2eca46e5070ff76a59ed2588aec6d9c0b8e4260a31b736e4870f5",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/reviews.ts",
+      "bytes": 583,
+      "sha256": "8cc709f182abebe640fff79a58c699a052708e34554149578e87e654eccfd916",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/site-content.ts",
+      "bytes": 3900,
+      "sha256": "d315b5c721d9bda61ff9aa11d6ddbbed87de2d65a2e11ffbd6f8114d6cd7ed47",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/theme.ts",
+      "bytes": 490,
+      "sha256": "a3f24da3fbfdefb16e10f661683c27671134ff086ea31e9032532eaae9618500",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/trust-content.ts",
+      "bytes": 643,
+      "sha256": "5071c03d72ebbabc7e9fe497f45800904875b6608d1e8cc10f043606a2ec80fe",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/whatsapp.ts",
+      "bytes": 408,
+      "sha256": "f7b52fb434bca9285998a8a6cdb7896e40ec4d9059a9f2c7d2cfc3db31d8332b",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 1027,
+      "sha256": "3c961ad9afb053edb01759ea8f19c73d88a823a2bdd9800e0754418be3a748e2",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "package.json",
+      "bytes": 1102,
+      "sha256": "a8666547ac1e780dd9e6eda2719616c352afcb9fe562038fc66f7e725bd748fc",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 152109,
+      "sha256": "38f0b50796f1e5ad7c3bcf43e6f8384c83249d911697168fe67c4cc6c562e227",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "bytes": 123,
+      "sha256": "6855aa44cd31764f6139dc9c26318501bc7a97e0948b87e97f58db37abea7e0f",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "prisma/migrations/20261107000000_initial/migration.sql",
+      "bytes": 270,
+      "sha256": "df424f0f3093c5c364e6ba2b4df96c6c7cccc736c36f75c46379f877a8b50796",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "prisma/migrations/migration_lock.toml",
+      "bytes": 127,
+      "sha256": "c796ee1864bf07c1a5dd5868cf6396d3e850ec403e3f2fc1b810c5e38c8790b9",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "bytes": 330,
+      "sha256": "a647f236c61b6bbef786d865e3bb4f196b1071cabf2297341fc7cf863f2d2139",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "proxy.ts",
+      "bytes": 755,
+      "sha256": "059538f2161539cb79da71242b5239720dec49a738d6c688b17756eb01a51194",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-apple-icon.8ef78ee2ae8e.png",
+      "bytes": 3573,
+      "sha256": "8ef78ee2ae8e8e3151b2c46f09aa92dc8ef6cbc11d3afa39f88de43932620c1f",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-icon-dark.b33b0ba6b6fe.png",
+      "bytes": 966,
+      "sha256": "b33b0ba6b6fee9b18b8b6c2c42e3e2809692c3c1154083c53497fb690a58b8f7",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-icon-light.4f11efa6fb36.png",
+      "bytes": 770,
+      "sha256": "4f11efa6fb36c78974c8fe8b1429d104c19383e87d102e87a87ee5ca7f3ddf40",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-logo-black.ce7cab53f524.webp",
+      "bytes": 23110,
+      "sha256": "ce7cab53f524dd84d4dc48aa76fc4ac72bfcdef3df15bef11f40ae088f90341d",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-logo-edges.64259d22fbcf.webp",
+      "bytes": 33490,
+      "sha256": "64259d22fbcf0b3031109a612c793b6d16b24e1edd1ce06a309076f33c1783e6",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/aia-logo-ivory.0b6a18137e83.webp",
+      "bytes": 23432,
+      "sha256": "0b6a18137e83480f2f4929be598c0fb181b49afcd8f5cba257401f6648476036",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/asset-manifest.json",
+      "bytes": 1260,
+      "sha256": "87016428d7c7258826ef6d4917bf837f517fe1a49492a0c58905042283c8c39c",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/originals/AIA_LOGO.png",
+      "bytes": 205297,
+      "sha256": "fbc76911a86c6ae357ab5adf30df2c917ccc36ff9db6790155c89ee8dc363c85",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/branding/originals/AIA_LOGO_G.png",
+      "bytes": 40077,
+      "sha256": "def6941738a4308e69b7de59d259eee8fe883a7f4ba7fb0cc5ba8ce85283511f",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 391,
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/fonts/licenses/anek-bangla-OFL.txt",
+      "bytes": 4378,
+      "sha256": "221cd5c23c0cdc35c6f3592a24f727e21c4d630ba2ede84a6a6b754120f4520c",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/fonts/licenses/hind-siliguri-OFL.txt",
+      "bytes": 4370,
+      "sha256": "fe624b3e83eb1c849af41f228e921cfad07450f43dc03882aa11bd1fb07e09b3",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1035,
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/images/hospitality-concept.webp",
+      "bytes": 195890,
+      "sha256": "0f4e9e71edf5673e202d215c462dbf3a2ac5aa70b98769296cfef492bcc198c6",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/images/lighting-hero.webp",
+      "bytes": 48818,
+      "sha256": "98ce611030fe59ef73942754c6ad22ed6398b3b41962548811951a2090e9c534",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/images/residential-concept.webp",
+      "bytes": 229042,
+      "sha256": "985368c878ade98b42fdc95bfecf8c384a1c29c6c91c8b7fbcecc562121a5c2b",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/next.svg",
+      "bytes": 1375,
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/vercel.svg",
+      "bytes": 128,
+      "sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 385,
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "scripts/db-backup.mjs",
+      "bytes": 2245,
+      "sha256": "a2db60b16d7183a91b9ef38518c425c20df2e9404ca2ca224e5d6dfa33ad5cd4",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "scripts/db-check.mjs",
+      "bytes": 1119,
+      "sha256": "b99192d8003bfa5b2f04dfe234ab3203102127714a65793b06ac69f661828844",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "scripts/db-postgres.mjs",
+      "bytes": 2640,
+      "sha256": "a7eb38f846ec3cac0a79fe14961fa62f74ca384820b5818d043615911ca376e0",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "scripts/db-restore-test.mjs",
+      "bytes": 9057,
+      "sha256": "edb150e720c4f6bd7d07818d9441478e89890f7b802e709f8df7900cf1e41e66",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "scripts/db-restore-test.test.mjs",
+      "bytes": 8438,
+      "sha256": "d3f759aaba27fdb89e8ad2d4c79cb3dda5e8aef955aac5f32210cf0a211353b8",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "scripts/prepare-branding.mjs",
+      "bytes": 6312,
+      "sha256": "0bcb15c606b36afcfa29a4eaf9fbc16196f30d98b7baec70fac05a80697abf23",
+      "docker": true,
+      "vercel": false
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 666,
+      "sha256": "be18523b23b78b6e1a876ddd107d330f0168bddf09d751b57e0b5edce69c66f3",
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 233,
+      "sha256": "c71877fdabc6132cfc0d634adb75d87c61cb8f202be7281b4fe6300302c92f29",
+      "docker": true,
+      "vercel": true
+    }
+  ],
+  "removed": [
+    "app/layout.tsx",
+    "app/page.tsx"
+  ],
+  "source": [
+    {
+      "path": "app/[lang]/(public)/[[...slug]]/loading.tsx",
+      "lines": 2,
+      "client": false,
+      "imports": [],
+      "exports": [],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/(public)/[[...slug]]/page.tsx",
+      "lines": 97,
+      "client": false,
+      "imports": [
+        "next/navigation",
+        "next",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/components/site/public-page",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "generateStaticParams",
+        "generateMetadata",
+        "Page"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/(public)/layout.tsx",
+      "lines": 16,
+      "client": false,
+      "imports": [
+        "next/navigation",
+        "@/lib/i18n",
+        "@/components/site/header",
+        "@/components/site/footer"
+      ],
+      "exports": [
+        "PublicLayout"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/error.tsx",
+      "lines": 32,
+      "client": true,
+      "imports": [
+        "next/link",
+        "next/navigation",
+        "@/lib/i18n"
+      ],
+      "exports": [
+        "ErrorPage"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/layout.tsx",
+      "lines": 103,
+      "client": false,
+      "imports": [
+        "next",
+        "next/font/google",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/lib/branding",
+        "@/components/site/theme-initialization",
+        "@/components/site/floating-tools",
+        "@/components/site/navigation-scroll",
+        "react",
+        "../globals.css",
+        "../refinements.css",
+        "../business.css",
+        "../branding.css"
+      ],
+      "exports": [
+        "generateStaticParams",
+        "declaration",
+        "RootLayout"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/loading.tsx",
+      "lines": 2,
+      "client": false,
+      "imports": [],
+      "exports": [],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/login/page.tsx",
+      "lines": 24,
+      "client": false,
+      "imports": [
+        "next",
+        "@/components/auth/login-panel",
+        "@/lib/i18n",
+        "next/navigation"
+      ],
+      "exports": [
+        "generateMetadata",
+        "LoginPage"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "app/[lang]/not-found.tsx",
+      "lines": 29,
+      "client": true,
+      "imports": [
+        "next/link",
+        "next/navigation",
+        "@/components/site/header",
+        "@/components/site/footer",
+        "@/lib/i18n"
+      ],
+      "exports": [
+        "NotFound"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/auth/login-panel.tsx",
+      "lines": 98,
+      "client": true,
+      "imports": [
+        "next/image",
+        "next/link",
+        "react",
+        "@/components/site/brand",
+        "@/components/site/header",
+        "@/components/ui/icon",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "LoginPanel"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/brand-artwork.tsx",
+      "lines": 37,
+      "client": true,
+      "imports": [
+        "next/image",
+        "react",
+        "@/lib/branding"
+      ],
+      "exports": [
+        "BrandArtwork"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/brand.tsx",
+      "lines": 25,
+      "client": false,
+      "imports": [
+        "next/link",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "./brand-artwork"
+      ],
+      "exports": [
+        "Brand"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/branded-loading.tsx",
+      "lines": 29,
+      "client": true,
+      "imports": [
+        "next/navigation",
+        "react",
+        "@/lib/branding",
+        "@/lib/i18n",
+        "./brand-artwork"
+      ],
+      "exports": [
+        "BrandedLoading",
+        "RouteLoading"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/cart-page.tsx",
+      "lines": 134,
+      "client": true,
+      "imports": [
+        "next/link",
+        "@/lib/cart",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "CartPage"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/catalog.tsx",
+      "lines": 128,
+      "client": true,
+      "imports": [
+        "next/navigation",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "./product-card",
+        "./category-filter",
+        "@/lib/request-copy",
+        "@/lib/category-tree"
+      ],
+      "exports": [
+        "Catalog"
+      ],
+      "riskLines": [
+        63,
+        117
+      ]
+    },
+    {
+      "path": "components/site/category-filter.tsx",
+      "lines": 148,
+      "client": true,
+      "imports": [
+        "react",
+        "@/lib/i18n",
+        "@/components/ui/icon",
+        "./use-media-query"
+      ],
+      "exports": [
+        "CategoryNode",
+        "CategoryFilter"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/contact-details.tsx",
+      "lines": 50,
+      "client": false,
+      "imports": [
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/lib/request-copy",
+        "@/lib/whatsapp",
+        "@/components/ui/icon"
+      ],
+      "exports": [
+        "ContactDetails",
+        "SocialLinks"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/floating-tools.tsx",
+      "lines": 166,
+      "client": true,
+      "imports": [
+        "next/link",
+        "react",
+        "next/navigation",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/lib/theme",
+        "@/lib/whatsapp",
+        "@/components/ui/icon"
+      ],
+      "exports": [
+        "FloatingTools"
+      ],
+      "riskLines": [
+        14,
+        76
+      ]
+    },
+    {
+      "path": "components/site/footer-links.tsx",
+      "lines": 25,
+      "client": true,
+      "imports": [
+        "react",
+        "@/components/ui/icon",
+        "./use-media-query"
+      ],
+      "exports": [
+        "FooterLinks"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/footer.tsx",
+      "lines": 36,
+      "client": false,
+      "imports": [
+        "next/link",
+        "./brand",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "./contact-details",
+        "@/lib/request-copy",
+        "./footer-links"
+      ],
+      "exports": [
+        "Footer"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/header.tsx",
+      "lines": 169,
+      "client": true,
+      "imports": [
+        "next/link",
+        "next/navigation",
+        "react",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/components/ui/icon",
+        "./brand",
+        "./mobile-navigation",
+        "./product-actions",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "LanguageSwitcher",
+        "Header"
+      ],
+      "riskLines": [
+        27,
+        28
+      ]
+    },
+    {
+      "path": "components/site/hero.tsx",
+      "lines": 137,
+      "client": true,
+      "imports": [
+        "next/image",
+        "next/link",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/components/ui/icon",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "Hero"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/home-content.tsx",
+      "lines": 267,
+      "client": false,
+      "imports": [
+        "next/image",
+        "next/link",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/lib/request-copy",
+        "@/components/ui/icon",
+        "./hero",
+        "./service-actions",
+        "@/lib/trust-content"
+      ],
+      "exports": [
+        "ClosingCTA",
+        "HomeContent"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/home-sections.tsx",
+      "lines": 260,
+      "client": false,
+      "imports": [
+        "next/image",
+        "@/components/ui/icon",
+        "@/components/ui/section-heading",
+        "@/lib/site-content"
+      ],
+      "exports": [
+        "DesignPrinciples",
+        "Services",
+        "Spaces",
+        "About",
+        "Consultation"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/media-gallery.tsx",
+      "lines": 51,
+      "client": true,
+      "imports": [
+        "next/image",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content"
+      ],
+      "exports": [
+        "MediaGallery"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/mobile-navigation.tsx",
+      "lines": 137,
+      "client": true,
+      "imports": [
+        "next/link",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/components/ui/icon",
+        "./category-filter",
+        "@/lib/category-tree"
+      ],
+      "exports": [
+        "MobileNavigation"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/navigation-scroll.tsx",
+      "lines": 54,
+      "client": true,
+      "imports": [
+        "react",
+        "next/navigation"
+      ],
+      "exports": [
+        "NavigationScroll"
+      ],
+      "riskLines": [
+        30,
+        33
+      ]
+    },
+    {
+      "path": "components/site/product-actions.tsx",
+      "lines": 93,
+      "client": true,
+      "imports": [
+        "next/link",
+        "react",
+        "@/lib/i18n",
+        "@/lib/request-copy",
+        "@/lib/cart"
+      ],
+      "exports": [
+        "CartLink",
+        "ProductActions"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/product-art.tsx",
+      "lines": 18,
+      "client": false,
+      "imports": [
+        "@/lib/site-content"
+      ],
+      "exports": [
+        "ProductArt"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/product-card.tsx",
+      "lines": 86,
+      "client": true,
+      "imports": [
+        "next/image",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "@/components/ui/icon",
+        "./solution-art",
+        "./media-gallery",
+        "./product-actions"
+      ],
+      "exports": [
+        "ProductCard",
+        "ProductQuickView"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/product-showcase.tsx",
+      "lines": 210,
+      "client": true,
+      "imports": [
+        "react",
+        "@/lib/site-content",
+        "@/components/ui/icon",
+        "@/components/ui/section-heading",
+        "./product-art"
+      ],
+      "exports": [
+        "ProductShowcase"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/project-brief.tsx",
+      "lines": 196,
+      "client": true,
+      "imports": [
+        "react",
+        "next/navigation",
+        "@/lib/i18n",
+        "@/lib/category-tree",
+        "@/lib/public-content"
+      ],
+      "exports": [
+        "ProjectBrief"
+      ],
+      "riskLines": [
+        76
+      ]
+    },
+    {
+      "path": "components/site/public-page.tsx",
+      "lines": 492,
+      "client": false,
+      "imports": [
+        "next/image",
+        "next/link",
+        "react",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "./branded-loading",
+        "./catalog",
+        "./project-brief",
+        "./media-gallery",
+        "./service-catalog",
+        "./review-preview",
+        "@/lib/category-tree",
+        "./cart-page",
+        "./request-flow",
+        "@/lib/request-copy",
+        "./home-content",
+        "./service-actions",
+        "./trust-preview",
+        "./contact-details",
+        "./related-products"
+      ],
+      "exports": [
+        "PublicPage"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/related-products.tsx",
+      "lines": 16,
+      "client": false,
+      "imports": [
+        "next/link",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/components/ui/icon"
+      ],
+      "exports": [
+        "RelatedProducts"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/request-document.tsx",
+      "lines": 118,
+      "client": true,
+      "imports": [
+        "react-dom",
+        "react",
+        "next/image",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "RequestDocumentData",
+        "RequestDocument"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/request-flow.tsx",
+      "lines": 628,
+      "client": true,
+      "imports": [
+        "react",
+        "next/navigation",
+        "next/link",
+        "@/lib/cart",
+        "@/lib/public-content",
+        "@/lib/i18n",
+        "@/lib/request-copy",
+        "@/lib/request-validation",
+        "@/lib/request-draft",
+        "./request-document",
+        "./branded-loading"
+      ],
+      "exports": [
+        "RequestFlow"
+      ],
+      "riskLines": [
+        333
+      ]
+    },
+    {
+      "path": "components/site/review-preview.tsx",
+      "lines": 65,
+      "client": false,
+      "imports": [
+        "@/lib/i18n",
+        "@/lib/reviews",
+        "next/image"
+      ],
+      "exports": [
+        "ReviewPreview"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/service-actions.tsx",
+      "lines": 33,
+      "client": false,
+      "imports": [
+        "next/link",
+        "@/lib/i18n",
+        "@/lib/request-copy"
+      ],
+      "exports": [
+        "ServiceActions"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/service-catalog.tsx",
+      "lines": 129,
+      "client": true,
+      "imports": [
+        "next/image",
+        "next/link",
+        "next/navigation",
+        "@/lib/i18n",
+        "@/lib/public-content",
+        "./category-filter",
+        "./service-actions",
+        "@/lib/request-copy",
+        "@/lib/category-tree"
+      ],
+      "exports": [
+        "ServiceCatalog"
+      ],
+      "riskLines": [
+        49
+      ]
+    },
+    {
+      "path": "components/site/solution-art.tsx",
+      "lines": 102,
+      "client": false,
+      "imports": [
+        "./product-art",
+        "@/lib/public-content"
+      ],
+      "exports": [
+        "SolutionArt"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/theme-initialization.tsx",
+      "lines": 20,
+      "client": true,
+      "imports": [
+        "react",
+        "@/lib/theme"
+      ],
+      "exports": [
+        "ThemeInitialization"
+      ],
+      "riskLines": [
+        16
+      ]
+    },
+    {
+      "path": "components/site/trust-preview.tsx",
+      "lines": 57,
+      "client": false,
+      "imports": [
+        "next/image",
+        "@/lib/i18n",
+        "@/lib/trust-content"
+      ],
+      "exports": [
+        "TrustPreview"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/site/use-media-query.ts",
+      "lines": 16,
+      "client": true,
+      "imports": [
+        "react"
+      ],
+      "exports": [
+        "useMediaQuery"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/ui/icon.tsx",
+      "lines": 121,
+      "client": false,
+      "imports": [
+        "react"
+      ],
+      "exports": [
+        "IconName",
+        "Icon"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "components/ui/section-heading.tsx",
+      "lines": 27,
+      "client": false,
+      "imports": [
+        "react"
+      ],
+      "exports": [
+        "SectionHeading"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/branding.ts",
+      "lines": 32,
+      "client": false,
+      "imports": [
+        "../public/branding/asset-manifest.json"
+      ],
+      "exports": [
+        "BrandAsset",
+        "BrandVariants",
+        "BrandingSettings",
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/cart.ts",
+      "lines": 106,
+      "client": true,
+      "imports": [
+        "react",
+        "./public-content"
+      ],
+      "exports": [
+        "CartLine",
+        "declaration",
+        "validateCart",
+        "addToCart",
+        "setCartQuantity",
+        "declaration",
+        "useCart"
+      ],
+      "riskLines": [
+        38,
+        43,
+        75
+      ]
+    },
+    {
+      "path": "lib/category-tree.ts",
+      "lines": 37,
+      "client": false,
+      "imports": [
+        "./i18n",
+        "./public-content"
+      ],
+      "exports": [
+        "flattenCategories",
+        "categoryNodes",
+        "categoryBranchIds"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/i18n.ts",
+      "lines": 359,
+      "client": false,
+      "imports": [],
+      "exports": [
+        "declaration",
+        "Locale",
+        "Localized",
+        "declaration",
+        "declaration",
+        "href",
+        "Dictionary",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/prisma.ts",
+      "lines": 14,
+      "client": false,
+      "imports": [
+        "@prisma/client"
+      ],
+      "exports": [
+        "declaration"
+      ],
+      "riskLines": [
+        9,
+        10,
+        13
+      ]
+    },
+    {
+      "path": "lib/public-content.ts",
+      "lines": 522,
+      "client": false,
+      "imports": [
+        "./i18n",
+        "./branding"
+      ],
+      "exports": [
+        "PublishStatus",
+        "Media",
+        "CategoryId",
+        "SolutionCategory",
+        "ProductConcept",
+        "Service",
+        "PortfolioProject",
+        "Job",
+        "SiteSettings",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/request-copy.ts",
+      "lines": 152,
+      "client": false,
+      "imports": [
+        "./i18n"
+      ],
+      "exports": [
+        "declaration",
+        "declaration",
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/request-draft.ts",
+      "lines": 70,
+      "client": false,
+      "imports": [
+        "./cart",
+        "./i18n",
+        "./request-copy"
+      ],
+      "exports": [
+        "RequestDraft",
+        "subscribeLanguageDraft",
+        "languageDraftRevision",
+        "keepDraftForLanguage",
+        "consumeLanguageDraft",
+        "clearLanguageDraft"
+      ],
+      "riskLines": [
+        26
+      ]
+    },
+    {
+      "path": "lib/request-validation.ts",
+      "lines": 23,
+      "client": false,
+      "imports": [],
+      "exports": [
+        "dhakaToday",
+        "validPreferredDate",
+        "validPhone"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/reviews.ts",
+      "lines": 20,
+      "client": false,
+      "imports": [
+        "server-only",
+        "./i18n"
+      ],
+      "exports": [
+        "CustomerReview",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/site-content.ts",
+      "lines": 125,
+      "client": false,
+      "imports": [],
+      "exports": [
+        "declaration",
+        "ProductShape",
+        "Collection",
+        "declaration",
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/theme.ts",
+      "lines": 6,
+      "client": false,
+      "imports": [],
+      "exports": [
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": [
+        5
+      ]
+    },
+    {
+      "path": "lib/trust-content.ts",
+      "lines": 25,
+      "client": false,
+      "imports": [
+        "server-only",
+        "./i18n",
+        "./public-content"
+      ],
+      "exports": [
+        "VerifiedMetric",
+        "ApprovedOrganization",
+        "declaration",
+        "declaration"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "lib/whatsapp.ts",
+      "lines": 11,
+      "client": false,
+      "imports": [],
+      "exports": [
+        "whatsappUrl"
+      ],
+      "riskLines": []
+    },
+    {
+      "path": "proxy.ts",
+      "lines": 20,
+      "client": false,
+      "imports": [
+        "next/server"
+      ],
+      "exports": [
+        "proxy",
+        "declaration"
+      ],
+      "riskLines": []
+    }
+  ],
+  "findings": [],
+  "historicalCommitsScanned": 3,
+  "historicalSensitivePaths": [],
+  "localProtection": [
+    {
+      "path": ".env",
+      "tracked": false,
+      "gitIgnored": true,
+      "dockerExcluded": true,
+      "vercelExcluded": true
+    },
+    {
+      "path": ".env.local",
+      "tracked": false,
+      "gitIgnored": true,
+      "dockerExcluded": true,
+      "vercelExcluded": true
+    },
+    {
+      "path": "cf-r2-cred.txt",
+      "tracked": false,
+      "gitIgnored": true,
+      "dockerExcluded": true,
+      "vercelExcluded": true
+    }
+  ],
+  "exclusions": [
+    {
+      "path": ".env",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".env.local",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".env.production",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/.env.local",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/test.env",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/local.env.backup",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "cf-r2-cred.txt",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/cf-r2-cred.txt",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/provider-cred.txt",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "credentials/export.json",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "app/credential-exports/data.csv",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/secret.json",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "components/provider-credentials.yaml",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/service-account-key.json",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "id_rsa",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".npmrc",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".git-credentials",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "backups/latest.sql",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/backups/latest.dump",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "db-data/state",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "postgres-data/state",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/key.pem",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "lib/private.key",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".next/server/page.js",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "node_modules/test/index.js",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "build/output.js",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "out/index.html",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "coverage/index.html",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "types.tsbuildinfo",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "dist/output.js",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "public/dist/output.js",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".pnpm-store/cache",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": ".turbo/cache",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "test-results/result.json",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "playwright-report/index.html",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    },
+    {
+      "path": "review.log",
+      "git": true,
+      "docker": true,
+      "vercel": true
+    }
+  ],
+  "versions": {
+    "node": "v24.13.0",
+    "packageManager": "pnpm@12.16.1",
+    "next": "16.4.4",
+    "prisma": "6.19.0"
+  },
+  "totalBytes": 9710182,
+  "largest": [
+    {
+      "path": "docs/ui-review-2026-11-08/home-desktop-1440-dark.png",
+      "bytes": 808728
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-1440-light.png",
+      "bytes": 801758
+    },
+    {
+      "path": "docs/release-review-2026-11-08/home-1440-light.png",
+      "bytes": 801735
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-1440-dark.png",
+      "bytes": 801361
+    },
+    {
+      "path": "docs/branding-review-2026-11-08/home-390-dark.png",
+      "bytes": 237999
+    }
+  ]
+}

@@ -1,0 +1,656 @@
+{
+  "browser": "Chrome/156.0.8078.80",
+  "layouts": [
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/en",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-black.ce7cab53f524.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "headerHeight": 76,
+      "logo": {
+        "width": 100,
+        "height": 60.15625,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "headerHeight": 88,
+      "logo": {
+        "width": 118,
+        "height": 70.984375,
+        "src": "http://localhost:3140/branding/aia-logo-ivory.0b6a18137e83.webp",
+        "ratio": 1.6623376623376624,
+        "natural": 640
+      },
+      "href": "/bn",
+      "label": "AIA Home Solutions BD"
+    }
+  ],
+  "transitions": [
+    {
+      "pathname": "/en/products",
+      "ms": 211,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/services",
+      "ms": 155,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/projects",
+      "ms": 171,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/about",
+      "ms": 171,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/careers",
+      "ms": 154,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/contact",
+      "ms": 170,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/cart",
+      "ms": 170,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/request",
+      "ms": 155,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en/login",
+      "ms": 171,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/en",
+      "ms": 171,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/products",
+      "ms": 178,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/services",
+      "ms": 186,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/projects",
+      "ms": 170,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/about",
+      "ms": 170,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/careers",
+      "ms": 156,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/contact",
+      "ms": 169,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/cart",
+      "ms": 170,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/request",
+      "ms": 171,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn/login",
+      "ms": 156,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "pathname": "/bn",
+      "ms": 187,
+      "scroll": 0,
+      "documentPreserved": true,
+      "headerPreserved": true,
+      "loaders": 0
+    }
+  ],
+  "checks": [
+    "en/light/320 layout",
+    "en/light/320 logo contrast",
+    "en/light/375 layout",
+    "en/light/375 logo contrast",
+    "en/light/390 layout",
+    "en/light/390 logo contrast",
+    "en/light/430 layout",
+    "en/light/430 logo contrast",
+    "en/light/768 layout",
+    "en/light/768 logo contrast",
+    "en/light/1440 layout",
+    "en/light/1440 logo contrast",
+    "en/dark/320 layout",
+    "en/dark/320 logo contrast",
+    "en/dark/375 layout",
+    "en/dark/375 logo contrast",
+    "en/dark/390 layout",
+    "en/dark/390 logo contrast",
+    "en/dark/430 layout",
+    "en/dark/430 logo contrast",
+    "en/dark/768 layout",
+    "en/dark/768 logo contrast",
+    "en/dark/1440 layout",
+    "en/dark/1440 logo contrast",
+    "bn/light/320 layout",
+    "bn/light/320 logo contrast",
+    "bn/light/375 layout",
+    "bn/light/375 logo contrast",
+    "bn/light/390 layout",
+    "bn/light/390 logo contrast",
+    "bn/light/430 layout",
+    "bn/light/430 logo contrast",
+    "bn/light/768 layout",
+    "bn/light/768 logo contrast",
+    "bn/light/1440 layout",
+    "bn/light/1440 logo contrast",
+    "bn/dark/320 layout",
+    "bn/dark/320 logo contrast",
+    "bn/dark/375 layout",
+    "bn/dark/375 logo contrast",
+    "bn/dark/390 layout",
+    "bn/dark/390 logo contrast",
+    "bn/dark/430 layout",
+    "bn/dark/430 logo contrast",
+    "bn/dark/768 layout",
+    "bn/dark/768 logo contrast",
+    "bn/dark/1440 layout",
+    "bn/dark/1440 logo contrast",
+    "en/products client navigation",
+    "en/products shared header",
+    "en/services client navigation",
+    "en/services shared header",
+    "en/projects client navigation",
+    "en/projects shared header",
+    "en/about client navigation",
+    "en/about shared header",
+    "en/careers client navigation",
+    "en/careers shared header",
+    "en/contact client navigation",
+    "en/contact shared header",
+    "en/cart client navigation",
+    "en/cart shared header",
+    "en/request client navigation",
+    "en/request shared header",
+    "en/login client navigation",
+    "en/home client navigation",
+    "bn/products client navigation",
+    "bn/products shared header",
+    "bn/services client navigation",
+    "bn/services shared header",
+    "bn/projects client navigation",
+    "bn/projects shared header",
+    "bn/about client navigation",
+    "bn/about shared header",
+    "bn/careers client navigation",
+    "bn/careers shared header",
+    "bn/contact client navigation",
+    "bn/contact shared header",
+    "bn/cart client navigation",
+    "bn/cart shared header",
+    "bn/request client navigation",
+    "bn/request shared header",
+    "bn/login client navigation",
+    "bn/home client navigation",
+    "Cart and customer draft survive locale navigation",
+    "Official ICO decodes in Chrome",
+    "Favicon metadata has light and dark official assets",
+    "Fingerprint assets have immutable caching",
+    "Footer uses official ivory artwork on light",
+    "Footer uses official ivory artwork on dark",
+    "No runtime exceptions"
+  ],
+  "screenshots": [
+    "home-320-light.png",
+    "home-390-light.png",
+    "home-1440-light.png",
+    "home-320-dark.png",
+    "home-390-dark.png",
+    "home-1440-dark.png",
+    "footer-390-light.png",
+    "login-390-light.png",
+    "footer-390-dark.png",
+    "login-390-dark.png"
+  ]
+}

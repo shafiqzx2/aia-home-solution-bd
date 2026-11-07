@@ -19,6 +19,13 @@
 
 # production
 /build
+dist/
+
+# Local package caches and browser/test output
+.pnpm-store/
+.turbo/
+test-results/
+playwright-report/
 
 # misc
 .DS_Store
@@ -36,7 +43,33 @@ pgpass.conf
 .secrets/
 secrets/
 
+# Local provider credentials and exports (never stage these files)
+cf-r2-cred.txt
+*-cred.txt
+*-creds.txt
+*credential*.txt
+*credential*.json
+*credential*.csv
+*credential*.yaml
+*credential*.yml
+*secret*.txt
+*secret*.json
+*secret*.csv
+*secret*.yaml
+*secret*.yml
+service-account*.json
+*-service-account*.json
+credentials/
+credential-exports/
+token-exports/
+.git-credentials
+.netrc
+_netrc
+id_rsa*
+id_ed25519*
+
 # debug
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -44,6 +77,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+*.env
+*.env.*
 !/.env.example
 
 # Local database data/backups (Compose uses a named volume, not a bind mount)

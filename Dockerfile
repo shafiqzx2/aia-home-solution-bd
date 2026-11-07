@@ -15,8 +15,8 @@ RUN --mount=type=cache,id=aia-pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile --store-dir=/pnpm/store
 
 FROM dependencies AS builder
+ENV BUILD_STANDALONE=1
 COPY . .
-RUN pnpm prisma generate
 RUN pnpm build
 
 FROM base AS runner
@@ -30,5 +30,5 @@ RUN mkdir -p .next/cache && chown node:node .next/cache
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD node -e "const r=require('node:http').get('http://127.0.0.1:3000/',s=>{s.resume();process.exit(s.statusCode===200?0:1)});r.setTimeout(4000,()=>{r.destroy();process.exit(1)});r.on('error',()=>process.exit(1))"
+    CMD node -e "const r=require('node:http').get('http://127.0.0.1:3000/en',s=>{s.resume();process.exit(s.statusCode===200?0:1)});r.setTimeout(4000,()=>{r.destroy();process.exit(1)});r.on('error',()=>process.exit(1))"
 CMD ["node", "server.js"]

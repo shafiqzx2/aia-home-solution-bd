@@ -1,0 +1,358 @@
+export const locales = ["en", "bn"] as const;
+export type Locale = (typeof locales)[number];
+export type Localized = Record<Locale, string>;
+export const isLocale = (value: string): value is Locale =>
+  value === "en" || value === "bn";
+export const text = (en: string, bn: string): Localized => ({ en, bn });
+export function href(locale: Locale, path = "") {
+  return `/${locale}${path ? `/${path.replace(/^\/+/, "")}` : ""}`;
+}
+
+const en = {
+  home: "Home",
+  products: "Products",
+  services: "Services",
+  projects: "Projects",
+  about: "About",
+  careers: "Careers",
+  contact: "Contact",
+  quotation: "Request a Quotation",
+  login: "Login",
+  skip: "Skip to main content",
+  openMenu: "Open navigation",
+  closeMenu: "Close navigation",
+  mainNav: "Main navigation",
+  footerNav: "Footer navigation",
+  quickActions: "Quick actions",
+  switchDark: "Switch to dark mode",
+  switchLight: "Switch to light mode",
+  whatsappChat: "Chat on WhatsApp (opens a new tab)",
+  whatsappInfo: "WhatsApp contact information",
+  whatsappPending:
+    "Our WhatsApp number has not been published yet. You can prepare a project brief on the contact page.",
+  allProducts: "View all products",
+  allServiceCategories: "View all services",
+  expandProducts: "Product categories",
+  expandServices: "Service categories",
+  expandCategory: "Expand category",
+  collapseCategory: "Collapse category",
+  selectedCategory: "Selected category",
+  serviceCategories: "Filter services",
+  noServices: "No services are published in this category yet.",
+  reviewsTitle: "From our customers",
+  rating: "Rating",
+  intro: "Home & commercial solutions",
+  heroTitle: "A better way",
+  heroAccent: "to feel at home.",
+  heroDescription:
+    "Lighting, smart technology, security, and connected spaces. Thoughtfully planned for the way you live and work.",
+  explore: "Explore our solutions",
+  conceptVisual: "Concept visual",
+  pause: "Pause lighting animation",
+  resume: "Resume lighting animation",
+  solutionsTitle: "Considered for your space.",
+  solutionsDescription:
+    "From a single room to a connected workplace. Find a starting point for your project.",
+  featured: "Explore the possibilities.",
+  catalogIntro:
+    "Browse solution concepts for homes and businesses. Confirmed products and technical data will be added as the catalog develops.",
+  catalogNotice:
+    "Illustrative concepts, not confirmed inventory. Images are design references. Product details and availability require confirmation.",
+  all: "All solutions",
+  search: "Search solutions",
+  searchPlaceholder: "Try lighting, security, automation…",
+  categories: "Solution categories",
+  noResults: "No matching concepts. Try another search or category.",
+  clear: "Clear filters",
+  results: "Results",
+  viewDetails: "View details",
+  inquire: "Discuss this solution",
+  specifications: "Specifications",
+  specificationPending:
+    "Verified model, dimensions, materials, power, connectivity, compatibility, and warranty details have not yet been supplied.",
+  gallery: "Image gallery",
+  illustration: "Illustrative concept",
+  scope: "Scope",
+  availability: "Availability",
+  confirmation: "Confirmed during consultation",
+  backProducts: "Back to products",
+  servicesTitle: "From the first idea to a considered plan.",
+  servicesIntro:
+    "Explore support for residential and commercial projects. Scope, site requirements, and availability are agreed before work begins.",
+  serviceScope: "What we can discuss",
+  consultation: "Discuss your requirements",
+  allServices: "Explore all services",
+  projectsTitle: "Spaces with possibility.",
+  projectsIntro:
+    "Our verified project portfolio is being prepared. In the meantime, explore clearly marked visual concepts.",
+  projectNotice: "Concept gallery — these are not completed AIA projects.",
+  conceptProject: "Design concept",
+  verifiedProjects: "Completed projects",
+  projectsEmpty:
+    "Verified project stories will appear here when approved images and details are available.",
+  location: "Location",
+  notAssigned: "Not assigned — concept only",
+  related: "Related solution areas",
+  backProjects: "Back to projects",
+  aboutTitle: "One considered perspective. More possibilities.",
+  aboutCopy:
+    "AIA Home Solutions BD is a Bangladesh-based home and commercial solutions company. Our focus brings together lighting, smart technology, security, automation, entertainment, and digital setup.",
+  aboutApproach:
+    "We start with the space and the people who use it. Practical requirements, design preferences, and compatibility guide the conversation.",
+  approach: "Our approach",
+  approachItems: [
+    "Understand your space",
+    "Consider the right systems",
+    "Agree a clear scope",
+  ],
+  careersTitle: "Build what comes next.",
+  careersIntro:
+    "Future opportunities across design, technology, operations, and customer support will be published here.",
+  vacancies: "Current opportunities",
+  noJobs: "No open positions are published at the moment.",
+  noJobsDetail:
+    "Check back for verified job descriptions and application details. We are not collecting applications yet.",
+  role: "Role details",
+  responsibilities: "Responsibilities",
+  requirements: "Requirements",
+  applicationUnavailable: "Applications are not open",
+  jobPreview: "Job layout preview",
+  jobPreviewNote:
+    "This sample explains the future job layout. It is not a vacancy or an invitation to apply.",
+  jobTemplate: "Future opportunities",
+  jobTeam: "Team and location will be specified with each vacancy.",
+  jobResponsibilities:
+    "Approved responsibilities will be listed with the published role.",
+  jobRequirements:
+    "Experience and eligibility requirements will be provided with each vacancy.",
+  contactTitle: "Tell us about your space.",
+  contactIntro:
+    "Planning a home, an office, or a commercial project? Prepare your requirements for a quotation conversation.",
+  contactPending:
+    "Verified phone, email, WhatsApp, and address details will be published here once supplied.",
+  contactRegion: "Serving residential and commercial needs in Bangladesh.",
+  formTitle: "Your project requirements",
+  name: "Your name",
+  email: "Email address",
+  phone: "Phone (optional)",
+  projectType: "Project type",
+  residential: "Residential",
+  commercial: "Commercial",
+  hospitality: "Hospitality",
+  other: "Other",
+  solution: "Solution area",
+  choose: "Choose a solution",
+  projectLocation: "Project location (optional)",
+  message: "What do you have in mind?",
+  messageHint:
+    "Describe your space, requirements, and preferred timing (at least 10 characters).",
+  formNotice:
+    "Online quotation requests are not available yet. You can download a brief to keep; it will not be sent to us.",
+  submitUnavailable: "Online requests unavailable",
+  download: "Download project brief",
+  privacy:
+    "Your entries stay on this page until you download them. Nothing is sent or saved online.",
+  downloadReady:
+    "Brief download prepared. It has not been sent to AIA Home Solutions BD.",
+  downloadFailed:
+    "The download could not be created. Please copy your notes instead.",
+  validation:
+    "Please complete the required fields and describe your project in at least 10 characters.",
+  notProvided: "Not provided",
+  loginTitle: "Welcome to your account.",
+  authNotice: "Sign-in is not available yet.",
+  authDescription:
+    "Secure sign-in for customers and staff is coming soon. Please do not enter real credentials.",
+  username: "Username",
+  password: "Password",
+  showPassword: "Show password",
+  hidePassword: "Hide password",
+  signInUnavailable: "Sign-in unavailable",
+  backHome: "Back to home",
+  authFootnote:
+    "This preview does not authenticate users or provide access to an account.",
+  footerCopy:
+    "Lighting, technology, and thoughtful solutions for homes and businesses in Bangladesh.",
+  rights: "All rights reserved.",
+  footerContact: "Plan your next space.",
+  notFoundTitle: "This page is not here.",
+  notFoundCopy: "Explore our solutions or return to the homepage.",
+  errorTitle: "We couldn’t load this page.",
+  errorCopy: "Please try again or return to the homepage.",
+  retry: "Try again",
+  loading: "Loading your next view…",
+};
+export type Dictionary = { [K in keyof typeof en]: (typeof en)[K] };
+const bn: Dictionary = {
+  home: "হোম",
+  products: "পণ্য",
+  services: "সেবা",
+  projects: "প্রকল্প",
+  about: "আমাদের সম্পর্কে",
+  careers: "ক্যারিয়ার",
+  contact: "যোগাযোগ",
+  quotation: "কোটেশন অনুরোধ করুন",
+  login: "লগইন",
+  skip: "মূল বিষয়বস্তুতে যান",
+  openMenu: "মেনু খুলুন",
+  closeMenu: "মেনু বন্ধ করুন",
+  mainNav: "প্রধান নেভিগেশন",
+  footerNav: "ফুটার নেভিগেশন",
+  quickActions: "দ্রুত সুবিধা",
+  switchDark: "ডার্ক মোড চালু করুন",
+  switchLight: "লাইট মোড চালু করুন",
+  whatsappChat: "WhatsApp-এ কথা বলুন (নতুন ট্যাবে খুলবে)",
+  whatsappInfo: "WhatsApp যোগাযোগের তথ্য",
+  whatsappPending:
+    "আমাদের WhatsApp নম্বর এখনো প্রকাশ করা হয়নি। যোগাযোগের পাতায় আপনার প্রকল্পের বিবরণ প্রস্তুত করতে পারেন।",
+  allProducts: "সব পণ্য দেখুন",
+  allServiceCategories: "সব সেবা দেখুন",
+  expandProducts: "পণ্যের বিভাগ",
+  expandServices: "সেবার বিভাগ",
+  expandCategory: "বিভাগ খুলুন",
+  collapseCategory: "বিভাগ বন্ধ করুন",
+  selectedCategory: "নির্বাচিত বিভাগ",
+  serviceCategories: "সেবার বিভাগ বাছুন",
+  noServices: "এই বিভাগে এখনো কোনো সেবা প্রকাশিত হয়নি।",
+  reviewsTitle: "আমাদের গ্রাহকদের অভিজ্ঞতা",
+  rating: "রেটিং",
+  intro: "বাসা ও বাণিজ্যিক স্থাপনার সমাধান",
+  heroTitle: en.heroTitle,
+  heroAccent: en.heroAccent,
+  heroDescription:
+    "আলোকসজ্জা, স্মার্ট প্রযুক্তি, নিরাপত্তা ও সংযুক্ত ব্যবস্থা। আপনার জীবন ও কাজের প্রয়োজন বুঝে পরিকল্পনা।",
+  explore: "সমাধানগুলো দেখুন",
+  conceptVisual: "ধারণাভিত্তিক দৃশ্য",
+  pause: "আলোর অ্যানিমেশন থামান",
+  resume: "আলোর অ্যানিমেশন চালু করুন",
+  solutionsTitle: "আপনার পরিসরকে ঘিরে পরিকল্পনা।",
+  solutionsDescription:
+    "একটি ঘর থেকে সংযুক্ত কর্মস্থল—আপনার প্রকল্পের উপযোগী সমাধান খুঁজুন।",
+  featured: "সম্ভাবনাগুলো দেখুন।",
+  catalogIntro:
+    "বাসা ও ব্যবসার জন্য সমাধানের ধারণাগুলো দেখুন। যাচাইকৃত পণ্য ও কারিগরি তথ্য ধাপে ধাপে যুক্ত করা হবে।",
+  catalogNotice:
+    "এগুলো ধারণাভিত্তিক উদাহরণ, নিশ্চিত মজুত পণ্য নয়। ছবিগুলো নকশার ধারণা বোঝাতে ব্যবহৃত। পণ্যের বিবরণ ও প্রাপ্যতা যাচাই করতে হবে।",
+  all: "সব সমাধান",
+  search: "সমাধান খুঁজুন",
+  searchPlaceholder: "আলোকসজ্জা, নিরাপত্তা, অটোমেশন…",
+  categories: "সমাধানের বিভাগ",
+  noResults: "মিল পাওয়া যায়নি। অন্য শব্দ বা বিভাগ দিয়ে খুঁজুন।",
+  clear: "ফিল্টার মুছুন",
+  results: "ফলাফল",
+  viewDetails: "বিস্তারিত দেখুন",
+  inquire: "এই সমাধান নিয়ে আলোচনা করুন",
+  specifications: "কারিগরি বিবরণ",
+  specificationPending:
+    "যাচাইকৃত মডেল, আকার, উপকরণ, বিদ্যুৎ চাহিদা, সংযোগ, সামঞ্জস্য ও ওয়ারেন্টির তথ্য এখনো দেওয়া হয়নি।",
+  gallery: "ছবির গ্যালারি",
+  illustration: "ধারণাভিত্তিক উদাহরণ",
+  scope: "কাজের পরিধি",
+  availability: "প্রাপ্যতা",
+  confirmation: "আলোচনার সময় নিশ্চিত করা হবে",
+  backProducts: "পণ্যের তালিকায় ফিরুন",
+  servicesTitle: "প্রথম ধারণা থেকে সুচিন্তিত পরিকল্পনা।",
+  servicesIntro:
+    "আবাসিক ও বাণিজ্যিক প্রকল্পে সহায়তার ক্ষেত্রগুলো দেখুন। কাজের আগে পরিধি, স্থানের চাহিদা ও প্রাপ্যতা নিশ্চিত করা হবে।",
+  serviceScope: "যেসব বিষয়ে আলোচনা করতে পারেন",
+  consultation: "আপনার প্রয়োজন নিয়ে আলোচনা করুন",
+  allServices: "সব সেবা দেখুন",
+  projectsTitle: "সম্ভাবনাময় পরিসর।",
+  projectsIntro:
+    "যাচাইকৃত প্রকল্পের পোর্টফোলিও প্রস্তুত করা হচ্ছে। আপাতত স্পষ্টভাবে চিহ্নিত নকশার ধারণাগুলো দেখুন।",
+  projectNotice: "ধারণাভিত্তিক গ্যালারি—এগুলো AIA-এর সম্পন্ন প্রকল্প নয়।",
+  conceptProject: "নকশার ধারণা",
+  verifiedProjects: "সম্পন্ন প্রকল্প",
+  projectsEmpty:
+    "অনুমোদিত ছবি ও তথ্য পাওয়ার পর যাচাইকৃত প্রকল্প এখানে প্রকাশ করা হবে।",
+  location: "অবস্থান",
+  notAssigned: "নির্ধারিত নয়—শুধু ধারণা",
+  related: "সংশ্লিষ্ট সমাধান",
+  backProjects: "প্রকল্পের তালিকায় ফিরুন",
+  aboutTitle: "সুচিন্তিত দৃষ্টিভঙ্গি। আরও সম্ভাবনা।",
+  aboutCopy:
+    "AIA Home Solutions BD বাংলাদেশের বাসা ও বাণিজ্যিক স্থাপনার সমাধান নিয়ে কাজ করে। আলোকসজ্জা, স্মার্ট প্রযুক্তি, নিরাপত্তা, অটোমেশন, বিনোদন ও ডিজিটাল সেটআপ আমাদের কাজের ক্ষেত্র।",
+  aboutApproach:
+    "আমরা শুরু করি স্থান ও তার ব্যবহারকারীদের প্রয়োজন বুঝে। বাস্তব চাহিদা, নকশার পছন্দ ও প্রযুক্তির সামঞ্জস্য আলোচনার ভিত্তি।",
+  approach: "আমাদের কাজের ধরন",
+  approachItems: [
+    "আপনার পরিসর বোঝা",
+    "উপযুক্ত ব্যবস্থা বিবেচনা করা",
+    "কাজের পরিধি নির্ধারণ করা",
+  ],
+  careersTitle: "আগামীর কাজে যুক্ত হোন।",
+  careersIntro:
+    "নকশা, প্রযুক্তি, পরিচালনা ও গ্রাহকসেবায় ভবিষ্যৎ সুযোগ এখানে প্রকাশ করা হবে।",
+  vacancies: "বর্তমান সুযোগ",
+  noJobs: "এই মুহূর্তে কোনো নিয়োগ বিজ্ঞপ্তি প্রকাশিত নেই।",
+  noJobsDetail:
+    "যাচাইকৃত পদের বিবরণ ও আবেদনের তথ্যের জন্য পরে দেখুন। এখন আবেদন গ্রহণ করা হচ্ছে না।",
+  role: "পদের বিবরণ",
+  responsibilities: "দায়িত্ব",
+  requirements: "যোগ্যতা",
+  applicationUnavailable: "আবেদন গ্রহণ চলছে না",
+  jobPreview: "পদের বিবরণের নমুনা",
+  jobPreviewNote:
+    "এই নমুনায় ভবিষ্যৎ পদের বিবরণের কাঠামো দেখানো হয়েছে। এটি নিয়োগ বিজ্ঞপ্তি বা আবেদনের আহ্বান নয়।",
+  jobTemplate: "ভবিষ্যৎ সুযোগ",
+  jobTeam: "প্রতিটি বিজ্ঞপ্তিতে বিভাগ ও কর্মস্থল উল্লেখ থাকবে।",
+  jobResponsibilities: "প্রকাশিত বিজ্ঞপ্তিতে অনুমোদিত দায়িত্ব উল্লেখ করা হবে।",
+  jobRequirements: "প্রতিটি বিজ্ঞপ্তিতে অভিজ্ঞতা ও যোগ্যতার শর্ত জানানো হবে।",
+  contactTitle: "আপনার পরিসরের কথা বলুন।",
+  contactIntro:
+    "বাসা, অফিস বা বাণিজ্যিক প্রকল্পের পরিকল্পনা করছেন? কোটেশন নিয়ে আলোচনার জন্য আপনার চাহিদাগুলো প্রস্তুত করুন।",
+  contactPending:
+    "যাচাইকৃত ফোন, ইমেইল, WhatsApp ও ঠিকানা পাওয়ার পর এখানে প্রকাশ করা হবে।",
+  contactRegion: "বাংলাদেশে আবাসিক ও বাণিজ্যিক প্রয়োজনের সমাধান।",
+  formTitle: "আপনার প্রকল্পের চাহিদা",
+  name: "আপনার নাম",
+  email: "ইমেইল ঠিকানা",
+  phone: "ফোন নম্বর (ঐচ্ছিক)",
+  projectType: "প্রকল্পের ধরন",
+  residential: "আবাসিক",
+  commercial: "বাণিজ্যিক",
+  hospitality: "হোটেল ও রেস্তোরাঁ",
+  other: "অন্যান্য",
+  solution: "সমাধানের ক্ষেত্র",
+  choose: "সমাধান বেছে নিন",
+  projectLocation: "প্রকল্পের অবস্থান (ঐচ্ছিক)",
+  message: "আপনার পরিকল্পনা কী?",
+  messageHint:
+    "স্থান, চাহিদা ও পছন্দের সময় সম্পর্কে লিখুন (অন্তত ১০টি অক্ষর)।",
+  formNotice:
+    "অনলাইনে কোটেশন অনুরোধ এখনো চালু হয়নি। নিজের কাছে রাখার জন্য প্রকল্পের বিবরণ ডাউনলোড করতে পারেন; এটি আমাদের কাছে পাঠানো হবে না।",
+  submitUnavailable: "অনলাইন অনুরোধ চালু হয়নি",
+  download: "প্রকল্পের বিবরণ ডাউনলোড করুন",
+  privacy:
+    "ডাউনলোড করার আগ পর্যন্ত আপনার তথ্য শুধু এই পাতায় থাকে। অনলাইনে কিছু পাঠানো বা সংরক্ষণ করা হয় না।",
+  downloadReady:
+    "প্রকল্পের বিবরণ ডাউনলোডের জন্য প্রস্তুত। এটি AIA Home Solutions BD-কে পাঠানো হয়নি।",
+  downloadFailed:
+    "ডাউনলোড তৈরি করা যায়নি। অনুগ্রহ করে আপনার লেখা কপি করে রাখুন।",
+  validation:
+    "প্রয়োজনীয় ঘরগুলো পূরণ করুন এবং অন্তত ১০টি অক্ষরে প্রকল্পের বিবরণ লিখুন।",
+  notProvided: "দেওয়া হয়নি",
+  loginTitle: "আপনার অ্যাকাউন্টে স্বাগতম।",
+  authNotice: "লগইন এখনো চালু হয়নি।",
+  authDescription:
+    "গ্রাহক ও কর্মীদের জন্য নিরাপদ লগইন শিগগিরই চালু হবে। এখানে আসল লগইন তথ্য লিখবেন না।",
+  username: "ব্যবহারকারীর নাম",
+  password: "পাসওয়ার্ড",
+  showPassword: "পাসওয়ার্ড দেখান",
+  hidePassword: "পাসওয়ার্ড লুকান",
+  signInUnavailable: "লগইন চালু হয়নি",
+  backHome: "হোমে ফিরুন",
+  authFootnote:
+    "এই নমুনা ব্যবহারকারী যাচাই করে না বা কোনো অ্যাকাউন্টে প্রবেশের সুযোগ দেয় না।",
+  footerCopy:
+    "বাংলাদেশের বাসা ও ব্যবসার জন্য আলোকসজ্জা, প্রযুক্তি ও সুচিন্তিত সমাধান।",
+  rights: "সর্বস্বত্ব সংরক্ষিত।",
+  footerContact: "আপনার পরবর্তী পরিসরের পরিকল্পনা করুন।",
+  notFoundTitle: "এই পাতাটি পাওয়া যায়নি।",
+  notFoundCopy: "আমাদের সমাধানগুলো দেখুন অথবা হোমে ফিরুন।",
+  errorTitle: "পাতাটি লোড করা যায়নি।",
+  errorCopy: "আবার চেষ্টা করুন অথবা হোমে ফিরুন।",
+  retry: "আবার চেষ্টা করুন",
+  loading: "পরবর্তী পাতা লোড হচ্ছে…",
+};
+export const dictionaries: Record<Locale, Dictionary> = { en, bn };

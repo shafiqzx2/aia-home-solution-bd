@@ -1,0 +1,168 @@
+{
+  "browser": "Chrome/156.0.8078.80",
+  "cases": [
+    {
+      "locale": "en",
+      "destination": "products",
+      "previousPageVisible": true,
+      "headerRetained": true,
+      "visibleLoaders": 0,
+      "resumeToReadyMs": 971
+    },
+    {
+      "locale": "bn",
+      "destination": "services",
+      "previousPageVisible": true,
+      "headerRetained": true,
+      "visibleLoaders": 0,
+      "resumeToReadyMs": 970
+    },
+    {
+      "locale": "en",
+      "destination": "login",
+      "previousPageVisible": true,
+      "headerRetained": true,
+      "visibleLoaders": 0,
+      "resumeToReadyMs": 1421
+    }
+  ],
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 320,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 430,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 430,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "centerDifference": 0,
+      "height": 220,
+      "ratio": 1.6623376623376624,
+      "overflow": false
+    }
+  ],
+  "checks": [
+    "en/products pending navigation remains readable",
+    "en/products no duplicate loading presentation",
+    "en/products no loader after ready",
+    "en/products no runtime exceptions",
+    "bn/services pending navigation remains readable",
+    "bn/services no duplicate loading presentation",
+    "bn/services no loader after ready",
+    "bn/services no runtime exceptions",
+    "en/login pending navigation remains readable",
+    "en/login no duplicate loading presentation",
+    "en/login no loader after ready",
+    "en/login no runtime exceptions",
+    "Cold catalog shows native branded Suspense while scripts are pending",
+    "Pending loader light/320 centered and compact",
+    "Pending loader light/375 centered and compact",
+    "Pending loader light/390 centered and compact",
+    "Pending loader light/430 centered and compact",
+    "Pending loader light/768 centered and compact",
+    "Pending loader light/1440 centered and compact",
+    "Pending loader dark/320 centered and compact",
+    "Pending loader dark/375 centered and compact",
+    "Pending loader dark/390 centered and compact",
+    "Pending loader dark/430 centered and compact",
+    "Pending loader dark/768 centered and compact",
+    "Pending loader dark/1440 centered and compact",
+    "Gold light travels on original-alpha edges",
+    "Reduced motion displays a static official logo",
+    "Cold loading disappears when client is ready",
+    "Cold loading has no runtime exceptions",
+    "Image failure retains an accessible company identity"
+  ],
+  "screenshots": [
+    "slow-navigation-retains-content-390.png",
+    "loading-390-light.png",
+    "loading-1440-light.png",
+    "loading-390-dark.png",
+    "loading-1440-dark.png",
+    "loading-390-reduced-motion.png",
+    "image-fallback-390.png"
+  ]
+}

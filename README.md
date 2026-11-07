@@ -4,6 +4,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 See [Docker and Dokploy deployment](docs/deployment.md) for image design, environment variables, local Docker checks, Bangladesh latency considerations and future PostgreSQL integration.
 
+The proposed backend now targets **Supabase PostgreSQL for durable data and Cloudflare R2 for images/documents**. See the [storage and fetching plan](docs/data-store-logic.md) for repository findings, view-specific reads, pagination, caching now/Redis later, media delivery, and implementation phases. The local database instructions below describe the existing development setup; the Supabase/R2 migration is not implemented yet.
+
+For the first protected frontend deployment, follow [safe Vercel Preview preparation](docs/vercel-preview-preparation.md) and its exact staging manifest. Normal builds generate Prisma Client automatically and use native Next output; Docker explicitly opts into standalone output. Automatic Git deployments remain disabled until a reviewed release workflow is approved.
+
+The latest complete website and its review status are documented in the [final release readiness review](docs/final-release-readiness.md). Use the refreshed [reviewed staging manifest](docs/vercel-preview-staging-manifest.md) for the current file set; earlier audit counts describe historical snapshots.
+
 ## Getting Started
 
 First, run the development server:

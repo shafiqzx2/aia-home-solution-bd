@@ -1,0 +1,1541 @@
+{
+  "browser": "Chrome/156.0.8078.80",
+  "date": "2026-11-07T21:04:30.953Z",
+  "layouts": [
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "96px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "112.5px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "114px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.765625,
+      "canvasLeft": "117px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 502.984375,
+      "canvasLeft": "129px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "384px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 74.5,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "720px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 35.09375,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "96px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "112.5px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.046875,
+      "canvasLeft": "114px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 517.765625,
+      "canvasLeft": "117px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 502.984375,
+      "canvasLeft": "129px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "384px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 74.5,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "en",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "720px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "en",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 35.09375,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "en",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "96px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "112.5px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 375,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "114px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 380,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 496.765625,
+      "canvasLeft": "117px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 390,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 504.734375,
+      "canvasLeft": "129px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 430,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "384px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 39.5,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "720px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-black.ce7cab53f524.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 35.09375,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "96px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "112.5px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 375,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 494.1875,
+      "canvasLeft": "114px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 380,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 496.765625,
+      "canvasLeft": "117px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 390,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 504.734375,
+      "canvasLeft": "129px",
+      "headerHeight": 76,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 100,
+          "ratio": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 28,
+      "outside": 0,
+      "maxActionGap": 10,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 430,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "384px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 39.5,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    },
+    {
+      "page": "home",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "categories": 6,
+      "products": 0,
+      "heroHeight": 812,
+      "canvasLeft": "720px",
+      "headerHeight": 88,
+      "logo": [
+        {
+          "src": "/branding/aia-logo-ivory.0b6a18137e83.webp",
+          "width": 118,
+          "ratio": 1.6619718309859155
+        }
+      ]
+    },
+    {
+      "page": "products",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "cards": 10,
+      "rowGap": 32,
+      "outside": 0,
+      "maxActionGap": 35.09375,
+      "smallButtons": false,
+      "productLinks": false,
+      "mobileFilterCollapsed": true
+    },
+    {
+      "page": "request",
+      "locale": "bn",
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "groups": 4,
+      "stepButtons": 0
+    }
+  ],
+  "checks": [
+    "en/light/320 category-only homepage",
+    "en/light/320 official header",
+    "en/light/320 compact hero",
+    "en/light/320 compact catalog cards",
+    "en/light/320 one-page form",
+    "en/light/375 category-only homepage",
+    "en/light/375 official header",
+    "en/light/375 compact hero",
+    "en/light/375 compact catalog cards",
+    "en/light/375 one-page form",
+    "en/light/380 category-only homepage",
+    "en/light/380 official header",
+    "en/light/380 compact hero",
+    "en/light/380 compact catalog cards",
+    "en/light/380 one-page form",
+    "en/light/390 category-only homepage",
+    "en/light/390 official header",
+    "en/light/390 compact hero",
+    "en/light/390 compact catalog cards",
+    "en/light/390 one-page form",
+    "en/light/430 category-only homepage",
+    "en/light/430 official header",
+    "en/light/430 compact hero",
+    "en/light/430 compact catalog cards",
+    "en/light/430 one-page form",
+    "en/light/768 category-only homepage",
+    "en/light/768 official header",
+    "en/light/768 compact catalog cards",
+    "en/light/768 one-page form",
+    "en/light/1440 category-only homepage",
+    "en/light/1440 official header",
+    "en/light/1440 compact catalog cards",
+    "en/light/1440 one-page form",
+    "en/dark/320 category-only homepage",
+    "en/dark/320 official header",
+    "en/dark/320 compact hero",
+    "en/dark/320 compact catalog cards",
+    "en/dark/320 one-page form",
+    "en/dark/375 category-only homepage",
+    "en/dark/375 official header",
+    "en/dark/375 compact hero",
+    "en/dark/375 compact catalog cards",
+    "en/dark/375 one-page form",
+    "en/dark/380 category-only homepage",
+    "en/dark/380 official header",
+    "en/dark/380 compact hero",
+    "en/dark/380 compact catalog cards",
+    "en/dark/380 one-page form",
+    "en/dark/390 category-only homepage",
+    "en/dark/390 official header",
+    "en/dark/390 compact hero",
+    "en/dark/390 compact catalog cards",
+    "en/dark/390 one-page form",
+    "en/dark/430 category-only homepage",
+    "en/dark/430 official header",
+    "en/dark/430 compact hero",
+    "en/dark/430 compact catalog cards",
+    "en/dark/430 one-page form",
+    "en/dark/768 category-only homepage",
+    "en/dark/768 official header",
+    "en/dark/768 compact catalog cards",
+    "en/dark/768 one-page form",
+    "en/dark/1440 category-only homepage",
+    "en/dark/1440 official header",
+    "en/dark/1440 compact catalog cards",
+    "en/dark/1440 one-page form",
+    "bn/light/320 category-only homepage",
+    "bn/light/320 official header",
+    "bn/light/320 compact hero",
+    "bn/light/320 compact catalog cards",
+    "bn/light/320 one-page form",
+    "bn/light/375 category-only homepage",
+    "bn/light/375 official header",
+    "bn/light/375 compact hero",
+    "bn/light/375 compact catalog cards",
+    "bn/light/375 one-page form",
+    "bn/light/380 category-only homepage",
+    "bn/light/380 official header",
+    "bn/light/380 compact hero",
+    "bn/light/380 compact catalog cards",
+    "bn/light/380 one-page form",
+    "bn/light/390 category-only homepage",
+    "bn/light/390 official header",
+    "bn/light/390 compact hero",
+    "bn/light/390 compact catalog cards",
+    "bn/light/390 one-page form",
+    "bn/light/430 category-only homepage",
+    "bn/light/430 official header",
+    "bn/light/430 compact hero",
+    "bn/light/430 compact catalog cards",
+    "bn/light/430 one-page form",
+    "bn/light/768 category-only homepage",
+    "bn/light/768 official header",
+    "bn/light/768 compact catalog cards",
+    "bn/light/768 one-page form",
+    "bn/light/1440 category-only homepage",
+    "bn/light/1440 official header",
+    "bn/light/1440 compact catalog cards",
+    "bn/light/1440 one-page form",
+    "bn/dark/320 category-only homepage",
+    "bn/dark/320 official header",
+    "bn/dark/320 compact hero",
+    "bn/dark/320 compact catalog cards",
+    "bn/dark/320 one-page form",
+    "bn/dark/375 category-only homepage",
+    "bn/dark/375 official header",
+    "bn/dark/375 compact hero",
+    "bn/dark/375 compact catalog cards",
+    "bn/dark/375 one-page form",
+    "bn/dark/380 category-only homepage",
+    "bn/dark/380 official header",
+    "bn/dark/380 compact hero",
+    "bn/dark/380 compact catalog cards",
+    "bn/dark/380 one-page form",
+    "bn/dark/390 category-only homepage",
+    "bn/dark/390 official header",
+    "bn/dark/390 compact hero",
+    "bn/dark/390 compact catalog cards",
+    "bn/dark/390 one-page form",
+    "bn/dark/430 category-only homepage",
+    "bn/dark/430 official header",
+    "bn/dark/430 compact hero",
+    "bn/dark/430 compact catalog cards",
+    "bn/dark/430 one-page form",
+    "bn/dark/768 category-only homepage",
+    "bn/dark/768 official header",
+    "bn/dark/768 compact catalog cards",
+    "bn/dark/768 one-page form",
+    "bn/dark/1440 category-only homepage",
+    "bn/dark/1440 official header",
+    "bn/dark/1440 compact catalog cards",
+    "bn/dark/1440 one-page form",
+    "/en/products client navigation",
+    "/en/products retained shared header",
+    "/en/services client navigation",
+    "/en/services retained shared header",
+    "/en/projects client navigation",
+    "/en/projects retained shared header",
+    "/en/about client navigation",
+    "/en/about retained shared header",
+    "/en/careers client navigation",
+    "/en/careers retained shared header",
+    "/en/contact client navigation",
+    "/en/contact retained shared header",
+    "/en/cart client navigation",
+    "/en/cart retained shared header",
+    "/en/request client navigation",
+    "/en/request retained shared header",
+    "/en/login client navigation",
+    "/en client navigation",
+    "/bn/products client navigation",
+    "/bn/products retained shared header",
+    "/bn/services client navigation",
+    "/bn/services retained shared header",
+    "/bn/projects client navigation",
+    "/bn/projects retained shared header",
+    "/bn/about client navigation",
+    "/bn/about retained shared header",
+    "/bn/careers client navigation",
+    "/bn/careers retained shared header",
+    "/bn/contact client navigation",
+    "/bn/contact retained shared header",
+    "/bn/cart client navigation",
+    "/bn/cart retained shared header",
+    "/bn/request client navigation",
+    "/bn/request retained shared header",
+    "/bn/login client navigation",
+    "/bn client navigation",
+    "Category filter /en/products?category=lighting",
+    "Category filter /en/products?category=automation",
+    "Category filter /en/products?category=access",
+    "Category filter /en/products?category=switches",
+    "Category filter /en/products?category=security",
+    "Category filter /en/products?category=audio-digital",
+    "Mobile category selection closes filter",
+    "Quick View stays inside catalog",
+    "Quick View restores focus",
+    "Two products and quantities stored without customer fields",
+    "Product quotation carries correct product and purpose",
+    "Product consultation carries correct product",
+    "Cart quotation includes both product quantities",
+    "Blank form submission blocked",
+    "Invalid optional email blocked",
+    "Onsite address required",
+    "Locale preserves cart and full request draft",
+    "No customer details in browser storage or URL",
+    "Submission honestly unavailable, no POST",
+    "PDF print document includes official logo and selected quantities",
+    "Browser Back restores unsent request details",
+    "Cart survives reload",
+    "Service booking preselects service",
+    "Multiple services can be selected on one page",
+    "Five social icons, four unavailable, no fake links",
+    "Mobile footer expands",
+    "Theme control works and persists",
+    "Unified login preserved without fake authentication",
+    "Legacy product URL redirects to catalog Quick View",
+    "No public product prices",
+    "Unknown route shows one branded not-found frame",
+    "No runtime exceptions or backend POSTs",
+    "Real pending Suspense uses official artwork",
+    "Reduced-motion loading is static",
+    "Loading ends as content becomes ready"
+  ],
+  "routes": [
+    {
+      "path": "/en/products",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/services",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/projects",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/about",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/careers",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/contact",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/cart",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/request",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en/login",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/en",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/products",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/services",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/projects",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/about",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/careers",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/contact",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/cart",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/request",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn/login",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    },
+    {
+      "path": "/bn",
+      "documentPreserved": true,
+      "scroll": 0,
+      "headerPreserved": true,
+      "loaders": 0
+    }
+  ],
+  "screenshots": [
+    "home-320-light.png",
+    "catalog-320-light.png",
+    "home-390-light.png",
+    "catalog-390-light.png",
+    "home-1440-light.png",
+    "catalog-1440-light.png",
+    "request-390-bengali.png",
+    "footer-390.png",
+    "login-390.png",
+    "loading-390-reduced-motion.png"
+  ]
+}
