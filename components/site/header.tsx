@@ -1,9 +1,10 @@
 "use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { company, navigation } from "@/lib/public-content";
-import { dictionaries, href, type Locale } from "@/lib/i18n";
+import { navigation } from "@/lib/public-content";
+import { href, type Locale } from "@/lib/i18n";
 import { Icon } from "@/components/ui/icon";
 import { Brand } from "./brand";
 import { MobileNavigation } from "./mobile-navigation";
@@ -49,7 +50,8 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   );
 }
 export function Header({ locale = "en" }: { locale?: Locale }) {
-  const d = dictionaries[locale],
+  const {company}=usePublished();
+  const d = useSiteCopy(locale),
     pathname = usePathname();
   const dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);

@@ -72,3 +72,7 @@ docker-compose*.yml
 README.md
 AGENTS.md
 docs
+
+# Private one-use account links and development media
+.onboarding/
+.media/

@@ -95,6 +95,7 @@ backups/
 *.tar.gz
 *.tgz
 !/prisma/migrations/**/migration.sql
+!/prisma/proposals/*.sql
 
 # vercel
 .vercel
@@ -102,3 +103,7 @@ backups/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Private one-use account links and development media
+.onboarding/
+.media/

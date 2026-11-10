@@ -11,6 +11,7 @@ import { brandingDefaults } from "@/lib/branding";
 import { ThemeInitialization } from "@/components/site/theme-initialization";
 import { FloatingTools } from "@/components/site/floating-tools";
 import { NavigationScroll } from "@/components/site/navigation-scroll";
+import { PublishedFrame } from "@/components/site/published-frame";
 import { Suspense } from "react";
 import "../globals.css";
 import "../refinements.css";
@@ -91,11 +92,11 @@ export default async function RootLayout({
         <a className="skip-link" href="#main-content">
           {dictionaries[locale].skip}
         </a>
-        {children}
+        <Suspense fallback={null}><PublishedFrame>{children}
         <Suspense fallback={null}>
           <NavigationScroll />
         </Suspense>
-        <FloatingTools />
+        <Suspense fallback={null}><FloatingTools /></Suspense></PublishedFrame></Suspense>
       </body>
     </html>
   );

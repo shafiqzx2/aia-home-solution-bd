@@ -1,12 +1,9 @@
 "use client";
 import { useSyncExternalStore } from "react";
-import { productConcepts } from "./public-content";
+
 
 export type CartLine = { id: string; quantity: number };
 export const CART_KEY = "aia-consultation-cart-v1";
-const allowed = new Set(
-  productConcepts.filter((p) => p.status === "published").map((p) => p.slug),
-);
 export function validateCart(value: unknown): CartLine[] {
   if (!Array.isArray(value)) return [];
   const quantities = new Map<string, number>();
@@ -15,7 +12,7 @@ export function validateCart(value: unknown): CartLine[] {
       !item ||
       typeof item !== "object" ||
       typeof item.id !== "string" ||
-      !allowed.has(item.id) ||
+      !/^[a-z0-9][a-z0-9-]{0,100}$/.test(item.id) ||
       !Number.isInteger(item.quantity) ||
       item.quantity < 1 ||
       item.quantity > 99

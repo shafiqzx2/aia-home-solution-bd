@@ -1,8 +1,9 @@
 "use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { dictionaries, href, type Locale } from "@/lib/i18n";
+import { href, type Locale } from "@/lib/i18n";
 import { media } from "@/lib/public-content";
 import { Icon } from "@/components/ui/icon";
 import { requestCopy } from "@/lib/request-copy";
@@ -17,7 +18,8 @@ export function Hero({
   verifiedBadges?: { id: string; label: string; value: string }[];
 }) {
   const [paused, setPaused] = useState(false);
-  const d = dictionaries[locale];
+  const site=usePublished();
+  const d = useSiteCopy(locale);
   const c = requestCopy(locale);
   return (
     <section
@@ -27,7 +29,7 @@ export function Hero({
       <div className="hero-scene" aria-hidden="true">
         <div className="fixture-canvas">
           <Image
-            src={media.hero.src}
+            src={site.pages.home?.[locale]?.body.heroImage||media.hero.src}
             alt=""
             fill
             sizes="100vw"

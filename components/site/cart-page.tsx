@@ -1,10 +1,12 @@
 "use client";
+import {usePublished} from "./published-provider";
 import Link from "next/link";
 import { clearCart, setCartQuantity, useCart } from "@/lib/cart";
-import { productConcepts } from "@/lib/public-content";
+
 import { dictionaries, href, type Locale } from "@/lib/i18n";
 import { requestCopy } from "@/lib/request-copy";
 export function CartPage({ locale }: { locale: Locale }) {
+  const {products:productConcepts}=usePublished();
   const { items, storageAvailable } = useCart(),
     c = requestCopy(locale);
   return (
@@ -20,7 +22,7 @@ export function CartPage({ locale }: { locale: Locale }) {
         ) : (
           <>
             <ul className="cart-lines">
-              {items.map((line) => {
+              {items.filter(line=>productConcepts.some(p=>p.slug===line.id)).map((line) => {
                 const product = productConcepts.find(
                   (p) => p.slug === line.id,
                 )!;

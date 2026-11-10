@@ -1,9 +1,12 @@
-﻿import { company } from "@/lib/public-content";
+"use client";
+import {usePublished} from "./published-provider";
+﻿
 import { type Locale } from "@/lib/i18n";
 import { requestCopy } from "@/lib/request-copy";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Icon, type IconName } from "@/components/ui/icon";
 export function ContactDetails({ locale }: { locale: Locale }) {
+  const {company}=usePublished();
   return <address className="business-contact">
     {company.contact.phone && <a href={`tel:${company.contact.phone}`}>{company.contact.phone}</a>}
     {company.contact.email && <a href={`mailto:${company.contact.email}`}>{company.contact.email}</a>}
@@ -24,6 +27,7 @@ function safeSocialUrl(value: string | null, network: string) {
   } catch { return null; }
 }
 export function SocialLinks({ locale }: { locale: Locale }) {
+  const {company}=usePublished();
   const settings = company.socialLinks;
   const profiles: { label: string; icon: IconName; url: string | null }[] = [
     { label: "Facebook", icon: "facebook" as const, url: settings.facebookUrl },

@@ -1,0 +1,942 @@
+// REVIEW ONLY. Not used by Prisma Client or any deploy/migrate script.
+// First move reviewed SQL into migrations only after explicit owner approval.
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/.prisma/phase-a-review"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum RoleKind {
+  SUPER_ADMIN
+  ADMIN
+  STAFF
+  CUSTOMER
+}
+
+enum ContactKind {
+  EMAIL
+  PHONE
+}
+
+enum Publication {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum RequestKind {
+  CONSULTATION
+  PRODUCT_QUOTATION
+  MULTI_PRODUCT_QUOTATION
+  SERVICE_BOOKING
+  SITE_VISIT
+  OFFICE_VISIT
+  INSTALLATION
+  ENQUIRY
+}
+
+enum RequestStatus {
+  PENDING_REVIEW
+  IN_REVIEW
+  AWAITING_CUSTOMER
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum ClaimStatus {
+  PENDING
+  VERIFIED
+  CONFLICT
+  REJECTED
+  EXPIRED
+}
+
+enum QuoteStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  ISSUED
+  SENT
+  VIEWED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum DocumentStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  ISSUED
+  ARCHIVED
+}
+
+enum ApprovalDecision {
+  APPROVED
+  REJECTED
+}
+
+enum VisitStatus {
+  PROPOSED
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum AssetVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum AssetStatus {
+  QUARANTINED
+  READY
+  ARCHIVED
+}
+
+enum EmailState {
+  DRAFT
+  REVIEWED
+  QUEUED
+  ACCEPTED
+  DELIVERED
+  FAILED
+}
+
+enum JobState {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+enum ContentKind {
+  PAGE
+  PROJECT
+  REVIEW
+  CAREER
+}
+
+model DatabaseHealthCheck {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+}
+
+// Logical identity proposal. Reconcile provider-specific adapter fields before
+// migration. Never implement passwords, recovery, or cookies in domain code.
+model User {
+  id             String             @id @default(cuid())
+  providerId     String             @unique
+  displayName    String
+  disabledAt     DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  roles          RoleAssignment[]
+  sessions       Session[]
+  contacts       VerifiedContact[]
+  challenges     ContactChallenge[]
+  customer       Customer?
+  claims         RequestClaim[]
+  audits         AuditLog[]
+  approvals      ApprovalRecord[]
+  quoteDrafts    QuotationVersion[] @relation("QuoteAuthor")
+  documentDrafts DocumentVersion[]  @relation("DocumentAuthor")
+  assignments    StaffAssignment[]
+  grants         PortalGrant[]
+  notifications  Notification[]
+  notes          RequestNote[]
+  emails         EmailMessage[]
+}
+
+model Session {
+  id                String    @id @default(cuid())
+  providerSessionId String    @unique
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt         DateTime
+  revokedAt         DateTime?
+
+  @@index([userId, expiresAt])
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  kind        RoleKind
+  permissions RolePermission[]
+  assignments RoleAssignment[]
+}
+
+model Permission {
+  scope String           @id
+  roles RolePermission[]
+}
+
+model RolePermission {
+  roleId     String
+  scope      String
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [scope], references: [scope], onDelete: Restrict)
+
+  @@id([roleId, scope])
+}
+
+model RoleAssignment {
+  userId String
+  roleId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  @@id([userId, roleId])
+}
+
+model VerifiedContact {
+  id         String         @id @default(cuid())
+  userId     String
+  user       User           @relation(fields: [userId], references: [id], onDelete: Restrict)
+  kind       ContactKind
+  normalized String
+  verifiedAt DateTime
+  revokedAt  DateTime?
+  claims     RequestClaim[]
+  // No global phone uniqueness: shared/reassigned numbers need explicit conflict review.
+
+  @@unique([userId, kind, normalized])
+  @@index([kind, normalized, revokedAt])
+}
+
+model ContactChallenge {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind       ContactKind
+  normalized String
+  tokenHash  String      @unique
+  purpose    String
+  attempts   Int         @default(0)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime    @default(now())
+
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: Restrict)
+  action     String
+  entityType String
+  entityId   String
+  metadata   Json
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId, createdAt])
+  @@index([actorId, createdAt])
+}
+
+model Customer {
+  id             String             @id @default(cuid())
+  userId         String?            @unique
+  user           User?              @relation(fields: [userId], references: [id], onDelete: Restrict)
+  organizationId String?
+  organization   Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  name           String
+  archivedAt     DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  addresses      CustomerAddress[]
+  requests       CustomerRequest[]
+  quotations     Quotation[]
+  documents      BusinessDocument[]
+}
+
+model Organization {
+  id         String             @id @default(cuid())
+  name       String
+  archivedAt DateTime?
+  customers  Customer[]
+  contacts   BusinessContact[]
+  quotations Quotation[]
+  documents  BusinessDocument[]
+
+  @@index([name])
+}
+
+model BusinessContact {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  name           String
+  designation    String?
+  email          String?
+  phone          String?
+  address        String?
+
+  @@index([organizationId])
+}
+
+model CustomerAddress {
+  id         String    @id @default(cuid())
+  customerId String
+  customer   Customer  @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  label      String
+  address    String
+  latitude   Decimal?  @db.Decimal(10, 7)
+  longitude  Decimal?  @db.Decimal(10, 7)
+  consentAt  DateTime?
+
+  @@index([customerId])
+}
+
+model GuestIdentity {
+  id        String            @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  createdAt DateTime          @default(now())
+  requests  CustomerRequest[]
+
+  // Contact match is a candidate lookup, never an ownership grant.
+  @@index([email])
+  @@index([phone])
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  parentId     String?
+  parent       Category?             @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children     Category[]            @relation("CategoryTree")
+  status       Publication           @default(DRAFT)
+  translations CategoryTranslation[]
+  products     Product[]
+  services     Service[]
+
+  @@index([parentId, status])
+}
+
+model CategoryTranslation {
+  categoryId  String
+  locale      String   @db.VarChar(2)
+  name        String
+  description String
+  seo         Json?
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, locale])
+}
+
+model Product {
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  legacyId     String?              @unique
+  categoryId   String
+  category     Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  status       Publication          @default(DRAFT)
+  contentKind  String
+  archivedAt   DateTime?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  translations ProductTranslation[]
+  privatePrice PrivateProductPrice?
+  inventory    Inventory?
+  collections  ProductCollection[]
+  media        ProductMedia[]
+  services     ProductService[]
+  requestItems RequestItem[]
+  quoteItems   QuotationItem[]
+
+  @@index([status, categoryId, id])
+}
+
+model ProductTranslation {
+  productId      String
+  locale         String  @db.VarChar(2)
+  name           String
+  description    String
+  specifications Json
+  seo            Json?
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, locale])
+}
+
+model PrivateProductPrice {
+  productId String   @id
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  unitPrice Decimal  @db.Decimal(18, 2)
+  currency  String   @default("BDT") @db.VarChar(3)
+  updatedAt DateTime @updatedAt
+}
+
+model Inventory {
+  productId String   @id
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  quantity  Decimal  @db.Decimal(16, 4)
+  updatedAt DateTime @updatedAt
+}
+
+model Collection {
+  id       String              @id @default(cuid())
+  slug     String              @unique
+  name     Json
+  products ProductCollection[]
+}
+
+model ProductCollection {
+  productId    String
+  collectionId String
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  @@id([productId, collectionId])
+}
+
+model Service {
+  id                   String               @id @default(cuid())
+  slug                 String               @unique
+  categoryId           String
+  category             Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  status               Publication          @default(DRAFT)
+  bookingConfiguration Json
+  translations         ServiceTranslation[]
+  products             ProductService[]
+  requestItems         RequestItem[]
+  quoteItems           QuotationItem[]
+
+  @@index([status, categoryId, id])
+}
+
+model ServiceTranslation {
+  serviceId   String
+  locale      String  @db.VarChar(2)
+  name        String
+  description String
+  scope       Json
+  seo         Json?
+  service     Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@id([serviceId, locale])
+}
+
+model ProductService {
+  productId String
+  serviceId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@id([productId, serviceId])
+}
+
+model CustomerRequest {
+  id              String               @id @default(cuid())
+  reference       String               @unique
+  idempotencyKey  String               @unique
+  kind            RequestKind
+  status          RequestStatus        @default(PENDING_REVIEW)
+  customerId      String?
+  customer        Customer?            @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  guestId         String?
+  guest           GuestIdentity?       @relation(fields: [guestId], references: [id], onDelete: Restrict)
+  contactSnapshot Json
+  requirements    String
+  preferredAt     DateTime?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  archivedAt      DateTime?
+  items           RequestItem[]
+  claims          RequestClaim[]
+  history         RequestStatusEvent[]
+  visits          Visit[]
+  notes           RequestNote[]
+  quotations      Quotation[]
+
+  @@index([status, createdAt, id])
+  @@index([customerId, createdAt])
+  @@index([guestId])
+}
+
+model RequestItem {
+  id                  String          @id @default(cuid())
+  requestId           String
+  request             CustomerRequest @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  productId           String?
+  product             Product?        @relation(fields: [productId], references: [id], onDelete: Restrict)
+  serviceId           String?
+  service             Service?        @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  quantity            Decimal         @db.Decimal(16, 4)
+  descriptionSnapshot Json
+
+  @@index([requestId])
+}
+
+model RequestClaim {
+  id                String          @id @default(cuid())
+  requestId         String
+  request           CustomerRequest @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  userId            String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Restrict)
+  verifiedContactId String
+  verifiedContact   VerifiedContact @relation(fields: [verifiedContactId], references: [id], onDelete: Restrict)
+  status            ClaimStatus     @default(PENDING)
+  proofHash         String          @unique
+  expiresAt         DateTime
+  consumedAt        DateTime?
+  createdAt         DateTime        @default(now())
+
+  @@index([requestId, status])
+  @@index([userId, createdAt])
+}
+
+model RequestStatusEvent {
+  id        String          @id @default(cuid())
+  requestId String
+  request   CustomerRequest @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  status    RequestStatus
+  auditId   String          @unique
+  createdAt DateTime        @default(now())
+
+  @@index([requestId, createdAt])
+}
+
+model RequestNote {
+  id        String          @id @default(cuid())
+  requestId String
+  request   CustomerRequest @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  authorId  String
+  author    User            @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  body      String
+  createdAt DateTime        @default(now())
+
+  @@index([requestId, createdAt])
+}
+
+model Visit {
+  id                String            @id @default(cuid())
+  requestId         String
+  request           CustomerRequest   @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  kind              RequestKind
+  status            VisitStatus       @default(PROPOSED)
+  scheduledAt       DateTime?
+  address           String?
+  latitude          Decimal?          @db.Decimal(10, 7)
+  longitude         Decimal?          @db.Decimal(10, 7)
+  locationConsentAt DateTime?
+  assignments       StaffAssignment[]
+
+  @@index([status, scheduledAt])
+}
+
+model StaffAssignment {
+  visitId String
+  userId  String
+  visit   Visit  @relation(fields: [visitId], references: [id], onDelete: Restrict)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@id([visitId, userId])
+}
+
+model Quotation {
+  id                     String             @id @default(cuid())
+  number                 String?            @unique
+  requestId              String?
+  request                CustomerRequest?   @relation(fields: [requestId], references: [id], onDelete: Restrict)
+  customerId             String?
+  customer               Customer?          @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  organizationId         String?
+  organization           Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  currentIssuedVersionId String?            @unique
+  currentIssuedVersion   QuotationVersion?  @relation("CurrentIssued", fields: [currentIssuedVersionId], references: [id], onDelete: Restrict)
+  versions               QuotationVersion[] @relation("QuoteVersions")
+  createdAt              DateTime           @default(now())
+  archivedAt             DateTime?
+
+  @@index([customerId, createdAt])
+  @@index([requestId])
+}
+
+model QuotationVersion {
+  id              String                 @id @default(cuid())
+  quotationId     String
+  quotation       Quotation              @relation("QuoteVersions", fields: [quotationId], references: [id], onDelete: Restrict)
+  currentFor      Quotation?             @relation("CurrentIssued")
+  revision        Int
+  status          QuoteStatus            @default(DRAFT)
+  lockVersion     Int                    @default(0)
+  authorId        String
+  author          User                   @relation("QuoteAuthor", fields: [authorId], references: [id], onDelete: Restrict)
+  currency        String                 @default("BDT") @db.VarChar(3)
+  subtotal        Decimal                @db.Decimal(18, 2)
+  discount        Decimal                @db.Decimal(18, 2)
+  taxPercent      Decimal                @db.Decimal(5, 2)
+  tax             Decimal                @db.Decimal(18, 2)
+  charges         Decimal                @db.Decimal(18, 2)
+  total           Decimal                @db.Decimal(18, 2)
+  financialPolicy String                 @default("BDT_FIXED_DISCOUNT_V1")
+  clientSnapshot  Json
+  companySnapshot Json
+  termsSnapshot   Json
+  contentHash     String
+  documentDate    DateTime               @db.Date
+  validUntil      DateTime?              @db.Date
+  issuedAt        DateTime?
+  createdAt       DateTime               @default(now())
+  items           QuotationItem[]
+  recipients      QuotationRecipient[]
+  approvals       ApprovalRecord[]
+  grants          PortalGrant[]
+  history         QuotationStatusEvent[]
+  files           GeneratedDocument[]
+
+  @@unique([quotationId, revision])
+  @@unique([quotationId, id])
+  @@index([status, createdAt])
+}
+
+model QuotationItem {
+  id          String           @id @default(cuid())
+  versionId   String
+  version     QuotationVersion @relation(fields: [versionId], references: [id], onDelete: Restrict)
+  position    Int
+  productId   String?
+  product     Product?         @relation(fields: [productId], references: [id], onDelete: Restrict)
+  serviceId   String?
+  service     Service?         @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  code        String?
+  description String
+  unit        String
+  quantity    Decimal          @db.Decimal(16, 4)
+  unitPrice   Decimal          @db.Decimal(18, 2)
+  lineTotal   Decimal          @db.Decimal(18, 2)
+
+  @@unique([versionId, position])
+}
+
+model QuotationRecipient {
+  id        String           @id @default(cuid())
+  versionId String
+  version   QuotationVersion @relation(fields: [versionId], references: [id], onDelete: Restrict)
+  name      String?
+  email     String
+
+  @@unique([versionId, email])
+}
+
+model QuotationStatusEvent {
+  id        String           @id @default(cuid())
+  versionId String
+  version   QuotationVersion @relation(fields: [versionId], references: [id], onDelete: Restrict)
+  status    QuoteStatus
+  auditId   String           @unique
+  createdAt DateTime         @default(now())
+
+  @@index([versionId, createdAt])
+}
+
+model PortalGrant {
+  id                 String            @id @default(cuid())
+  userId             String
+  user               User              @relation(fields: [userId], references: [id], onDelete: Restrict)
+  quotationVersionId String?
+  quotationVersion   QuotationVersion? @relation(fields: [quotationVersionId], references: [id], onDelete: Restrict)
+  documentVersionId  String?
+  documentVersion    DocumentVersion?  @relation(fields: [documentVersionId], references: [id], onDelete: Restrict)
+  auditId            String            @unique
+  grantedAt          DateTime          @default(now())
+  revokedAt          DateTime?
+
+  @@index([userId, revokedAt])
+}
+
+model NumberSequence {
+  scope     String
+  period    String
+  nextValue BigInt @default(1)
+
+  @@id([scope, period])
+}
+
+model DocumentTemplate {
+  id         String            @id @default(cuid())
+  name       String
+  kind       String
+  archivedAt DateTime?
+  versions   TemplateVersion[]
+}
+
+model TemplateVersion {
+  id               String            @id @default(cuid())
+  templateId       String
+  template         DocumentTemplate  @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  revision         Int
+  locale           String            @db.VarChar(2)
+  body             String
+  allowedVariables String[]
+  createdAt        DateTime          @default(now())
+  documents        DocumentVersion[]
+
+  @@unique([templateId, revision])
+}
+
+model BusinessDocument {
+  id                     String            @id @default(cuid())
+  reference              String?           @unique
+  kind                   String
+  customerId             String?
+  customer               Customer?         @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  organizationId         String?
+  organization           Organization?     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  versions               DocumentVersion[]
+  currentIssuedVersionId String?           @unique
+  currentIssuedVersion   DocumentVersion?  @relation("CurrentDocument", fields: [currentIssuedVersionId], references: [id], onDelete: Restrict)
+  archivedAt             DateTime?
+  createdAt              DateTime          @default(now())
+}
+
+model DocumentVersion {
+  id                String              @id @default(cuid())
+  documentId        String
+  document          BusinessDocument    @relation(fields: [documentId], references: [id], onDelete: Restrict)
+  currentFor        BusinessDocument?   @relation("CurrentDocument")
+  revision          Int
+  status            DocumentStatus      @default(DRAFT)
+  authorId          String
+  author            User                @relation("DocumentAuthor", fields: [authorId], references: [id], onDelete: Restrict)
+  templateVersionId String?
+  templateVersion   TemplateVersion?    @relation(fields: [templateVersionId], references: [id], onDelete: Restrict)
+  subject           String
+  body              String
+  locale            String              @db.VarChar(2)
+  recipientSnapshot Json
+  companySnapshot   Json
+  senderSnapshot    Json
+  contentHash       String
+  issuedAt          DateTime?
+  createdAt         DateTime            @default(now())
+  approvals         ApprovalRecord[]
+  grants            PortalGrant[]
+  files             GeneratedDocument[]
+
+  @@unique([documentId, revision])
+  @@unique([documentId, id])
+}
+
+model ApprovalRecord {
+  id                 String            @id @default(cuid())
+  quotationVersionId String?
+  quotationVersion   QuotationVersion? @relation(fields: [quotationVersionId], references: [id], onDelete: Restrict)
+  documentVersionId  String?
+  documentVersion    DocumentVersion?  @relation(fields: [documentVersionId], references: [id], onDelete: Restrict)
+  approverId         String
+  approver           User              @relation(fields: [approverId], references: [id], onDelete: Restrict)
+  contentHash        String
+  decision           ApprovalDecision
+  createdAt          DateTime          @default(now())
+
+  @@index([quotationVersionId])
+  @@index([documentVersionId])
+}
+
+model GeneratedDocument {
+  id                 String            @id @default(cuid())
+  quotationVersionId String?
+  quotationVersion   QuotationVersion? @relation(fields: [quotationVersionId], references: [id], onDelete: Restrict)
+  documentVersionId  String?
+  documentVersion    DocumentVersion?  @relation(fields: [documentVersionId], references: [id], onDelete: Restrict)
+  assetId            String            @unique
+  asset              MediaAsset        @relation(fields: [assetId], references: [id], onDelete: Restrict)
+  rendererVersion    String
+  contentHash        String
+  createdAt          DateTime          @default(now())
+  attachments        EmailAttachment[]
+}
+
+model EmailTemplate {
+  id         String    @id @default(cuid())
+  key        String
+  revision   Int
+  subject    String
+  body       String
+  locale     String    @db.VarChar(2)
+  archivedAt DateTime?
+
+  @@unique([key, revision, locale])
+}
+
+model EmailMessage {
+  id                String            @id @default(cuid())
+  authorId          String
+  author            User              @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  revision          Int               @default(1)
+  subject           String
+  html              String
+  senderSnapshot    Json
+  state             EmailState        @default(DRAFT)
+  approvedRevision  Int?
+  approvedByAuditId String?
+  idempotencyKey    String            @unique
+  providerMessageId String?           @unique
+  createdAt         DateTime          @default(now())
+  recipients        EmailRecipient[]
+  attachments       EmailAttachment[]
+  attempts          DeliveryAttempt[]
+
+  @@index([state, createdAt])
+}
+
+model EmailRecipient {
+  id      String       @id @default(cuid())
+  emailId String
+  email   EmailMessage @relation(fields: [emailId], references: [id], onDelete: Restrict)
+  kind    String // constrained to TO/CC/BCC in SQL
+  address String
+
+  @@unique([emailId, kind, address])
+}
+
+model EmailAttachment {
+  emailId             String
+  generatedDocumentId String
+  email               EmailMessage      @relation(fields: [emailId], references: [id], onDelete: Restrict)
+  document            GeneratedDocument @relation(fields: [generatedDocumentId], references: [id], onDelete: Restrict)
+
+  @@id([emailId, generatedDocumentId])
+}
+
+model DeliveryAttempt {
+  id         String       @id @default(cuid())
+  emailId    String
+  email      EmailMessage @relation(fields: [emailId], references: [id], onDelete: Restrict)
+  attempt    Int
+  state      EmailState
+  providerId String?
+  errorCode  String?
+  createdAt  DateTime     @default(now())
+
+  @@unique([emailId, attempt])
+}
+
+model ProviderWebhookEvent {
+  id          String    @id @default(cuid())
+  provider    String
+  eventId     String
+  messageId   String
+  verifiedAt  DateTime
+  processedAt DateTime?
+  payload     Json
+
+  @@unique([provider, eventId])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      String
+  entityId  String
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, readAt, createdAt])
+}
+
+model OutboxJob {
+  id             String    @id @default(cuid())
+  idempotencyKey String    @unique
+  kind           String
+  payload        Json
+  state          JobState  @default(PENDING)
+  attempts       Int       @default(0)
+  nextAttemptAt  DateTime  @default(now())
+  lockedUntil    DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([state, nextAttemptAt])
+}
+
+model CompanySettings {
+  id                     String   @id @default("company")
+  revision               Int      @default(1)
+  name                   String
+  contact                Json
+  branches               Json
+  logoVariants           Json
+  socialLinks            Json
+  businessHours          Json
+  officialIdentifiers    Json?
+  approvedPaymentDetails Json?
+  senderEmail            String?
+  replyToEmail           String?
+  quotationEmail         String?
+  defaultCurrency        String   @default("BDT") @db.VarChar(3)
+  quotationTerms         Json
+  documentFooter         Json
+  emailFooter            Json
+  numberingPreferences   Json
+  updatedAt              DateTime @updatedAt
+}
+
+model MediaAsset {
+  id         String              @id @default(cuid())
+  objectKey  String              @unique
+  bucket     String
+  imageUrl   String?
+  visibility AssetVisibility
+  status     AssetStatus         @default(QUARANTINED)
+  mimeType   String
+  bytes      BigInt
+  sha256     String
+  alt        Json
+  width      Int?
+  height     Int?
+  createdAt  DateTime            @default(now())
+  archivedAt DateTime?
+  products   ProductMedia[]
+  documents  GeneratedDocument[]
+
+  @@index([status, createdAt])
+}
+
+model ProductMedia {
+  productId String
+  assetId   String
+  position  Int
+  product   Product    @relation(fields: [productId], references: [id], onDelete: Restrict)
+  asset     MediaAsset @relation(fields: [assetId], references: [id], onDelete: Restrict)
+
+  @@id([productId, assetId])
+}
+
+model ContentEntry {
+  id           String               @id @default(cuid())
+  kind         ContentKind
+  slug         String
+  status       Publication          @default(DRAFT)
+  verifiedAt   DateTime?
+  consentAt    DateTime?
+  translations ContentTranslation[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  @@unique([kind, slug])
+  @@index([kind, status, createdAt])
+}
+
+model ContentTranslation {
+  entryId String
+  locale  String       @db.VarChar(2)
+  title   String
+  body    Json
+  seo     Json
+  entry   ContentEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  @@id([entryId, locale])
+}

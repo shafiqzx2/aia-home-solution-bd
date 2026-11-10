@@ -1,5 +1,7 @@
+"use client";
+import {usePublished} from "./published-provider";
 import Link from "next/link";
-import { company } from "@/lib/public-content";
+
 import { href, type Locale } from "@/lib/i18n";
 import { BrandArtwork } from "./brand-artwork";
 export function Brand({
@@ -11,6 +13,7 @@ export function Brand({
   placement?: "header" | "footer";
   appearance?: "theme" | "light" | "dark";
 }) {
+  const {company}=usePublished();
   const logo = company.logos[placement];
   return (
     <Link

@@ -1,0 +1,11 @@
+﻿import fs from 'node:fs';
+import {spawnSync} from 'node:child_process';
+let schema=fs.readFileSync('prisma/schema.prisma','utf8');
+schema=schema.replace('model User {','model User {\n  twoFactorEnabled Boolean @default(false)\n  twoFactors TwoFactor[]');
+schema+='\nmodel TwoFactor {\n id String @id @default(cuid())\n secret String\n backupCodes String\n userId String @unique\n user User @relation(fields:[userId],references:[id],onDelete:Cascade)\n verified Boolean @default(false)\n failedVerificationCount Int @default(0)\n lockedUntil DateTime?\n @@index([secret])\n}\n';
+fs.writeFileSync('prisma/proposals/phase-b-mfa.prisma',schema);
+const env={...process.env,DATABASE_URL:'postgresql://review:review@127.0.0.1:1/review',DIRECT_URL:'postgresql://review:review@127.0.0.1:1/review'};
+const args=['migrate','diff','--from-schema-datamodel','prisma/schema.prisma','--to-schema-datamodel','prisma/proposals/phase-b-mfa.prisma','--script'];
+const diff=spawnSync(process.execPath,['node_modules/prisma/build/index.js',...args],{env,encoding:'utf8',windowsHide:true});if(diff.status)throw Error('MFA schema validation failed.');
+if(/\b(DROP|TRUNCATE|DELETE)\b/i.test(diff.stdout.replace(/ON DELETE CASCADE/g,'')))throw Error('Unexpected MFA migration shape.');
+fs.writeFileSync('prisma/proposals/phase-b-mfa.sql','-- Additive MFA follow-up; requires separate local approval.\nBEGIN;\n'+diff.stdout+'\nALTER TABLE "TwoFactor" ENABLE ROW LEVEL SECURITY;\nREVOKE ALL ON TABLE "TwoFactor" FROM PUBLIC;\nCOMMIT;\n');console.log('Prepared additive MFA follow-up: one User flag and one encrypted-authenticator table; not executed.');

@@ -1,9 +1,10 @@
 "use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 import Link from "next/link";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { useParams } from "next/navigation";
-import { dictionaries, href, isLocale } from "@/lib/i18n";
-import { company } from "@/lib/public-content";
+import { href, isLocale } from "@/lib/i18n";
+
 import { themeStorageKey } from "@/lib/theme";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Icon } from "@/components/ui/icon";
@@ -52,7 +53,8 @@ export function FloatingTools() {
     typeof params.lang === "string" && isLocale(params.lang)
       ? params.lang
       : "en";
-  const d = dictionaries[locale];
+  const {company}=usePublished();
+  const d = useSiteCopy(locale);
   const theme = useSyncExternalStore(
     subscribeTheme,
     themeSnapshot,

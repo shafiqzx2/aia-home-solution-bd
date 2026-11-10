@@ -1,8 +1,11 @@
+"use client";
+import {usePublished} from "./published-provider";
 ﻿import Link from "next/link";
-import { categories } from "@/lib/public-content";
+
 import { href, type Locale } from "@/lib/i18n";
 import { Icon } from "@/components/ui/icon";
 export function RelatedProducts({ locale, areas }: { locale: Locale; areas: string[] }) {
+  const {categories}=usePublished();
   const related = categories.filter((category) => areas.includes(category.id));
   if (!related.length) return null;
   return <section className="section-space related-products"><div className="shell">

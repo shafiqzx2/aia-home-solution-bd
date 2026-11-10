@@ -1,12 +1,15 @@
+"use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 ﻿import Link from "next/link";
 import { Brand } from "./brand";
-import { company, navigation, solutionPreviews, publicServices } from "@/lib/public-content";
-import { dictionaries, href, type Locale } from "@/lib/i18n";
+import { navigation } from "@/lib/public-content";
+import { href, type Locale } from "@/lib/i18n";
 import { ContactDetails, SocialLinks } from "./contact-details";
 import { requestCopy } from "@/lib/request-copy";
 import { FooterLinks } from "./footer-links";
 export function Footer({ locale = "en" }: { locale?: Locale }) {
-  const d = dictionaries[locale];
+  const {company,solutionPreviews,services:publicServices}=usePublished();
+  const d = useSiteCopy(locale);
   const labels = { navigation: locale === "bn" ? "দেখুন" : "Discover", categories: locale === "bn" ? "পণ্যের বিভাগ" : "Product categories" };
   return <footer className="site-footer"><div className="shell">
     <div className="footer-main">

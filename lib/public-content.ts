@@ -1,5 +1,6 @@
 import { text, type Localized } from "./i18n";
-import { brandingDefaults, type BrandingSettings } from "./branding";
+import { type BrandingSettings } from "./branding";
+import { companySettings } from "./business/company-settings";
 
 export type PublishStatus = "draft" | "published";
 export type Media = {
@@ -89,26 +90,7 @@ export type SiteSettings = {
   }[];
   logos: BrandingSettings;
 };
-export const company: SiteSettings = {
-  name: "AIA Home Solutions BD",
-  country: text("Bangladesh", "বাংলাদেশ"),
-  contact: {
-    phone: "+8801601891663",
-    email: "info@aiagroupbd.com",
-    whatsapp: "+8801601891663",
-    whatsappMessage: text(
-      "Hello AIA Home Solutions BD, I would like to discuss a home or commercial project.",
-      "AIA Home Solutions BD, আমার বাসা বা বাণিজ্যিক প্রকল্প নিয়ে আলোচনা করতে চাই।",
-    ),
-    address: text(
-      "H#30, Sonargaon Janapath, Uttara, Dhaka 1230",
-      "বাসা #৩০, সোনারগাঁও জনপথ, উত্তরা, ঢাকা ১২৩০",
-    ),
-  },
-  socialLinks: { facebookUrl: null, instagramUrl: null, youtubeUrl: null, linkedinUrl: null },
-  social: [],
-  logos: brandingDefaults,
-};
+export const company: SiteSettings = companySettings;
 export const navigation = [
   "home",
   "products",

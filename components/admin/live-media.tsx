@@ -1,0 +1,8 @@
+"use client";
+import {useState,type FormEvent} from 'react';
+import {hasAccess,type AccessProfile} from '@/lib/business/access';
+export function LiveMedia({actor,notify,reload}:{actor:AccessProfile;notify:(s:string)=>void;reload:()=>void}){
+ const [busy,setBusy]=useState(false),[url,setUrl]=useState('');
+ async function upload(event:FormEvent<HTMLFormElement>){event.preventDefault();const form=event.currentTarget;setBusy(true);try{const response=await fetch('/api/admin/media/upload',{method:'POST',body:new FormData(form)}),result=await response.json();if(!response.ok)throw Error(result.error);setUrl(result.url);notify('Sanitized image saved to storage.');form.reset();reload();}catch(error){notify((error as Error).message);}finally{setBusy(false);}}
+ return <section className="a-panel"><h2>Upload an image</h2><p>JPEG, PNG or WebP up to 3 MB. Images are decoded and re-encoded without metadata. Files stay private unless explicitly published.</p><form onSubmit={upload}><fieldset disabled={busy||!hasAccess(actor,'media.create')}><label>Image<input required type="file" name="file" accept="image/jpeg,image/png,image/webp"/></label><label>English description<input required maxLength={500} name="altEn"/></label><label>Bengali description<input maxLength={500} name="altBn"/></label><label>Visibility<select name="visibility"><option value="PRIVATE">Private workspace</option>{hasAccess(actor,'media.publish')&&<option value="PUBLIC">Public website</option>}</select></label><button className="a-button">Upload sanitized image</button></fieldset></form>{url&&<p>CMS image path: <a href={url} target="_blank" rel="noopener noreferrer">{url}</a></p>}</section>;
+}

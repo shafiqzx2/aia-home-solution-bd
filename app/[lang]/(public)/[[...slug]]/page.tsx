@@ -2,12 +2,13 @@ import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { dictionaries, href, isLocale } from "@/lib/i18n";
 import {
-  company,
   navigation,
-  productConcepts,
   publicServices,
   portfolio,
 } from "@/lib/public-content";
+import { ReviewPreview } from "@/components/site/review-preview";
+import { TrustPreview } from "@/components/site/trust-preview";
+import { publishedSite } from "@/lib/server/published";
 import { PublicPage } from "@/components/site/public-page";
 import { requestCopy } from "@/lib/request-copy";
 
@@ -32,7 +33,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug = [] } = await params;
   if (!isLocale(lang)) return {};
-  const d = dictionaries[lang];
+  const {products:productConcepts,services:publicServices,company,portfolio,pages}=await publishedSite();
+  const d = {...dictionaries[lang],...pages[slug[0]||"home"]?.[lang]?.body.copy} as typeof dictionaries.en;
   const path = slug.join("/");
   const key = slug[0] as (typeof navigation)[number];
   const entries =
@@ -84,11 +86,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 async function ResolvedPage({ params }: Props) {
   const { lang, slug = [] } = await params;
   if (!isLocale(lang)) notFound();
+  const {products:productConcepts,services,portfolio}=await publishedSite();
   if (slug.length === 2 && slug[0] === "products" && productConcepts.some((p) => p.slug === slug[1] && p.status === "published")) {
     redirect(href(lang, "products") + "?product=" + encodeURIComponent(slug[1]));
   }
-  if (!routes.includes(slug.join("/"))) notFound();
-  return <PublicPage locale={lang} segments={slug} />;
+  const dynamicItem=slug.length===2&&((slug[0]==='services'&&services.some(s=>s.slug===slug[1]))||(slug[0]==='projects'&&portfolio.some(p=>p.slug===slug[1])));
+  if (!routes.includes(slug.join('/'))&&!dynamicItem) notFound();
+  return <PublicPage locale={lang} segments={slug} extras={<><ReviewPreview locale={lang}/><TrustPreview locale={lang}/></>} />;
 }
 
 export default function Page({ params }: Props) {

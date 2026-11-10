@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import type { CSSProperties } from "react";
+import { Suspense, type CSSProperties } from "react";
 import { brandingDefaults } from "@/lib/branding";
 import { dictionaries, isLocale, type Locale } from "@/lib/i18n";
 import { BrandArtwork } from "./brand-artwork";
@@ -24,5 +24,5 @@ export function BrandedLoading({ locale, compact = false }: { locale?: Locale; c
 }
 
 export function RouteLoading() {
-  return <main id="main-content" className="brand-loading-page" aria-busy="true"><BrandedLoading /></main>;
+  return <main id="main-content" className="brand-loading-page" aria-busy="true"><Suspense fallback={null}><BrandedLoading /></Suspense></main>;
 }

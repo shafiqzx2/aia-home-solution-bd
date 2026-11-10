@@ -70,7 +70,7 @@ export function assertRestoreRole(identity, database) {
   }
 }
 
-export async function restoreIsolated(bytes, manifest, { run = docker, delay = setTimeout, log = console.log } = {}) {
+export async function restoreIsolated(bytes, manifest, { run = docker, delay = setTimeout, log = console.log, onVerifiedRestore } = {}) {
   validateArchive(bytes, manifest);
   const plan = createPlan(await run(["image", "inspect", "postgres:16-alpine", "--format", "{{.Id}}"]));
   const adminPassword = randomBytes(32).toString("hex");
@@ -144,6 +144,10 @@ export async function restoreIsolated(bytes, manifest, { run = docker, delay = s
   }
   log(`Restore verified: ${JSON.stringify(restored.rows)}`);
   log("The development database was never connected to, mounted, or networked with this container.");
+  if (onVerifiedRestore) {
+    await inspect();
+    await onVerifiedRestore({ database:plan.database,containerId:id,executeSql:sql=>psql(role,plan.database,restorePassword,sql) });
+  }
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

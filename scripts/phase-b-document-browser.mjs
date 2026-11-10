@@ -1,0 +1,24 @@
+import {PrismaClient} from '@prisma/client';
+import {hashPassword} from 'better-auth/crypto';
+import {randomBytes,randomUUID} from 'node:crypto';
+import {existsSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {allScopes} from '../lib/business/access.ts';
+import {browser} from './lib/cdp.mjs';
+for(const file of ['.env','.env.local'])if(existsSync(file))process.loadEnvFile(file);
+const target=new URL(process.env.DATABASE_URL);if(!['localhost','127.0.0.1'].includes(target.hostname)||target.pathname!=='/aia'||process.env.VERCEL)throw Error('Local source required.');target.pathname='/aia_workflow_verify_20261110_a1';process.env.DATABASE_URL=target.href;
+const db=new PrismaClient(),base='http://localhost:3004',password=randomBytes(28).toString('base64url'),tag='browser-qa-'+randomUUID();let user,b;
+async function click(text){await b.evaluate(`(()=>{const button=[...document.querySelectorAll('button')].find(e=>e.textContent.trim()===${JSON.stringify(text)}&&e.getClientRects().length&&!e.disabled);if(!button)throw Error('Visible action missing');button.click();})()`);}
+try{
+ const role=await db.role.create({data:{name:tag,kind:'STAFF',permissions:{create:allScopes.map(scope=>({scope}))}}});user=await db.user.create({data:{email:tag+'@example.invalid',displayName:'LOCAL VERIFICATION ONLY',emailVerified:true,roles:{create:{roleId:role.id}}}});await db.account.create({data:{providerId:'credential',accountId:user.id,userId:user.id,password:await hashPassword(password)}});
+ b=await browser();await b.navigate(base+'/en/login');await b.fill('Email',user.email);await b.fill('Password',password);await click('Sign in');await b.until('location.pathname.includes("/admin")');
+ await b.navigate(base+'/en/admin/quotations');await b.until('!!document.querySelector(".a-editor-fields")');await b.fill('Client / organization','ISOLATED BROWSER VERIFICATION');await click('Add custom line');await b.fill('Description · item 1','Browser verification item');await b.fill('Unit price · BDT','125');await click('Save to PostgreSQL');await b.until('document.querySelector(".a-register-actions")?.innerText.includes("Submit saved revision")');
+ const saved=await db.quotationVersion.findFirst({where:{authorId:user.id},orderBy:{createdAt:'desc'}});assert(saved);assert.equal(saved.termsSnapshot.draft.client,'ISOLATED BROWSER VERIFICATION');
+ await click('Submit saved revision');await b.until('document.querySelector(".a-register-actions")?.previousElementSibling?.textContent.includes("PENDING_APPROVAL")');await click('Approve saved revision');await b.until('document.querySelector(".a-register-actions")?.previousElementSibling?.textContent.includes("APPROVED")');await click('Issue saved revision');await b.until('document.querySelector(".a-register-actions")?.previousElementSibling?.textContent.includes("ISSUED")');await click('Open issued PDF / print');await b.until('!!document.querySelector("iframe[title^=Persisted]")');console.log('PASS Premium quotation editor saves, approves, issues and opens authorized output');
+ const html=await b.evaluate('document.querySelector("iframe[title^=Persisted]").srcdoc');assert(html.includes('ISSUED'));assert(!html.includes('>DEMO<'));
+ await b.navigate(base+'/en/admin/memo-studio');await b.until('!!document.querySelector(".a-editor-fields")');await b.fill('Client / company','ISOLATED MEMO BROWSER VERIFICATION');await click('Add item');await b.until('!!document.querySelector(".a-line")');
+ await b.evaluate(`(()=>{const inputs=[...document.querySelectorAll('.a-line textarea')];const field=inputs[0];Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set.call(field,'Browser memo item');field.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+ await click('Save to PostgreSQL');await b.until('!!document.querySelector(".a-register-actions")');assert(await db.documentVersion.findFirst({where:{authorId:user.id}}));console.log('PASS Original memo studio persists a real PostgreSQL draft without simulated payments');
+ for(const width of [1440,390])for(const theme of ['light','dark']){await b.viewport(width,1050);await b.evaluate(`document.documentElement.dataset.theme=${JSON.stringify(theme)}`);assert.equal(await b.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),true);}
+ assert.deepEqual(b.errors,[]);await b.navigate('data:text/html;base64,'+Buffer.from(html).toString('base64'));const pdf=await b.send('Page.printToPDF',{printBackground:true,preferCSSPageSize:true});assert(Buffer.from(pdf.data,'base64').subarray(0,5).equals(Buffer.from('%PDF-')));console.log('PASS Issued A4 output produces a PDF; editor fits both themes at desktop/mobile widths');console.log(JSON.stringify({passed:3,runtimeErrors:0,workingDatabaseModified:false}));
+}finally{if(b)await b.close();if(user){await db.session.deleteMany({where:{userId:user.id}});await db.user.update({where:{id:user.id},data:{disabledAt:new Date()}});}await db.$disconnect();}

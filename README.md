@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Business platform Phase A.1
+
+The current delivery is the [Phase A.1 report](docs/phase-a1-report.md), with a [screenshot and actual PDF gallery](docs/phase-a1-review/index.html), [sales schema/ER extension](docs/phase-a1-schema-erd.md), and [migration review packet](docs/phase-a1-migration-review.md). It includes the premium workspace redesign, 56 navigation entries with honest implementation states, local Product Management, permission/staff simulation, custom Sales Memo Studio and quotation conversion.
+
+Run `pnpm.cmd test` for all 31 unit/mock safety tests. `pnpm.cmd review:phase-a1-schema` validates and regenerates the separate proposal offline. `pnpm.cmd demo:plan` prints fixture counts without connecting to a database; its CLI cannot apply seeds. After building and starting a local production server on port 3002 alongside development on port 3000, `pnpm.cmd review:phase-a1-browser` refreshes the functional/browser/PDF evidence with locally installed Edge. `node scripts/phase-a1-evidence.mjs` rebuilds the gallery only after that evidence passes.
+
+All business tools remain development-only, in-memory drafts or explicit simulations. No business database persistence, secure Root provisioning, production staff permissions, real financial issue, payment collection, R2 storage or email dispatch is connected. The Phase A.1 report lists the exact Phase B approvals and remaining work.
+
+### Historical Phase A foundation
+
+The original [Phase A delivery report](docs/phase-a-report.md) links the [architecture](docs/phase-a-architecture.md), [proposed schema/ER diagram](docs/phase-a-schema-erd.md), [migration approval packet](docs/phase-a-migration-review.md), and [historical screenshot/PDF evidence](docs/phase-a-review/README.md).
+
+With the development server running, open `/en/admin-preview` for the local workspace, quotation editor, letter and email draft tools. Drafts stay in the current tab and can be exported; database persistence, real authentication, approvals, official issuance, R2 storage and mail delivery are not connected. The local review route is unavailable in a production build; administrative routes/APIs fail closed. Existing public flows remain in place.
+
+`pnpm test:phase-a` runs domain safety tests. `pnpm review:phase-a-schema` validates and generates the separate proposal offline; it does not connect to or migrate a database. Do not apply business migrations without the explicit target/SQL/backup approval described in the packet. No commit, push or deployment is implied by this local work.
+
 ## Deployment preparation
 
 See [Docker and Dokploy deployment](docs/deployment.md) for image design, environment variables, local Docker checks, Bangladesh latency considerations and future PostgreSQL integration.

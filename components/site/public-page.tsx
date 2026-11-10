@@ -1,33 +1,27 @@
+"use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, type ReactNode } from "react";
 import { dictionaries, href, type Locale } from "@/lib/i18n";
-import {
-  categories,
-  company,
-  jobs,
-  media,
-  portfolio,
-  productConcepts,
-  publicServices,
-} from "@/lib/public-content";
+import {media} from "@/lib/public-content";
 import { BrandedLoading } from "./branded-loading";
 import { Catalog } from "./catalog";
 import { ProjectBrief } from "./project-brief";
 import { MediaGallery } from "./media-gallery";
 import { ServiceCatalog } from "./service-catalog";
-import { ReviewPreview } from "./review-preview";
+
 import { flattenCategories } from "@/lib/category-tree";
 import { CartPage } from "./cart-page";
 import { RequestFlow } from "./request-flow";
 import { requestCopy } from "@/lib/request-copy";
 import { HomeContent, ClosingCTA } from "./home-content";
 import { ServiceActions } from "./service-actions";
-import { TrustPreview } from "./trust-preview";
+
 import { ContactDetails, SocialLinks } from "./contact-details";
 import { RelatedProducts } from "./related-products";
 
-const allCategories = flattenCategories(categories);
+
 
 function PageIntro({
   title,
@@ -50,7 +44,8 @@ function QuotationCTA({ locale }: { locale: Locale }) {
   return <ClosingCTA locale={locale} />;
 }
 function ProjectCards({ locale }: { locale: Locale }) {
-  const d = dictionaries[locale];
+  const {portfolio}=usePublished();
+  const d = useSiteCopy(locale);
   return (
     <div className="project-grid">
       {portfolio
@@ -78,7 +73,7 @@ function ProjectCards({ locale }: { locale: Locale }) {
     </div>
   );
 }
-function Home({ locale }: { locale: Locale }) {
+function Home({ locale, extras }: { locale: Locale; extras?: ReactNode }) {
   const d = dictionaries[locale];
   return (
     <HomeContent locale={locale}>
@@ -99,28 +94,31 @@ function Home({ locale }: { locale: Locale }) {
           <p className="content-note">{d.projectNotice}</p>
         </div>
       </section>
-      <ReviewPreview locale={locale} />
-      <TrustPreview locale={locale} />
+      {extras}
     </HomeContent>
   );
 }
 function PageContent({
   locale,
   segments,
+  extras,
 }: {
   locale: Locale;
   segments: string[];
+  extras?: ReactNode;
 }) {
-  const d = dictionaries[locale],
+  const {categories,company,jobs,portfolio,products:productConcepts,services:publicServices,pages,connected}=usePublished();
+  const allCategories=flattenCategories(categories);
+  const d = useSiteCopy(locale),
     [page, slug] = segments;
-  if (!page) return <Home locale={locale} />;
+  if (!page) return <Home locale={locale} extras={extras} />;
   if (page === "privacy")
     return (
       <section className="section-space">
         <div className="shell privacy-copy">
           <PageIntro title={requestCopy(locale).privacy} />
           <h2>{locale === "bn" ? "এই ফর্মে কী হয়" : "What this form does"}</h2>
-          <p>{requestCopy(locale).localOnly}</p>
+          <p>{connected?"Submitting a request stores the contact details, preferences, and selected products or services you provide so AIA can review and follow up. Submission does not confirm an appointment or order.":requestCopy(locale).localOnly}</p>
           <h2>
             {locale === "bn" ? "আপনার ব্রাউজারের সংরক্ষণ" : "Browser storage"}
           </h2>
@@ -313,6 +311,7 @@ function PageContent({
               </div>
               <div className="prose">
                 <h2>{company.name}</h2>
+                {pages.about?.[locale]?.body.leadership?.name&&<section>{pages.about[locale]!.body.leadership!.photo&&<Image src={pages.about[locale]!.body.leadership!.photo!} alt={pages.about[locale]!.body.leadership!.name} width={320} height={360}/>}<h2>{pages.about[locale]!.body.leadership!.name}</h2><p>{pages.about[locale]!.body.leadership!.designation}</p><p>{pages.about[locale]!.body.leadership!.biography}</p></section>}
                 <p>{d.aboutCopy}</p>
                 <p>{d.aboutApproach}</p>
                 <h2 className="subheading">{d.approach}</h2>
@@ -465,7 +464,7 @@ function PageContent({
             <p>
               {locale === "bn"
                 ? "না। ডাউনলোড ও প্রিন্ট আপনার ডিভাইসে হয়। অনলাইনে জমা দেওয়া এখনো চালু হয়নি। সরাসরি যোগাযোগ করুন।"
-                : "No. Downloading and printing happen on your device. Online submission is not yet available; contact AIA directly."}
+                : connected?"Downloading and printing happen on your device. Only submitting the form sends your details to AIA and returns a request reference.":"No. Downloading and printing happen on your device. Online submission is not yet available; contact AIA directly."}
             </p>
           </details>
         </div>
@@ -477,14 +476,16 @@ function PageContent({
 export function PublicPage({
   locale,
   segments,
+  extras,
 }: {
   locale: Locale;
   segments: string[];
+  extras?: ReactNode;
 }) {
   return (
     <>
       <main id="main-content" data-page-path={href(locale, segments.join("/"))}>
-        <PageContent locale={locale} segments={segments} />
+        <PageContent locale={locale} segments={segments} extras={extras} />
       </main>
     </>
   );

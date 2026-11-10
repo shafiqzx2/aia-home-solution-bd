@@ -1,16 +1,15 @@
+"use client";
+import {usePublished,useSiteCopy} from "./published-provider";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { dictionaries, href, text, type Locale } from "@/lib/i18n";
-import {
-  solutionPreviews,
-  publicServices,
-} from "@/lib/public-content";
+import { href, text, type Locale } from "@/lib/i18n";
+
 import { requestCopy } from "@/lib/request-copy";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { Hero } from "./hero";
 import { ServiceActions } from "./service-actions";
-import { verifiedMetrics } from "@/lib/trust-content";
+
 
 const highlights: {
   title: ReturnType<typeof text>;
@@ -52,7 +51,7 @@ const highlights: {
 ];
 export function ClosingCTA({ locale }: { locale: Locale }) {
   const c = requestCopy(locale),
-    d = dictionaries[locale];
+    d = useSiteCopy(locale);
   return (
     <section className="quotation-strip closing-cta">
       <div className="shell">
@@ -95,7 +94,8 @@ export function HomeContent({
   locale: Locale;
   children: ReactNode;
 }) {
-  const d = dictionaries[locale],
+  const {solutionPreviews,services:publicServices,trustBadges,connected}=usePublished();
+  const d = useSiteCopy(locale),
     c = requestCopy(locale);
   const journey: {
     icon: IconName;
@@ -130,7 +130,7 @@ export function HomeContent({
       icon: "check",
       title: text("Review & contact AIA", "পর্যালোচনা ও যোগাযোগ"),
       copy: text(
-        "Save your request document and contact AIA for review and confirmation. Online submission is coming later.",
+        connected?"Submit your request and keep its reference. AIA will review your requirements and contact you to confirm the next step.":"Save your request document and contact AIA for review and confirmation. Online submission is coming later.",
         "অনুরোধের নথি সংরক্ষণ করে পর্যালোচনা ও নিশ্চিত করার জন্য AIA-এর সঙ্গে যোগাযোগ করুন। অনলাইনে জমা দেওয়া পরে চালু হবে।",
       ),
     },
@@ -139,19 +139,7 @@ export function HomeContent({
     <>
       <Hero
         locale={locale}
-        verifiedBadges={verifiedMetrics
-          .filter(
-            (item) =>
-              item.status === "published" &&
-              item.approved &&
-              item.sourceUrl &&
-              item.verifiedAt,
-          )
-          .map((item) => ({
-            id: item.id,
-            label: item.label[locale],
-            value: item.value,
-          }))}
+        verifiedBadges={trustBadges.map(m=>({id:m.id,label:m.label[locale],value:m.value}))}
       />
       <section className="section-space home-overview" id="solutions">
         <div className="shell">

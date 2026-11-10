@@ -7,6 +7,9 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "test:phase-a": "node --test scripts/phase-a.test.mjs",
+    "review:phase-a-schema": "node scripts/phase-a-schema.mjs",
+    "review:phase-a-browser": "node scripts/phase-a-browser.mjs",
     "db:generate": "prisma generate",
     "db:check": "node scripts/db-check.mjs",
     "db:backup": "node scripts/db-backup.mjs backup",
@@ -14,13 +17,25 @@
     "db:restore:check": "node --test scripts/db-restore-test.test.mjs",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "test": "node --test scripts/phase-a.test.mjs scripts/phase-a1.test.mjs scripts/db-restore-test.test.mjs scripts/phase-b.test.mjs",
+    "test:phase-a1": "node --test scripts/phase-a1.test.mjs",
+    "review:phase-a1-schema": "node scripts/phase-a1-schema.mjs",
+    "review:phase-a1-browser": "node scripts/phase-a1-browser.mjs",
+    "demo:plan": "node scripts/demo-seed-plan.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
+    "@better-auth/prisma-adapter": "1.7.18",
     "@prisma/client": "6.19.0",
+    "better-auth": "1.7.18",
     "next": "16.4.4",
+    "playwright-core": "^1.65.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "0.0.1",
+    "sharp": "0.35.5",
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

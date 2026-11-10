@@ -1,0 +1,156 @@
+// REVIEW SOURCE FRAGMENT. The offline helper combines this with Phase A into
+// phase-a1.prisma. Never use this fragment as an active Prisma schema.
+enum SaleState {
+  DRAFT
+  COMMITTED
+  VOIDED
+}
+enum CommercialKind {
+  MEMO
+  INVOICE
+  RECEIPT
+  CHALLAN
+}
+enum LedgerState {
+  POSTED
+  VOIDED
+}
+model Sale {
+  id                       String @id @default(cuid())
+  reference                String @unique
+  idempotencyKey           String @unique
+  customerId               String?
+  customer                 Customer? @relation(fields:[customerId], references:[id], onDelete:Restrict)
+  sourceQuotationVersionId String?
+  sourceQuotationVersion   QuotationVersion? @relation(fields:[sourceQuotationVersionId], references:[id], onDelete:Restrict)
+  state                    SaleState @default(DRAFT)
+  saleDate                 DateTime @db.Date
+  currency                 String @default("BDT") @db.VarChar(3)
+  customerSnapshot         Json
+  companySnapshot          Json
+  subtotal                 Decimal @db.Decimal(18,2)
+  discount                 Decimal @db.Decimal(18,2)
+  taxPercent               Decimal @db.Decimal(7,4)
+  tax                      Decimal @db.Decimal(18,2)
+  charges                  Decimal @db.Decimal(18,2)
+  total                    Decimal @db.Decimal(18,2)
+  committedAt              DateTime?
+  demoScope                String?
+  createdAt                DateTime @default(now())
+  items                    SaleItem[]
+  documents                CommercialDocument[]
+  allocations              PaymentAllocation[]
+  deliveries               DeliveryRecord[]
+  @@index([demoScope,state,saleDate,id])
+}
+model SaleItem {
+  id          String @id @default(cuid())
+  saleId      String
+  sale        Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
+  position    Int
+  productId   String?
+  product     Product? @relation(fields:[productId], references:[id], onDelete:Restrict)
+  snapshot    Json
+  quantity    Decimal @db.Decimal(16,4)
+  unitPrice   Decimal @db.Decimal(18,2)
+  lineTotal   Decimal @db.Decimal(18,2)
+  deliveries  DeliveryItem[]
+  @@unique([saleId,position])
+}
+// Uses existing document revision, approval, file, grant and numbering records.
+// A receipt points at ONE payment; a challan points at ONE delivery event.
+model CommercialDocument {
+  id                String @id @default(cuid())
+  saleId            String
+  sale              Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
+  documentVersionId String @unique
+  documentVersion   DocumentVersion @relation(fields:[documentVersionId], references:[id], onDelete:Restrict)
+  kind              CommercialKind
+  paymentId         String?
+  payment           PaymentRecord? @relation(fields:[paymentId], references:[id], onDelete:Restrict)
+  deliveryId        String?
+  delivery          DeliveryRecord? @relation(fields:[deliveryId], references:[id], onDelete:Restrict)
+  financialSnapshot Json
+  @@index([saleId,kind])
+}
+model PaymentMethod {
+  id         String @id @default(cuid())
+  code       String @unique
+  label      String
+  active     Boolean @default(false)
+  config     Json
+  payments   PaymentRecord[]
+}
+model PaymentRecord {
+  id             String @id @default(cuid())
+  reference      String @unique
+  idempotencyKey String @unique
+  methodId       String
+  method         PaymentMethod @relation(fields:[methodId], references:[id], onDelete:Restrict)
+  externalRef    String?
+  receivedAt     DateTime
+  amount         Decimal @db.Decimal(18,2)
+  currency       String @default("BDT") @db.VarChar(3)
+  state          LedgerState @default(POSTED)
+  evidence       Json
+  demoScope      String?
+  allocations    PaymentAllocation[]
+  refunds        RefundRecord[]
+  documents      CommercialDocument[]
+  @@unique([methodId,externalRef])
+  @@index([demoScope,receivedAt,id])
+}
+model PaymentAllocation {
+  id        String @id @default(cuid())
+  paymentId String
+  payment   PaymentRecord @relation(fields:[paymentId], references:[id], onDelete:Restrict)
+  saleId    String
+  sale      Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
+  amount    Decimal @db.Decimal(18,2)
+  @@unique([paymentId,saleId])
+}
+model RefundRecord {
+  id             String @id @default(cuid())
+  reference      String @unique
+  idempotencyKey String @unique
+  paymentId      String
+  payment        PaymentRecord @relation(fields:[paymentId], references:[id], onDelete:Restrict)
+  amount         Decimal @db.Decimal(18,2)
+  reason         String
+  recordedAt     DateTime
+  evidence       Json
+}
+model DeliveryRecord {
+  id             String @id @default(cuid())
+  reference      String @unique
+  idempotencyKey String @unique
+  saleId         String
+  sale           Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
+  deliveredAt    DateTime
+  evidence       Json
+  items          DeliveryItem[]
+  documents      CommercialDocument[]
+}
+model DeliveryItem {
+  id          String @id @default(cuid())
+  deliveryId  String
+  delivery    DeliveryRecord @relation(fields:[deliveryId], references:[id], onDelete:Restrict)
+  saleItemId  String
+  saleItem    SaleItem @relation(fields:[saleItemId], references:[id], onDelete:Restrict)
+  quantity    Decimal @db.Decimal(16,4)
+  movements   StockMovement[]
+  @@unique([deliveryId,saleItemId])
+}
+model StockMovement {
+  id             String @id @default(cuid())
+  idempotencyKey String @unique
+  productId      String
+  product        Product @relation(fields:[productId], references:[id], onDelete:Restrict)
+  deliveryItemId String? @unique
+  deliveryItem   DeliveryItem? @relation(fields:[deliveryItemId], references:[id], onDelete:Restrict)
+  quantityDelta  Decimal @db.Decimal(16,4)
+  reason         String
+  recordedAt     DateTime @default(now())
+  demoScope      String?
+  @@index([productId,recordedAt,id])
+}

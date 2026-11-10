@@ -1,6 +1,8 @@
 "use client";
+import {usePublished} from "./published-provider";
 import {
   useEffect,
+  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -9,7 +11,7 @@ import {
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useCart, validateCart, type CartLine } from "@/lib/cart";
-import { company, productConcepts, publicServices } from "@/lib/public-content";
+
 import { dictionaries, href, type Locale } from "@/lib/i18n";
 import {
   contactModes,
@@ -33,10 +35,9 @@ import {
 import { RequestDocument, type RequestDocumentData } from "./request-document";
 import { BrandedLoading } from "./branded-loading";
 
-const products = productConcepts.filter((p) => p.status === "published");
-const services = publicServices.filter((s) => s.status === "published");
 const subscribe = () => () => {};
 export function RequestFlow({ locale }: { locale: Locale }) {
+  const {services}=usePublished();
   const params = useSearchParams(),
     { items } = useCart();
   const pathname = usePathname();
@@ -108,9 +109,10 @@ function RequestForm({
   initialCustom: boolean;
   initialPurpose: keyof typeof requestPurposes;
 }) {
+  const {products,services,company,connected}=usePublished();
   const c = requestCopy(locale),
     d = dictionaries[locale];
-  const [draft, setDraft] = useState<RequestDraft>(
+  const [draftState, setDraft] = useState<RequestDraft>(
     () =>
       consumeLanguageDraft(entryKey, locale) || {
         lines: initialProducts,
@@ -137,6 +139,8 @@ function RequestForm({
         position: 0,
       },
   );
+  const draft=useMemo(()=>({...draftState,lines:draftState.lines.filter(line=>products.some(p=>p.slug===line.id)),services:draftState.services.filter(id=>services.some(s=>s.slug===id))}),[draftState,products,services]);
+  const [preferredCommunication,setPreferredCommunication]=useState("phone");
   const [error, setError] = useState(false),
     [downloaded, setDownloaded] = useState(false);
   const [documentData, setDocumentData] = useState<RequestDocumentData | null>(
@@ -144,6 +148,8 @@ function RequestForm({
   );
   const form = useRef<HTMLFormElement>(null);
   const [submissionNotice, setSubmissionNotice] = useState(false);
+  const [result,setResult]=useState(""),[sending,setSending]=useState(false),[consent,setConsent]=useState(false);
+  const submissionKey=useRef<string|null>(null);
   const latest = useRef(draft);
   useEffect(() => {
     latest.current = draft;
@@ -164,6 +170,7 @@ function RequestForm({
     setDraft((previous) => ({ ...previous, ...values }));
     setError(false);
     setSubmissionNotice(false);
+    submissionKey.current=null;setResult("");
     setDownloaded(false);
     setDocumentData(null);
   };
@@ -174,11 +181,23 @@ function RequestForm({
       (!draft.email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email))
     );
   }
-  function submitRequest(event: FormEvent) {
+  async function submitRequest(event: FormEvent) {
     event.preventDefault();
-    if (!validate()) return;
-    // No backend endpoint exists yet. Never report a submission or booking.
-    setSubmissionNotice(true);
+    if (!validate()||sending) return;
+    if(!connected){setSubmissionNotice(true);return;}
+    if(!consent){setResult('Please consent to AIA storing this request for follow-up.');return;}
+    setSending(true);setResult('');
+    submissionKey.current ||= crypto.randomUUID();
+    try {
+      const response=await fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        idempotencyKey:submissionKey.current,kind:draft.lines.length?'MULTI_PRODUCT_QUOTATION':draft.services.length?'SERVICE_BOOKING':draft.purpose==='inquiry'?'ENQUIRY':'CONSULTATION',
+        name:draft.name,email:draft.email,phone:draft.phone,address:draft.address,
+        requirements:[draft.notes,draft.customDescription,'Purpose: '+draft.purpose,'Meeting: '+draft.mode,'Time: '+draft.time,'Alternative: '+draft.alternative,'Services: '+draft.services.join(', ')].join('\n'),
+        preferredCommunication,...(draft.date?{preferredDate:draft.date}:{}),items:draft.lines.map(l=>({slug:l.id,quantity:l.quantity})),serviceSlugs:draft.services,consent:true
+      })});
+      const data=await response.json();if(!response.ok)throw new Error(data.error||'Submission failed. Please retry.');
+      setResult('Request recorded: '+data.reference+'. AIA will review it; this does not confirm an appointment.');
+    }catch(error){setResult((error as Error).message);}finally{setSending(false);}
   }
   function validate() {
     if (!form.current?.reportValidity() || !finalValid()) {
@@ -327,7 +346,8 @@ function RequestForm({
   );
   return (
     <div className="request-flow">
-      <p className="notice" id="request-boundary">
+      {(draft.lines.length!==draftState.lines.length||draft.services.length!==draftState.services.length)&&<p role="status">Unavailable products or services have been removed from this request.</p>}
+      <p className="notice" id="request-boundary" hidden={connected}>
         {c.localOnly}
       </p>
       <form ref={form} onSubmit={submitRequest} onInvalid={() => setError(true)} className="request-form single-page-request">
@@ -363,6 +383,7 @@ function RequestForm({
               <input
                 name="email"
                 type="email"
+                required={connected&&preferredCommunication==='email'}
                 autoComplete="email"
                 maxLength={254}
                 value={draft.email}
@@ -575,6 +596,7 @@ function RequestForm({
             </div>
           </>}
         </fieldset>
+        {connected&&<label>Preferred follow-up method<select value={preferredCommunication} onChange={e=>{setPreferredCommunication(e.target.value);submissionKey.current=null;}}><option value="phone">Phone</option><option value="email">Email</option><option value="whatsapp">WhatsApp</option></select></label>}{connected&&<label><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/> I consent to AIA storing my contact details and request for follow-up.</label>}{result&&<p role="status">{result}</p>}
         <div className="request-download-actions">
 <p id="pdf-instructions">{c.pdfNote}</p>
             <button
@@ -586,7 +608,7 @@ function RequestForm({
               {c.printPdf}
             </button>
             <button
-              type="submit"
+              type="submit" disabled={sending}
               className="button button-gold"
               aria-describedby="request-boundary"
             >
