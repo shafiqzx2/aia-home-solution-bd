@@ -1,3 +1,4 @@
+import {reviewSchema,navigationSchema} from './editorial.ts';
 import {z} from "zod";
 export const localized=z.object({en:z.string().trim().max(10000),bn:z.string().trim().max(10000)}).strict();
 export const slug=z.string().regex(/^[a-z0-9][a-z0-9-]{0,100}$/);
@@ -10,7 +11,8 @@ export const categoryInput=z.object({id:z.string().optional(),slug,name:localize
 export const servicePublicSchema=z.object({slug,name:localized,description:localized,scope:z.array(localized).max(30),areas:z.array(slug).max(20),image:mediaSchema,status:z.enum(["draft","published"])}).strict();
 export const serviceInput=z.object({id:z.string().optional(),revision:z.number().int().nonnegative(),categoryId:z.string(),editorial:servicePublicSchema,relatedProductIds:z.array(z.string()).max(30).default([])}).strict();
 export const projectPublicSchema=z.object({slug,name:localized,category:localized,location:localized.nullable(),cover:mediaSchema,gallery:z.array(mediaSchema).max(20),description:localized,areas:z.array(slug).max(20),status:z.enum(["draft","published"]),contentKind:z.enum(["concept","completed-project"])}).strict();
-export const contentBodySchema=z.object({project:projectPublicSchema.optional(),copy:z.record(z.string().regex(/^[a-zA-Z][a-zA-Z0-9]*$/),z.union([z.string().max(15000),z.array(z.string().max(2000)).max(30)])).default({}),leadership:z.object({name:z.string().max(160),designation:z.string().max(160),biography:z.string().max(10000),photo:imagePath.optional()}).optional(),heroImage:imagePath.optional(),hiddenSections:z.array(z.enum(["categories","services","projects","reviews","trust","cta"])).max(6).default([])}).strict();
+export const jobPublicSchema=z.object({slug,title:localized,team:localized,location:localized,description:localized,responsibilities:z.array(localized).max(30),requirements:z.array(localized).max(30),status:z.enum(['draft','published']),applicationsOpen:z.boolean().default(false)}).strict();
+export const contentBodySchema=z.object({review:reviewSchema.optional(),navigation:navigationSchema.optional(),job:jobPublicSchema.optional(),project:projectPublicSchema.optional(),copy:z.record(z.string().regex(/^[a-zA-Z][a-zA-Z0-9]*$/),z.union([z.string().max(15000),z.array(z.string().max(2000)).max(30)])).default({}),leadership:z.object({name:z.string().max(160),designation:z.string().max(160),biography:z.string().max(10000),photo:imagePath.optional()}).optional(),heroImage:imagePath.optional(),hiddenSections:z.array(z.enum(["categories","services","projects","reviews","trust","cta"])).max(6).default([])}).strict();
 export const contentInput=z.object({
   id:z.string().optional(),slug,kind:z.enum(["PAGE","PROJECT","REVIEW","CAREER"]),
   revision:z.number().int().nonnegative(),title:localized,

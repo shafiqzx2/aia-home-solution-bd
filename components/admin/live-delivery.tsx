@@ -1,0 +1,10 @@
+"use client";
+import {useState} from 'react';
+import {api} from './live-api';
+import {Button,Field} from './ui';
+export type FulfilmentSale={id:string;reference?:string;items:{id:string;productId:string|null;snapshot:{code:string;description:string;unit:string};quantity:string;deliveries:{quantity:string}[]}[]};
+export function LiveDelivery({sale,notify,reload}:{sale:FulfilmentSale;notify:(s:string)=>void;reload:()=>void}){
+ const [quantities,setQuantities]=useState<Record<string,string>>({}),[reason,setReason]=useState(''),[busy,setBusy]=useState(false),[key,setKey]=useState(()=>crypto.randomUUID());
+ async function save(){if(busy)return;setBusy(true);try{const result=await api<{reference:string}>('sales/'+sale.id+'/deliver','POST',{saleId:sale.id,idempotencyKey:key,confirm:true,deliveredAt:new Date().toISOString(),evidenceRef:reason,items:sale.items.filter(i=>Number(quantities[i.id])>0).map(i=>({saleItemId:i.id,quantity:quantities[i.id]}))});setKey(crypto.randomUUID());setQuantities({});reload();notify('Delivery '+result.reference+' recorded. A challan draft is available in Documents.');}catch(e){notify((e as Error).message);}finally{setBusy(false);}}
+ return <section className="a-panel"><h2>Record delivery · {sale.reference}</h2><p>Records an actual delivery and deducts tracked product stock in one transaction. Unknown SKU lines remain untracked. No additional sale or payment is created.</p>{sale.items.map(item=><Field key={item.id} label={`${item.snapshot.description} · ${item.productId?'tracked stock':'untracked line'} · ${item.deliveries.reduce((sum,d)=>sum+Number(d.quantity),0)} / ${item.quantity} delivered`}><input type="number" min="0" step="0.0001" value={quantities[item.id]||''} onChange={e=>setQuantities({...quantities,[item.id]:e.target.value})}/></Field>)}<Field label="Delivery evidence / recipient reference"><input maxLength={500} value={reason} onChange={e=>setReason(e.target.value)}/></Field><Button disabled={busy||reason.trim().length<3||!Object.values(quantities).some(q=>Number(q)>0)} onClick={()=>void save()}>Record delivery and stock movement</Button></section>;
+}

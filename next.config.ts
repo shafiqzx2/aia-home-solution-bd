@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Docker builds opt in; ordinary/Vercel builds must not copy local env files.
   output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
   poweredByHeader: false,
-  outputFileTracingIncludes:{'/api/admin/archive/**/*':['./public/branding/**/*','./public/images/**/*','./.next/static/chunks/*.css','./.next/static/media/*.woff2']},
+  outputFileTracingIncludes:{'/api/admin/**/*':['./public/branding/**/*','./public/images/**/*'],'/api/admin/{archive,workflows}/**':['./.next/static/chunks/*.css','./.next/static/media/*.woff2']},
   outputFileTracingExcludes:{'*':['./.onboarding/**/*','./backups/**/*','./.media/**/*']},
   async headers() {
     const preview = process.env.VERCEL_ENV === "preview"
@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
         ...(process.env.VERCEL_ENV==='production'?[{key:'Strict-Transport-Security',value:'max-age=31536000'}]:[]),
       ]},
       ...preview,
-      ...["/en/admin/:path*", "/bn/admin/:path*", "/en/security", "/bn/security", "/en/onboarding", "/bn/onboarding", "/api/auth/:path*", "/api/security/:path*", "/en/admin-preview/:path*", "/bn/admin-preview/:path*", "/api/admin/:path*"].map(source => ({
+      ...["/en/account", "/bn/account", "/api/portal", "/en/admin/:path*", "/bn/admin/:path*", "/en/security", "/bn/security", "/en/onboarding", "/bn/onboarding", "/api/auth/:path*", "/api/security/:path*", "/en/admin-preview/:path*", "/bn/admin-preview/:path*", "/api/admin/:path*"].map(source => ({
         source,
         headers: [
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build && node scripts/package-pdf-assets.mjs",
     "start": "next start",
     "lint": "eslint",
     "test:phase-a": "node --test scripts/phase-a.test.mjs",
@@ -18,7 +18,7 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "test": "node --test scripts/phase-a.test.mjs scripts/phase-a1.test.mjs scripts/db-restore-test.test.mjs scripts/phase-b.test.mjs",
+    "test": "node --test scripts/phase-a.test.mjs scripts/phase-a1.test.mjs scripts/db-restore-test.test.mjs scripts/phase-b.test.mjs scripts/reporting.test.mjs scripts/return-credit.test.mjs scripts/completion.test.mjs",
     "test:phase-a1": "node --test scripts/phase-a1.test.mjs",
     "review:phase-a1-schema": "node scripts/phase-a1-schema.mjs",
     "review:phase-a1-browser": "node scripts/phase-a1-browser.mjs",

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { dictionaries, href, type Locale } from "@/lib/i18n";
-import { categories, navigation, publicServices } from "@/lib/public-content";
+import {usePublished} from "./published-provider";
 import { Icon } from "@/components/ui/icon";
 import type { CategoryNode } from "./category-filter";
 import { categoryNodes } from "@/lib/category-tree";
@@ -65,10 +65,11 @@ export function MobileNavigation({
 }) {
   const [group, setGroup] = useState<"products" | "services" | null>(null);
   const d = dictionaries[locale];
+  const {categories,navigation,services:publicServices}=usePublished();
   const nodes = categoryNodes(categories, locale);
   return (
     <nav aria-label={d.mainNav}>
-      {navigation.map((key) => {
+      {navigation.map(({key,label}) => {
         if (key !== "products" && key !== "services")
           return (
             <Link
@@ -76,7 +77,7 @@ export function MobileNavigation({
               href={href(locale, key === "home" ? "" : key)}
               onClick={close}
             >
-              {d[key]}
+              {label[locale]||d[key]}
             </Link>
           );
         const expanded = group === key,
@@ -90,7 +91,7 @@ export function MobileNavigation({
               aria-controls={id}
               onClick={() => setGroup(expanded ? null : key)}
             >
-              <span>{d[key]}</span>
+              <span>{label[locale]||d[key]}</span>
               <Icon name="plus" />
             </button>
             <div id={id} className="menu-group-content" hidden={!expanded}>

@@ -9,6 +9,7 @@ import { BrandedLoading } from "./branded-loading";
 import { Catalog } from "./catalog";
 import { ProjectBrief } from "./project-brief";
 import { MediaGallery } from "./media-gallery";
+import {CareerApplication} from './career-application';
 import { ServiceCatalog } from "./service-catalog";
 
 import { flattenCategories } from "@/lib/category-tree";
@@ -341,7 +342,7 @@ function PageContent({
             {jobs.filter((job) => job.status === "published").length ? (
               jobs
                 .filter((job) => job.status === "published")
-                .map((job) => <p key={job.slug}>{job.title[locale]}</p>)
+                .map((job) => <p key={job.slug}><Link className="text-link" href={href(locale,`careers/${job.slug}`)}>{job.title[locale]}</Link></p>)
             ) : (
               <>
                 <h3>{d.noJobs}</h3>
@@ -355,6 +356,18 @@ function PageContent({
         </div>
       </section>
     );
+  if(page==='careers'&&slug!=='preview'){
+    const job=jobs.find(j=>j.slug===slug&&j.status==='published');
+    return job?<section className="section-space"><div className="shell narrow">
+      <PageIntro label={d.careers} title={job.title[locale]} description={job.description[locale]}/>
+      <p>{job.team[locale]} · {job.location[locale]}</p>
+      <h2 className="subheading">{d.responsibilities}</h2>
+      <ul>{job.responsibilities.map((r,i)=><li key={i}>{r[locale]}</li>)}</ul>
+      <h2 className="subheading">{d.requirements}</h2>
+      <ul>{job.requirements.map((r,i)=><li key={i}>{r[locale]}</li>)}</ul>
+      {job.applicationsOpen?<CareerApplication slug={job.slug} locale={locale}/>:<p className="content-note">{locale==='bn'?'\u0986\u09ac\u09c7\u09a6\u09a8 \u09ac\u09a8\u09cd\u09a7\u0964':'Applications are closed.'}</p>}
+    </div></section>:null;
+  }
   if (page === "careers")
     return (
       <section className="section-space">

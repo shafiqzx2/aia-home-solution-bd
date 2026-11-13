@@ -1,0 +1,12 @@
+import 'server-only';
+import {hasAccess,type AccessProfile} from '@/lib/business/access';
+import {prisma} from '@/lib/prisma';
+import {serializable,audit,HttpError} from './security';
+import {emailSendingConfigured,ResendProvider} from '@/lib/business/email-provider';
+import {processEmailJob} from '@/lib/business/email-delivery';
+export async function queueEmail(actor:AccessProfile,id:string){
+ if(!hasAccess(actor,'email.issue'))throw new HttpError(403,'PERMISSION_DENIED');
+ return serializable(async tx=>{const email=await tx.emailMessage.findUnique({where:{id}});if(!email||email.approvedRevision!==email.revision||!email.approvedByAuditId)throw new HttpError(422,'CURRENT_REVIEW_REQUIRED');const key='email/'+email.id+'/r'+email.revision,prior=await tx.outboxJob.findUnique({where:{idempotencyKey:key}});if(prior)return {queued:prior.state==='PENDING'||prior.state==='RUNNING',state:prior.state,sendingEnabled:emailSendingConfigured(process.env)};if(email.state!=='REVIEWED')throw new HttpError(422,'REVIEWED_EMAIL_REQUIRED');await tx.outboxJob.create({data:{kind:'EMAIL_DELIVERY',idempotencyKey:key,payload:{emailId:email.id,revision:email.revision}}});await tx.emailMessage.update({where:{id},data:{state:'QUEUED'}});await audit(tx,actor.id,'email.queue','EmailMessage',id,{revision:email.revision});return {queued:true,state:'PENDING',sendingEnabled:emailSendingConfigured(process.env)};});
+}
+export async function cancelQueuedEmail(actor:AccessProfile,id:string){if(!hasAccess(actor,'email.issue'))throw new HttpError(403,'PERMISSION_DENIED');return serializable(async tx=>{const email=await tx.emailMessage.findUnique({where:{id}});if(!email||email.state!=='QUEUED')throw new HttpError(409,'QUEUED_EMAIL_REQUIRED');const job=await tx.outboxJob.findUnique({where:{idempotencyKey:'email/'+id+'/r'+email.revision}});if(!job||job.state!=='PENDING'||job.attempts!==0)throw new HttpError(409,'DELIVERY_ALREADY_STARTED');await tx.outboxJob.update({where:{id:job.id},data:{state:'FAILED',lockedUntil:null}});await tx.emailMessage.update({where:{id},data:{state:'FAILED'}});await audit(tx,actor.id,'email.queue.cancel','EmailMessage',id);return {cancelled:true};});}
+export async function runEmailWorker(){if(!emailSendingConfigured(process.env))throw new HttpError(503,'EMAIL_SENDING_DISABLED');return processEmailJob(prisma,new ResendProvider(process.env.RESEND_API_KEY!,process.env.AIA_EMAIL_FROM!));}

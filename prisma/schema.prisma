@@ -157,6 +157,8 @@ model User {
   notifications  Notification[]
   notes          RequestNote[]
   emails         EmailMessage[]
+  createdTasks   InternalTask[] @relation("TaskCreator")
+  assignedTasks  InternalTask[] @relation("TaskAssignee")
 }
 
 model Session {
@@ -259,6 +261,8 @@ model Customer {
   organizationId String?
   organization   Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
   name           String
+  email          String?
+  phone          String?
   archivedAt     DateTime?
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
@@ -913,6 +917,8 @@ model CompanySettings {
 }
 
 model MediaAsset {
+  resumes CareerApplication[]
+  creditNotes CreditNote[]
   id         String              @id @default(cuid())
   objectKey  String              @unique
   bucket     String
@@ -944,6 +950,7 @@ model ProductMedia {
 }
 
 model ContentEntry {
+  applications CareerApplication[]
   draft Json?
   revision Int @default(0)
   revisions ContentRevision[]
@@ -990,6 +997,7 @@ enum LedgerState {
   VOIDED
 }
 model Sale {
+  returns SaleReturn[]
   id                       String @id @default(cuid())
   reference                String @unique
   idempotencyKey           String @unique
@@ -1018,6 +1026,7 @@ model Sale {
   @@index([demoScope,state,saleDate,id])
 }
 model SaleItem {
+  returns SaleReturnItem[]
   id          String @id @default(cuid())
   saleId      String
   sale        Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
@@ -1084,6 +1093,8 @@ model PaymentAllocation {
   @@unique([paymentId,saleId])
 }
 model RefundRecord {
+  returnId       String?
+  saleReturn     SaleReturn? @relation(fields:[returnId], references:[id], onDelete:Restrict)
   id             String @id @default(cuid())
   reference      String @unique
   idempotencyKey String @unique
@@ -1093,6 +1104,94 @@ model RefundRecord {
   reason         String
   recordedAt     DateTime
   evidence       Json
+}
+
+model InternalTask {
+  id String @id @default(cuid())
+  title String
+  description String
+  state String @default("OPEN")
+  priority String @default("NORMAL")
+  creatorId String
+  creator User @relation("TaskCreator", fields:[creatorId], references:[id], onDelete:Restrict)
+  assigneeId String?
+  assignee User? @relation("TaskAssignee", fields:[assigneeId], references:[id], onDelete:Restrict)
+  dueAt DateTime?
+  revision Int @default(1)
+  archivedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([assigneeId,state,createdAt])
+}
+
+model CareerApplication {
+  resumeAssetId String? @unique
+  resumeAsset MediaAsset? @relation(fields:[resumeAssetId],references:[id],onDelete:Restrict)
+  resumeUploadHash String? @unique
+  resumeUploadExpiresAt DateTime?
+  id String @id @default(cuid())
+  reference String @unique
+  idempotencyKey String @unique
+  requestHash String
+  jobId String
+  job ContentEntry @relation(fields:[jobId], references:[id], onDelete:Restrict)
+  jobSnapshot Json
+  name String
+  email String
+  phone String
+  experience String
+  state String @default("RECEIVED")
+  revision Int @default(1)
+  consentAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([jobId,state,createdAt])
+}
+
+model SaleReturn {
+  creditNotes CreditNote[]
+  id String @id @default(cuid())
+  reference String @unique
+  idempotencyKey String @unique
+  requestHash String
+  saleId String
+  sale Sale @relation(fields:[saleId], references:[id], onDelete:Restrict)
+  reason String
+  evidenceRef String
+  state String @default("DRAFT")
+  revision Int @default(1)
+  credit Decimal @db.Decimal(18,2)
+  createdAt DateTime @default(now())
+  postedAt DateTime?
+  items SaleReturnItem[]
+  refunds RefundRecord[]
+  @@index([saleId,state,createdAt])
+}
+
+model CreditNote {
+  id String @id @default(cuid())
+  returnId String @unique
+  saleReturn SaleReturn @relation(fields:[returnId],references:[id],onDelete:Restrict)
+  locale String @db.VarChar(2)
+  number String @unique
+  snapshot Json
+  html String
+  contentHash String
+  assetId String @unique
+  asset MediaAsset @relation(fields:[assetId],references:[id],onDelete:Restrict)
+  issuedAt DateTime @default(now())
+}
+
+model SaleReturnItem {
+  id String @id @default(cuid())
+  returnId String
+  saleReturn SaleReturn @relation(fields:[returnId], references:[id], onDelete:Restrict)
+  saleItemId String
+  saleItem SaleItem @relation(fields:[saleItemId], references:[id], onDelete:Restrict)
+  quantity Decimal @db.Decimal(16,4)
+  restock Boolean
+  credit Decimal @db.Decimal(18,2)
+  @@unique([returnId,saleItemId])
 }
 model DeliveryRecord {
   id             String @id @default(cuid())

@@ -5,7 +5,7 @@ import {serializable,HttpError,audit} from "./security";
 const scope=z.string().refine(s=>allScopes.includes(s));
 export async function updateAccess(actor:AccessProfile,raw:unknown) {
   if(!actor.root)throw new HttpError(403,"ROOT_REQUIRED");
-  const input=z.object({userId:z.string(),roleIds:z.array(z.string()).min(1).max(10),overrides:z.array(z.object({scope,effect:z.enum(["ALLOW","DENY"])})).max(200),active:z.boolean()}).strict().parse(raw);
+  const input=z.object({userId:z.string(),roleIds:z.array(z.string()).min(1).max(10),overrides:z.array(z.object({scope,effect:z.enum(["ALLOW","DENY"])})).max(allScopes.length),active:z.boolean()}).strict().parse(raw);
   return serializable(async tx=>{
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(32751, 1)`;
     if(!await tx.user.count({where:{id:actor.id,disabledAt:null,roles:{some:{role:{kind:"SUPER_ADMIN"}}}}}))throw new HttpError(403,"ROOT_REQUIRED");
@@ -32,7 +32,7 @@ export async function updateAccess(actor:AccessProfile,raw:unknown) {
 }
 export async function saveRole(actor:AccessProfile,raw:unknown) {
   if(!actor.root)throw new HttpError(403,"ROOT_REQUIRED");
-  const input=z.object({id:z.string().optional(),name:z.string().trim().min(2).max(80),kind:z.enum(["ADMIN","STAFF","CUSTOMER"]),scopes:z.array(scope).max(200)}).strict().parse(raw);
+  const input=z.object({id:z.string().optional(),name:z.string().trim().min(2).max(80),kind:z.enum(["ADMIN","STAFF","CUSTOMER"]),scopes:z.array(scope).max(allScopes.length)}).strict().parse(raw);
   return serializable(async tx=>{
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(32751, 1)`;
     if(!await tx.user.count({where:{id:actor.id,disabledAt:null,roles:{some:{role:{kind:"SUPER_ADMIN"}}}}}))throw new HttpError(403,"ROOT_REQUIRED");

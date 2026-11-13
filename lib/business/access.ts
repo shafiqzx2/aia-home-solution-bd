@@ -1,4 +1,4 @@
-export const resources=["products","categories","services","projects","content","company","media","requests","customers","quotations","sales","payments","inventory","documents","reports","users","roles","audit","pricing"] as const;
+export const resources=["products","categories","services","projects","content","company","media","requests","customers","quotations","sales","payments","inventory","documents","reports","users","roles","audit","pricing","tasks","applications","email","returns"] as const;
 export const actions=["view","create","update","archive","publish","approve","issue","export","manage"] as const;
 export const allScopes=resources.flatMap(r=>actions.map(a=>`${r}.${a}`));
 export type AccessProfile={id:string;active:boolean;root:boolean;customerOnly:boolean;roles:string[];allowed:string[];denied:string[]};

@@ -94,7 +94,7 @@ export function HomeContent({
   locale: Locale;
   children: ReactNode;
 }) {
-  const {solutionPreviews,services:publicServices,trustBadges,connected}=usePublished();
+  const {solutionPreviews,services:publicServices,reviews,trustBadges,connected}=usePublished();
   const d = useSiteCopy(locale),
     c = requestCopy(locale);
   const journey: {
@@ -247,6 +247,7 @@ export function HomeContent({
           </ol>
         </div>
       </section>
+      {reviews.length>0&&<section className="section-space"><div className="shell"><h2>{locale==='bn'?'\u0997\u09cd\u09b0\u09be\u09b9\u0995\u09c7\u09b0 \u09ae\u09a4\u09be\u09ae\u09a4':'Customer reviews'}</h2><div className="feature-grid">{reviews.map(r=><article key={r.id}><h3>{r.name}</h3><blockquote>{r.quote[locale]||r.quote.en}</blockquote><p aria-label={r.rating+' / 5'}>{r.rating} / 5</p></article>)}</div></div></section>}
       {children}
       <ClosingCTA locale={locale} />
     </>

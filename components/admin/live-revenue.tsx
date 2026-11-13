@@ -1,0 +1,8 @@
+"use client";
+import {useState} from 'react';
+import {money} from '@/lib/business/finance';
+export type RevenuePoint={date:string;sales:string;payments:string};
+export function LiveRevenue({series,metric}:{series:RevenuePoint[];metric:'sales'|'payments'}){
+ const [hover,setHover]=useState<number|null>(null),values=series.map(p=>Number(p[metric])),max=Math.max(1,...values),x=(i:number)=>40+i*610/Math.max(1,series.length-1),y=(i:number)=>210-values[i]/max*160,points=values.map((_,i)=>`${x(i)},${y(i)}`).join(' ');
+ return <div className="a-revenue-chart"><svg viewBox="0 0 690 250" role="img" aria-label={`Recorded ${metric} in BDT by UTC date`}>{[0,1,2,3].map(i=><g key={i}><line x1="40" x2="660" y1={50+i*53.3} y2={50+i*53.3} className="a-chart-gridline"/><text x="2" y={54+i*53.3} className="a-chart-axis">{Math.round(max*(1-i/3)).toLocaleString()}</text></g>)}<polygon points={`40,210 ${points} 650,210`} fill="var(--a-gold)" opacity=".12"/><polyline points={points} fill="none" stroke="var(--a-chart-line)" strokeWidth="3"/>{series.map((p,i)=><circle key={p.date} tabIndex={0} aria-label={`${p.date}: BDT ${money(p[metric])}`} cx={x(i)} cy={y(i)} r={hover===i?5:3} fill="var(--a-chart-line)" onFocus={()=>setHover(i)} onBlur={()=>setHover(null)} onMouseEnter={()=>setHover(i)} onMouseLeave={()=>setHover(null)}/>)}<text x="40" y="242" className="a-chart-axis">{series[0]?.date.slice(5)}</text><text x="610" y="242" className="a-chart-axis">{series.at(-1)?.date.slice(5)}</text></svg><div className="a-chart-tooltip" aria-live="polite">{hover===null?`Recorded ${metric} · BDT · UTC dates`:`${series[hover].date} · BDT ${money(series[hover][metric])}`}</div>{values.every(v=>v===0)&&<p className="a-support">No recorded {metric} in this period.</p>}</div>;
+}

@@ -1,0 +1,4 @@
+import {principal,HttpError} from '@/lib/server/security';
+import {portalQuotations,portalPreview} from '@/lib/server/portal';
+const headers={'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow, noarchive'};
+export async function GET(request:Request){try{const actor=await principal(request.headers);if(!actor)throw new HttpError(401,'AUTHENTICATION_REQUIRED');if(!actor.customerOnly)throw new HttpError(403,'CUSTOMER_ACCOUNT_REQUIRED');const url=new URL(request.url),version=url.searchParams.get('version');return Response.json(version?await portalPreview(actor,version,url.searchParams.get('lang')==='bn'?'bn':'en'):await portalQuotations(actor),{headers});}catch(e){return Response.json({error:e instanceof HttpError?e.code:'PORTAL_UNAVAILABLE'},{status:e instanceof HttpError?e.status:503,headers});}}

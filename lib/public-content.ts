@@ -91,15 +91,7 @@ export type SiteSettings = {
   logos: BrandingSettings;
 };
 export const company: SiteSettings = companySettings;
-export const navigation = [
-  "home",
-  "products",
-  "services",
-  "projects",
-  "about",
-  "careers",
-  "contact",
-] as const;
+export {navigationKeys as navigation} from './navigation';
 export const media = {
   hero: {
     src: "/images/lighting-hero.webp",

@@ -13,7 +13,7 @@ export async function saveContent(actorId:string,raw:unknown) {
     const old=input.id?await tx.contentEntry.findUnique({where:{id:input.id}}):await tx.contentEntry.findUnique({where:{kind_slug:{kind:input.kind,slug:input.slug}}});
     if(old&&old.revision!==input.revision)throw new HttpError(409,"STALE_REVISION");
     if(old&&(old.slug!==input.slug||old.kind!==input.kind))throw new HttpError(422,"CONTENT_IDENTITY_IMMUTABLE");
-    const row=old?await tx.contentEntry.update({where:{id:old.id},data:{draft:input as Prisma.InputJsonValue,revision:{increment:1}}}):await tx.contentEntry.create({data:{kind:input.kind,slug:input.slug,draft:input as Prisma.InputJsonValue,revision:1}});
+    const row=old?await tx.contentEntry.update({where:{id:old.id},data:{draft:input as Prisma.InputJsonValue,revision:{increment:1},...(input.kind==="REVIEW"?{verifiedAt:null,consentAt:null,status:"DRAFT" as const}:{})}}):await tx.contentEntry.create({data:{kind:input.kind,slug:input.slug,draft:input as Prisma.InputJsonValue,revision:1}});
     await audit(tx,actorId,"content.draft.save","ContentEntry",row.id,{revision:row.revision});return row;
   });
 }
@@ -23,7 +23,8 @@ export async function publishContent(actorId:string,id:string,revision:number,pu
     const draft=contentInput.parse(old.draft);
     if(publish){await assertPublicIdentitySafe(tx,draft);await publicMediaReferences(tx,draft);}
     if(draft.kind==="PROJECT"&&(!draft.body.en.project||draft.body.en.project.slug!==draft.slug))throw new HttpError(422,"PROJECT_DETAILS_REQUIRED");
-    if(draft.kind==="REVIEW"&&(!old.consentAt||!old.verifiedAt))throw new HttpError(422,"GENUINE_REVIEW_VERIFICATION_REQUIRED");
+    if(draft.kind==='CAREER'&&(!draft.body.en.job||draft.body.en.job.slug!==draft.slug))throw new HttpError(422,'JOB_DETAILS_REQUIRED');
+    if(draft.kind==="REVIEW"&&(!old.consentAt||!old.verifiedAt||!draft.body.en.review))throw new HttpError(422,"GENUINE_REVIEW_VERIFICATION_REQUIRED");
     await tx.contentRevision.create({data:{entryId:id,revision:old.revision,snapshot:draft as Prisma.InputJsonValue,actorId}});
     if(publish)for(const locale of ["en","bn"] as const)await tx.contentTranslation.upsert({where:{entryId_locale:{entryId:id,locale}},create:{entryId:id,locale,title:draft.title[locale],body:draft.body[locale] as Prisma.InputJsonValue,seo:draft.seo[locale]},update:{title:draft.title[locale],body:draft.body[locale] as Prisma.InputJsonValue,seo:draft.seo[locale]}});
     const row=await tx.contentEntry.update({where:{id},data:{status:publish?"PUBLISHED":"DRAFT",revision:{increment:1}}});
@@ -48,6 +49,9 @@ export async function saveService(actorId:string,raw:unknown) {
     await assertPublicIdentitySafe(tx,input.editorial);
     const old=input.id?await tx.service.findUnique({where:{id:input.id}}):null;
     if(input.id&&(!old||old.revision!==input.revision))throw new HttpError(409,"STALE_REVISION");
+    if(old?.status==='ARCHIVED')throw new HttpError(409,'SERVICE_ARCHIVED');
+    const category=await tx.category.findUnique({where:{id:input.categoryId}});
+    if(!category||category.status==='ARCHIVED')throw new HttpError(422,'CATEGORY_REQUIRED');
     const row=old?await tx.service.update({where:{id:old.id},data:{draft:input.editorial as Prisma.InputJsonValue,revision:{increment:1},categoryId:input.categoryId}}):await tx.service.create({data:{slug:input.editorial.slug,categoryId:input.categoryId,draft:input.editorial as Prisma.InputJsonValue,revision:1,bookingConfiguration:{},translations:{create:[{locale:"en",name:input.editorial.name.en,description:input.editorial.description.en,scope:input.editorial.scope},{locale:"bn",name:input.editorial.name.bn,description:input.editorial.description.bn,scope:input.editorial.scope}]}}});
     await tx.productService.deleteMany({where:{serviceId:row.id}}); // replace relation set, never delete products
     if(input.relatedProductIds.length)await tx.productService.createMany({data:input.relatedProductIds.map(productId=>({serviceId:row.id,productId})),skipDuplicates:true});
@@ -57,10 +61,13 @@ export async function saveService(actorId:string,raw:unknown) {
 export async function publishService(actorId:string,id:string,revision:number,publish:boolean) {
   return serializable(async tx=>{
     const old=await tx.service.findUnique({where:{id},include:{category:true}});if(!old||old.revision!==revision)throw new HttpError(409,"STALE_REVISION");
+    if(old.status==='ARCHIVED')throw new HttpError(409,'SERVICE_ARCHIVED');
     const draft=servicePublicSchema.parse(old.draft);
-    if(publish)await assertPublicIdentitySafe(tx,draft);
+    if(publish){await assertPublicIdentitySafe(tx,draft);await publicMediaReferences(tx,draft);}
     if(publish&&old.category.status!=="PUBLISHED")throw new HttpError(422,"PUBLISH_CATEGORY_FIRST");
+    if(publish)for(const locale of ['en','bn'] as const)await tx.serviceTranslation.upsert({where:{serviceId_locale:{serviceId:id,locale}},create:{serviceId:id,locale,name:draft.name[locale],description:draft.description[locale],scope:draft.scope},update:{name:draft.name[locale],description:draft.description[locale],scope:draft.scope}});
     const row=await tx.service.update({where:{id},data:{revision:{increment:1},status:publish?"PUBLISHED":"DRAFT",...(publish?{slug:draft.slug,publicData:{...draft,status:"published"}}:{})}});
     await audit(tx,actorId,publish?"service.publish":"service.unpublish","Service",id,{revision:row.revision});return row;
   });
 }
+export async function archiveService(actorId:string,id:string,revision:number){return serializable(async tx=>{const old=await tx.service.findUnique({where:{id}});if(!old||old.revision!==revision)throw new HttpError(409,'STALE_REVISION');const row=await tx.service.update({where:{id},data:{status:'ARCHIVED',revision:{increment:1}}});await audit(tx,actorId,'service.archive','Service',id,{revision:row.revision});return row;});}

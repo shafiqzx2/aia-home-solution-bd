@@ -501,7 +501,7 @@ export function Workspace({
                 </button>
               </div>
             )}
-            {actor ? <ConnectedContent actor={actor} section={section} notify={setNotice}/> : active.state === "Planned" ? (
+            {actor ? <ConnectedContent locale={locale} actor={actor} section={section} notify={setNotice}/> : active.state === "Planned" ? (
               <PlannedModule module={active} />
             ) : (
               <>

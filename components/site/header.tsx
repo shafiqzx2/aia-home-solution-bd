@@ -3,7 +3,7 @@ import {usePublished,useSiteCopy} from "./published-provider";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { navigation } from "@/lib/public-content";
+
 import { href, type Locale } from "@/lib/i18n";
 import { Icon } from "@/components/ui/icon";
 import { Brand } from "./brand";
@@ -50,14 +50,14 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   );
 }
 export function Header({ locale = "en" }: { locale?: Locale }) {
-  const {company}=usePublished();
+  const {company,navigation}=usePublished();
   const d = useSiteCopy(locale),
     pathname = usePathname();
   const dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const close = () => dialog.current?.close();
-  const links = navigation.map((key) => {
+  const links = navigation.map(({key,label}) => {
     const url = href(locale, key === "home" ? "" : key);
     const active =
       key === "home"
@@ -70,7 +70,7 @@ export function Header({ locale = "en" }: { locale?: Locale }) {
         aria-current={active ? "page" : undefined}
         onClick={close}
       >
-        {d[key]}
+        {label[locale]||d[key]}
       </Link>
     );
   });

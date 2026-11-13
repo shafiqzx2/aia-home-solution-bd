@@ -1,3 +1,4 @@
+import {saleAdjustments} from './returns';
 import "server-only";
 import {createHash} from "node:crypto";
 import {Prisma} from "@prisma/client";
@@ -13,9 +14,35 @@ import {serializable,HttpError,audit} from "./security";
 import type {AccessProfile} from "@/lib/business/access";
 const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const date=(value:string)=>{const d=new Date(value+'T00:00:00Z');if(!Number.isFinite(d.getTime())||d.toISOString().slice(0,10)!==value)throw new HttpError(422,'INVALID_DOCUMENT_DATE');return d;};
-async function companySnapshot(tx:Prisma.TransactionClient){const row=await tx.companySettings.findUnique({where:{id:'company'}});if(!row)return currentCompanySnapshot('en');const contact=row.contact as {address:{en:string};email:string;phone:string},logos=row.logoVariants as {document?:string};return {...currentCompanySnapshot('en'),name:row.name,address:contact.address.en,email:contact.email,phone:contact.phone,logo:logos.document||currentCompanySnapshot('en').logo};}
+async function companySnapshot(tx:Prisma.TransactionClient){const row=await tx.companySettings.findUnique({where:{id:'company'}});if(!row)return currentCompanySnapshot('en');const contact=row.contact as {address:{en:string};email:string;phone:string},logos=row.logoVariants as {document?:string};return {...currentCompanySnapshot('en'),name:row.name,address:contact.address.en,email:contact.email,phone:contact.phone,logo:logos.document||currentCompanySnapshot('en').logo,documentFooter:(row.documentFooter as {en?:string})?.en||''};}
 async function reference(tx:Prisma.TransactionClient,scope:string){const year=String(new Date().getUTCFullYear());const [row]=await tx.$queryRaw<{value:bigint}[]>`SELECT aia_next_number(${scope},${year}) AS value`;return `${scope}-${year}-${String(row.value).padStart(6,'0')}`;}
 export async function documentContext(){return companySnapshot(prisma);}
+export async function recordQuotationDispatch(actor:AccessProfile,id:string,raw:unknown){
+ const input=z.object({confirm:z.literal(true),deliveryReference:z.string().trim().min(3).max(500)}).strict().parse(raw);
+ return serializable(async tx=>{const version=await tx.quotationVersion.findUnique({where:{id}});if(!version?.issuedAt||version.status!=='ISSUED')throw new HttpError(409,'ISSUED_QUOTATION_REQUIRED');const row=await tx.quotationVersion.update({where:{id},data:{status:'SENT'}});const event=await audit(tx,actor.id,'quotation.manual_dispatch.record','QuotationVersion',id,{deliveryReference:input.deliveryReference,transport:'OWNER_RECORDED_EXTERNAL_DELIVERY',contentHash:version.contentHash});await tx.quotationStatusEvent.create({data:{versionId:id,status:'SENT',auditId:event.id}});return row;});
+}
+export async function recordDelivery(actor:AccessProfile,raw:unknown){
+ const input=z.object({saleId:z.string(),idempotencyKey:z.uuid(),confirm:z.literal(true),deliveredAt:z.iso.datetime(),evidenceRef:z.string().trim().min(3).max(500),items:z.array(z.object({saleItemId:z.string(),quantity:z.string().regex(/^(?:0|[1-9]\d{0,11})(?:\.\d{1,4})?$/)}).strict()).min(1).max(200)}).strict().parse(raw),requestHash=hash(input);
+ if(new Set(input.items.map(i=>i.saleItemId)).size!==input.items.length)throw new HttpError(422,'DUPLICATE_DELIVERY_ITEM');
+ return serializable(async tx=>{
+  const duplicate=await tx.deliveryRecord.findUnique({where:{idempotencyKey:input.idempotencyKey},include:{documents:true}});if(duplicate){if((duplicate.evidence as {requestHash?:string}).requestHash!==requestHash)throw new HttpError(409,'IDEMPOTENCY_CONFLICT');return duplicate;}
+  const sale=await tx.sale.findUnique({where:{id:input.saleId},include:{items:{include:{deliveries:true}},documents:{include:{documentVersion:true}}}});
+  if(!sale||sale.state!=='COMMITTED'||sale.demoScope)throw new HttpError(422,'COMMITTED_SALE_REQUIRED');
+  const source=sale.documents.find(d=>['MEMO','INVOICE'].includes(d.kind));if(!source)throw new HttpError(422,'SOURCE_DOCUMENT_REQUIRED');
+  const delivery=await tx.deliveryRecord.create({data:{saleId:sale.id,reference:await reference(tx,'DLV'),idempotencyKey:input.idempotencyKey,deliveredAt:new Date(input.deliveredAt),evidence:{reference:input.evidenceRef,requestHash}}});
+  const lines=[];
+  for(const requested of input.items){
+   const item=sale.items.find(i=>i.id===requested.saleItemId),quantity=new Prisma.Decimal(requested.quantity);
+   if(!item||quantity.lte(0)||item.deliveries.reduce((sum,d)=>sum.add(d.quantity),new Prisma.Decimal(0)).add(quantity).gt(item.quantity))throw new HttpError(422,'DELIVERY_QUANTITY_EXCEEDED');
+   const deliveredItem=await tx.deliveryItem.create({data:{deliveryId:delivery.id,saleItemId:item.id,quantity}});
+   if(item.productId){const inventory=await tx.inventory.findUnique({where:{productId:item.productId},include:{product:{select:{archivedAt:true}}}});if(!inventory||inventory.product.archivedAt||inventory.quantity.lt(quantity))throw new HttpError(422,'INSUFFICIENT_STOCK');await tx.stockMovement.create({data:{productId:item.productId,deliveryItemId:deliveredItem.id,idempotencyKey:input.idempotencyKey+':'+item.id,quantityDelta:quantity.negated(),reason:'Delivery '+delivery.reference}});await tx.inventory.update({where:{productId:item.productId},data:{quantity:{decrement:quantity}}});}
+   lines.push({...item.snapshot as object,quantity:quantity.toString()});
+  }
+  const draft={...JSON.parse(source.documentVersion.body).draft,kind:'CHALLAN',date:new Date(input.deliveredAt).toISOString().slice(0,10),items:lines,payments:[],demo:false,notes:input.evidenceRef},body=JSON.stringify({draft}),company=sale.companySnapshot;
+  const document=await tx.businessDocument.create({data:{kind:'CHALLAN',customerId:sale.customerId,versions:{create:{revision:1,status:'DRAFT',authorId:actor.id,subject:'Delivery challan',body,locale:'en',recipientSnapshot:sale.customerSnapshot as Prisma.InputJsonValue,companySnapshot:company as Prisma.InputJsonValue,senderSnapshot:{},contentHash:hash({body,company})}}},include:{versions:true}});
+  await tx.commercialDocument.create({data:{saleId:sale.id,deliveryId:delivery.id,documentVersionId:document.versions[0].id,kind:'CHALLAN',financialSnapshot:{deliveryReference:delivery.reference}}});await audit(tx,actor.id,'sale.delivery.record','DeliveryRecord',delivery.id,{saleId:sale.id,reference:delivery.reference});return {...delivery,documentId:document.id};
+ });
+}
 export async function issuedPreview(resource:string,id:string,locale:'en'|'bn'){
  if(resource==='quotations'){
   const row=await prisma.quotationVersion.findUnique({where:{id},include:{quotation:true}});
@@ -29,14 +56,16 @@ export async function issuedPreview(resource:string,id:string,locale:'en'|'bn'){
  return {html:renderSalesDocument(draft,row.companySnapshot as unknown as CompanySnapshot,locale,'',{mode:'issued',number:row.document.reference}),hash:row.contentHash};
 }
 export async function saveQuotation(actor:AccessProfile,raw:unknown) {
-  const input=z.object({id:z.string().optional(),expectedRevision:z.number().int().nonnegative(),requestId:z.string().optional(),draft:quotationSchema}).strict().parse(raw),totals=calculateQuote(input.draft);
+  const input=z.object({id:z.string().optional(),expectedRevision:z.number().int().nonnegative(),requestId:z.string().optional(),customerId:z.string().optional(),draft:quotationSchema}).strict().parse(raw),totals=calculateQuote(input.draft);
   const documentDate=date(input.draft.date),validUntil=input.draft.validUntil?date(input.draft.validUntil):null;if(validUntil&&validUntil<documentDate)throw new HttpError(422,'INVALID_VALIDITY');
   return serializable(async tx=>{
     const old=input.id?await tx.quotation.findUnique({where:{id:input.id},include:{versions:{orderBy:{revision:'desc'},take:1}}}):null;
     if(input.id&&(!old||old.versions[0]?.revision!==input.expectedRevision))throw new HttpError(409,'STALE_REVISION');
     const request=input.requestId?await tx.customerRequest.findUnique({where:{id:input.requestId}}):null;
-    if(input.requestId&&!request)throw new HttpError(422,'REQUEST_NOT_FOUND');
-    const quote=old||await tx.quotation.create({data:{requestId:input.requestId}}),company=await companySnapshot(tx);
+    if(input.requestId&&(!request||request.archivedAt))throw new HttpError(422,'REQUEST_NOT_FOUND');
+    if(input.customerId){const customer=await tx.customer.findUnique({where:{id:input.customerId}});if(!customer||customer.archivedAt)throw new HttpError(422,'CUSTOMER_NOT_FOUND');}
+    if(old&&((input.requestId&&input.requestId!==old.requestId)||(input.customerId&&input.customerId!==old.customerId)))throw new HttpError(422,'QUOTATION_OWNER_IMMUTABLE');
+    const quote=old||await tx.quotation.create({data:{requestId:input.requestId,customerId:input.customerId||request?.customerId}}),company=await companySnapshot(tx);
     const version=await tx.quotationVersion.create({data:{quotationId:quote.id,revision:(old?.versions[0]?.revision||0)+1,status:'DRAFT',authorId:actor.id,...totals,taxPercent:input.draft.taxPercent,clientSnapshot:{client:input.draft.client,attention:input.draft.attention,email:input.draft.email,address:input.draft.address},companySnapshot:company,termsSnapshot:{draft:input.draft},contentHash:hash({draft:input.draft,company,totals}),documentDate,validUntil,items:{create:input.draft.items.map((i,index)=>({position:index,code:i.code,description:i.description,unit:i.unit,quantity:i.quantity,unitPrice:i.unitPrice,lineTotal:lineTotal(i)}))}}});
     await audit(tx,actor.id,'quotation.draft.save','QuotationVersion',version.id,{quotationId:quote.id,revision:version.revision,sourceRequestId:input.requestId||null});return {id:quote.id,versionId:version.id,revision:version.revision};
   });
@@ -63,11 +92,12 @@ const memoInput=z.object({id:z.string().optional(),expectedRevision:z.number().i
 export async function saveCommercialDraft(actor:AccessProfile,raw:unknown) {
   const input=memoInput.parse(raw);calculateQuote(input.draft);date(input.draft.date);
   return serializable(async tx=>{
-    if(input.sourceQuotationVersionId){const source=await tx.quotationVersion.findUnique({where:{id:input.sourceQuotationVersionId}});if(!source||!['APPROVED','ISSUED','SENT','VIEWED','ACCEPTED'].includes(source.status))throw new HttpError(422,'APPROVED_SOURCE_REQUIRED');}
+    let sourceCustomerId:string|null=null;
+    if(input.sourceQuotationVersionId){const source=await tx.quotationVersion.findUnique({where:{id:input.sourceQuotationVersionId},include:{quotation:true}});sourceCustomerId=source?.quotation.customerId||null;if(!source||!['APPROVED','ISSUED','SENT','VIEWED','ACCEPTED'].includes(source.status))throw new HttpError(422,'APPROVED_SOURCE_REQUIRED');}
     const old=input.id?await tx.businessDocument.findUnique({where:{id:input.id},include:{versions:{orderBy:{revision:'desc'},take:1}}}):null;
     if(input.id&&(!old||old.versions[0]?.revision!==input.expectedRevision))throw new HttpError(409,'STALE_REVISION');
     if(old&&await tx.commercialDocument.findFirst({where:{documentVersion:{documentId:old.id}}}))throw new HttpError(409,'RECORDED_DOCUMENT_IMMUTABLE');
-    const doc=old||await tx.businessDocument.create({data:{kind:input.kind}});if(doc.kind!==input.kind)throw new HttpError(422,'DOCUMENT_KIND_IMMUTABLE');
+    const doc=old||await tx.businessDocument.create({data:{kind:input.kind,customerId:sourceCustomerId}});if(doc.kind!==input.kind)throw new HttpError(422,'DOCUMENT_KIND_IMMUTABLE');
     const company=await companySnapshot(tx),body=JSON.stringify({draft:{...input.draft,kind:input.kind,sourceQuotation:input.sourceQuotationVersionId,payments:[],issuer:input.issuer,demo:false}});
     const version=await tx.documentVersion.create({data:{documentId:doc.id,revision:(old?.versions[0]?.revision||0)+1,status:'DRAFT',authorId:actor.id,subject:`${input.kind} · ${input.draft.client}`,body,locale:'en',recipientSnapshot:{client:input.draft.client,address:input.draft.address,email:input.draft.email},companySnapshot:company,senderSnapshot:{name:input.issuer},contentHash:hash({body,company})}});
     await audit(tx,actor.id,'document.draft.save','DocumentVersion',version.id,{documentId:doc.id,revision:version.revision});return {id:doc.id,versionId:version.id,revision:version.revision};
@@ -100,7 +130,8 @@ export async function commitSale(actor:AccessProfile,raw:unknown) {
     if(version.commercial)throw new HttpError(409,'SALE_ALREADY_RECORDED');
     if(await tx.commercialDocument.findFirst({where:{documentVersion:{documentId:version.documentId}}}))throw new HttpError(409,'SALE_ALREADY_RECORDED');
     const {draft}=JSON.parse(version.body),parsed=quotationSchema.parse(Object.fromEntries(Object.keys(quotationSchema.shape).map(k=>[k,draft[k]]))),totals=calculateQuote(parsed);
-    const sale=await tx.sale.create({data:{reference:await reference(tx,'SALE'),idempotencyKey:input.idempotencyKey,saleDate:date(parsed.date),state:'DRAFT',customerId:version.document.customerId,sourceQuotationVersionId:draft.sourceQuotation||null,customerSnapshot:version.recipientSnapshot as Prisma.InputJsonValue,companySnapshot:version.companySnapshot as Prisma.InputJsonValue,...totals,taxPercent:parsed.taxPercent,items:{create:parsed.items.map((i,index)=>({position:index+1,snapshot:i,quantity:i.quantity,unitPrice:i.unitPrice,lineTotal:lineTotal(i)}))}}});
+    const productRows=await tx.product.findMany({where:{archivedAt:null,sku:{in:parsed.items.map(i=>i.code).filter(Boolean)}},select:{id:true,sku:true,unit:true}});
+    const sale=await tx.sale.create({data:{reference:await reference(tx,'SALE'),idempotencyKey:input.idempotencyKey,saleDate:date(parsed.date),state:'DRAFT',customerId:version.document.customerId,sourceQuotationVersionId:draft.sourceQuotation||null,customerSnapshot:version.recipientSnapshot as Prisma.InputJsonValue,companySnapshot:version.companySnapshot as Prisma.InputJsonValue,...totals,taxPercent:parsed.taxPercent,items:{create:parsed.items.map((i,index)=>({position:index+1,productId:productRows.find(p=>p.sku===i.code&&p.unit===i.unit)?.id,snapshot:i,quantity:i.quantity,unitPrice:i.unitPrice,lineTotal:lineTotal(i)}))}}});
     await tx.commercialDocument.create({data:{saleId:sale.id,documentVersionId:version.id,kind:version.document.kind as 'MEMO'|'INVOICE',financialSnapshot:{...totals,paid:'0.00',balance:totals.total}}});
     const committed=await tx.sale.update({where:{id:sale.id},data:{state:'COMMITTED',committedAt:new Date()}});
     await audit(tx,actor.id,'sale.commit','Sale',sale.id,{versionId:version.id,total:totals.total,inventoryChanged:false});return committed;
@@ -113,7 +144,7 @@ export async function recordPayment(actor:AccessProfile,raw:unknown) {
     const duplicate=await tx.paymentRecord.findUnique({where:{idempotencyKey:input.idempotencyKey},include:{allocations:true}});if(duplicate){if(!duplicate.amount.equals(input.amount)||duplicate.methodId!==input.methodId||duplicate.externalRef!==input.externalRef||!duplicate.allocations.some(a=>a.saleId===input.saleId))throw new HttpError(409,'IDEMPOTENCY_CONFLICT');return duplicate;}
     const sale=await tx.sale.findUnique({where:{id:input.saleId},include:{allocations:true}}),method=await tx.paymentMethod.findUnique({where:{id:input.methodId}});
     if(!sale||sale.state!=='COMMITTED'||sale.demoScope||!method?.active)throw new HttpError(422,'COMMITTED_SALE_AND_ACTIVE_METHOD_REQUIRED');
-    const paid=sale.allocations.reduce((sum,a)=>sum+amount(a.amount.toFixed(2)),BigInt(0));if(paid+amount(input.amount)>amount(sale.total.toFixed(2)))throw new HttpError(422,'OVERPAYMENT_REJECTED');
+    const adjustments=await saleAdjustments(tx,sale.id);const paid=sale.allocations.reduce((sum,a)=>sum+amount(a.amount.toFixed(2)),BigInt(0));if(paid+amount(input.amount)>amount(sale.total.sub(adjustments.credit).add(adjustments.refunded).toFixed(2)))throw new HttpError(422,'OVERPAYMENT_REJECTED');
     const payment=await tx.paymentRecord.create({data:{reference:await reference(tx,'PAY'),idempotencyKey:input.idempotencyKey,methodId:method.id,externalRef:input.externalRef,receivedAt:new Date(input.receivedAt),amount:input.amount,state:'POSTED',evidence:{recordedBy:actor.id,manualRecord:true,noGatewayTransaction:true},allocations:{create:{saleId:sale.id,amount:input.amount}}}});
     await audit(tx,actor.id,'payment.record','PaymentRecord',payment.id,{saleId:sale.id,amount:input.amount,balance:decimal(amount(sale.total.toFixed(2))-paid-amount(input.amount)),gatewayTriggered:false});return payment;
   });
@@ -125,7 +156,7 @@ export async function receiptDraft(actor:AccessProfile,raw:unknown) {
     if(!payment||payment.state!=='POSTED'||payment.demoScope||!payment.allocations.length)throw new HttpError(422,'ALLOCATED_PAYMENT_REQUIRED');
     const sale=payment.allocations[0].sale,company=sale.companySnapshot as unknown as ReturnType<typeof currentCompanySnapshot>,client=sale.customerSnapshot as {client?:string;address?:string;email?:string};
     const body=JSON.stringify({draft:{client:client.client||'',attention:'',email:client.email||'',address:client.address||'',project:'',date:payment.receivedAt.toISOString().slice(0,10),validUntil:'',items:sale.items.map(i=>i.snapshot),discount:sale.discount.toFixed(2),taxPercent:sale.taxPercent.toString(),charges:sale.charges.toFixed(2),terms:'',paymentTerms:'',deliveryTerms:'',notes:'',kind:'RECEIPT',sourceQuotation:null,payments:[{id:payment.id,amount:payment.allocations[0].amount.toFixed(2),method:payment.method.code,state:'POSTED',date:payment.receivedAt.toISOString().slice(0,10),reference:payment.reference,demo:false}],issuer:'',demo:false}});
-    const doc=await tx.businessDocument.create({data:{kind:'RECEIPT',versions:{create:{revision:1,status:'DRAFT',authorId:actor.id,subject:'Payment receipt',body,locale:'en',recipientSnapshot:sale.customerSnapshot as Prisma.InputJsonValue,companySnapshot:company,senderSnapshot:{},contentHash:hash({body,company})}}},include:{versions:true}});
+    const doc=await tx.businessDocument.create({data:{kind:'RECEIPT',customerId:sale.customerId,versions:{create:{revision:1,status:'DRAFT',authorId:actor.id,subject:'Payment receipt',body,locale:'en',recipientSnapshot:sale.customerSnapshot as Prisma.InputJsonValue,companySnapshot:company,senderSnapshot:{},contentHash:hash({body,company})}}},include:{versions:true}});
     await tx.commercialDocument.create({data:{saleId:sale.id,paymentId:payment.id,documentVersionId:doc.versions[0].id,kind:'RECEIPT',financialSnapshot:{amount:payment.allocations[0].amount.toFixed(2),paymentReference:payment.reference}}});
     await audit(tx,actor.id,'receipt.draft.create','DocumentVersion',doc.versions[0].id,{paymentId:payment.id,saleId:sale.id});return doc;
   });
@@ -135,6 +166,7 @@ export async function documentFromSale(actor:AccessProfile,raw:unknown){
  return serializable(async tx=>{
   const sale=await tx.sale.findUnique({where:{id:input.saleId},include:{documents:{include:{documentVersion:true}},allocations:{include:{payment:{include:{method:true}}}}}});
   if(!sale||sale.state!=='COMMITTED'||sale.demoScope)throw new HttpError(422,'COMMITTED_SALE_REQUIRED');
+  if((await saleAdjustments(tx,sale.id)).credit.gt(0))throw new HttpError(422,'ADJUSTED_SALE_REQUIRES_ORIGINAL_DOCUMENT_AND_RETURN_RECORD');
   const source=sale.documents.find(doc=>['MEMO','INVOICE'].includes(doc.kind));if(!source)throw new HttpError(422,'SOURCE_DOCUMENT_REQUIRED');
   const payments=sale.allocations.filter(a=>a.payment.state==='POSTED').map(a=>({id:a.payment.id,amount:a.amount.toFixed(2),method:a.payment.method.code,state:'POSTED',date:a.payment.receivedAt.toISOString().slice(0,10),reference:a.payment.reference,demo:false}));
   const paid=payments.reduce((total,p)=>total+amount(p.amount),BigInt(0)),balance=amount(sale.total.toFixed(2))-paid;

@@ -51,7 +51,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           (item) => item.slug === slug[1] && item.status === "published",
         )
       : undefined;
-  const title =
+  const customSeo=pages[slug[0]||"home"]?.[lang]?.seo;
+  const title = customSeo?.title||(
     path === "privacy"
       ? requestCopy(lang).privacy
       : path === "cart"
@@ -64,10 +65,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               ? item.name[lang]
               : key && navigation.includes(key)
                 ? d[key]
-                : company.name;
+                : company.name);
   return {
-    title: !path ? { absolute: `${company.name} — ${d.intro}` } : title,
-    description: item ? item.description[lang] : d.heroDescription,
+    title: !path ? { absolute: customSeo?.title||`${company.name} — ${d.intro}` } : title,
+    description: customSeo?.description||(item ? item.description[lang] : d.heroDescription),
     alternates: {
       canonical: href(lang, path),
       languages: { en: href("en", path), bn: href("bn", path) },
@@ -86,11 +87,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 async function ResolvedPage({ params }: Props) {
   const { lang, slug = [] } = await params;
   if (!isLocale(lang)) notFound();
-  const {products:productConcepts,services,portfolio}=await publishedSite();
+  const {products:productConcepts,services,portfolio,jobs}=await publishedSite();
   if (slug.length === 2 && slug[0] === "products" && productConcepts.some((p) => p.slug === slug[1] && p.status === "published")) {
     redirect(href(lang, "products") + "?product=" + encodeURIComponent(slug[1]));
   }
-  const dynamicItem=slug.length===2&&((slug[0]==='services'&&services.some(s=>s.slug===slug[1]))||(slug[0]==='projects'&&portfolio.some(p=>p.slug===slug[1])));
+  const dynamicItem=slug.length===2&&((slug[0]==='services'&&services.some(s=>s.slug===slug[1]))||(slug[0]==='projects'&&portfolio.some(p=>p.slug===slug[1]))||(slug[0]==='careers'&&jobs.some(j=>j.slug===slug[1])));
   if (!routes.includes(slug.join('/'))&&!dynamicItem) notFound();
   return <PublicPage locale={lang} segments={slug} extras={<><ReviewPreview locale={lang}/><TrustPreview locale={lang}/></>} />;
 }

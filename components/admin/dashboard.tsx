@@ -15,7 +15,8 @@ import {
 } from "@/lib/business/demo-fixtures";
 import { Button, download } from "./ui";
 
-export type LiveDashboardData = {source:"POSTGRESQL"; financial:boolean;salesCount:number|null;salesTotal:string|null;paid:string|null;balance:string|null; requests:number|null; products:number|null; categories:number|null; projects:number|null};
+import {LiveRevenue,type RevenuePoint} from './live-revenue';
+export type LiveDashboardData = {returnCredits?:string|null;refunds?:string|null;collection?:number[]|null;days?:number;series?:RevenuePoint[]|null;activity?:{id:string;action:string;entityType:string;createdAt:string}[];customers?:number|null;quotations?:number|null;services?:number|null;source:"POSTGRESQL"; financial:boolean;salesCount:number|null;salesTotal:string|null;paid:string|null;balance:string|null; requests:number|null; products:number|null; categories:number|null; projects:number|null};
 
 function RevenueChart({
   sales,
@@ -184,14 +185,14 @@ export function Dashboard({
         status === "all" ||
         paymentSummary(calculateQuote(s).total, s.payments).status === status,
     );
-  const counts = ["PAID", "PARTIAL", "UNPAID"].map(
+  const counts = live?.collection || ["PAID", "PARTIAL", "UNPAID"].map(
     (state) =>
       sales.filter(
         (s) =>
           paymentSummary(calculateQuote(s).total, s.payments).status === state,
       ).length,
   );
-  const totalCount = Math.max(sales.length, 1),
+  const totalCount = Math.max(live?.salesCount??sales.length, 1),
     paidDeg = (counts[0] / totalCount) * 360,
     partialDeg = (counts[1] / totalCount) * 360;
   const offered = decimal(
@@ -237,7 +238,9 @@ export function Dashboard({
     ...(live.financial ? [
       {label:'Recorded sales',value:money(live.salesTotal||'0'),note:`${live.salesCount} committed records`,icon:'receipt' as const,emphasis:true},
       {label:'Recorded payments',value:money(live.paid||'0'),note:'Posted payment allocations',icon:'wallet' as const},
-      {label:'Outstanding balance',value:money(live.balance||'0'),note:'Committed totals less posted payments',icon:'clock' as const},
+      {label:'Outstanding balance',value:money(live.balance||'0'),note:'Sales less return credits and net payments',icon:'clock' as const},
+      {label:'Posted return credits',value:money(live.returnCredits||'0'),note:'Original sales remain unchanged',icon:'receipt' as const},
+      {label:'Recorded refunds',value:money(live.refunds||'0'),note:'Manually recorded refunds already paid',icon:'wallet' as const},
     ] : []),
     ...(live.requests!==null?[{label:'Customer requests',value:String(live.requests),note:'Persisted inquiries and consultations',icon:'users' as const}]:[]),
     ...(!live.financial&&live.products!==null?[{label:'Products',value:String(live.products),note:'Active catalog records',icon:'box' as const,emphasis:true}]:[]),
@@ -280,7 +283,7 @@ export function Dashboard({
           <span>{live?'All authorized records · Verification data excluded':'Fixed review period · ending 08 Nov 2026'}</span>
         </div>
         <div>
-          {live&&<><select aria-label="Dashboard data source" disabled value="postgresql"><option value="postgresql">PostgreSQL</option></select><select aria-label="Dashboard date range" disabled value="all"><option value="all">All records</option></select><Button secondary disabled><Icon name="download"/>Export unavailable</Button></>}
+          {live&&<><select aria-label="Dashboard data source" disabled value="postgresql"><option value="postgresql">PostgreSQL</option></select><span>Lifetime totals ? chart period above</span></>}
           {!live&&<><select
             aria-label="Dashboard data source"
             value={source}
@@ -370,6 +373,7 @@ export function Dashboard({
           </div>
           }
           {live&&<div className="a-insight-strip">{([['Products',live.products,'products'],['Categories',live.categories,'categories'],['Projects',live.projects,'projects']] as const).filter(([,value])=>value!==null).map(([label,value,id])=><button key={id} onClick={()=>navigate(id)}><Icon name="box"/><span>{label}<strong>{value} records</strong></span><small>PostgreSQL</small></button>)}</div>}
+          {live&&<section className="a-panel"><h2>Customers, quotations and services</h2><div className="a-insight-strip">{([['Customers',live.customers,'customers'],['Quotations',live.quotations,'quotation-register'],['Services',live.services,'services']] as const).filter(([,value])=>value!==null&&value!==undefined).map(([label,value,id])=><button key={id} onClick={()=>navigate(id)}><span>{label}<strong>{value} records</strong></span></button>)}</div><h3>Recent authorized activity</h3>{live.activity?.map(a=><p key={a.id}>{a.action} · {a.entityType} · {new Date(a.createdAt).toLocaleString()}</p>)}{!live.activity?.length&&<p>No activity recorded.</p>}</section>}
           <div className="a-dashboard-grid">
             {(!live||live.financial)&&<><section className="a-panel a-revenue-panel">
               <header className="a-panel-header">
@@ -377,7 +381,7 @@ export function Dashboard({
                   <p className="a-overline">SALES PERFORMANCE</p>
                   <h2>Business over time</h2>
                   <p className="a-support">
-                    {live?"Recorded totals are shown above. Time-series analysis is unavailable.":"Committed sale records and their allocated payments."}
+                    {live?"Committed sales and posted allocations by UTC date.":"Committed sale records and their allocated payments."}
                   </p>
                 </div>
                 <div className="a-tabs">
@@ -395,7 +399,7 @@ export function Dashboard({
                   </button>
                 </div>
               </header>
-              <RevenueChart sales={dataset.sales} days={days} metric={metric} live={!!live}/>
+              {live?.series?<LiveRevenue series={live.series} metric={metric}/>:<RevenueChart sales={dataset.sales} days={days} metric={metric} live={!!live}/>}
               <footer className="a-chart-foot">
                 <span>{live?"Totals come from committed PostgreSQL records.":"Quotes are excluded from this chart."}</span>
                 <button
@@ -419,14 +423,14 @@ export function Dashboard({
                 <div
                   className="a-donut"
                   role="img"
-                  aria-label={live?"Payment collection unavailable":`${counts[0]} paid, ${counts[1]} partially paid, ${counts[2]} unpaid demo sales`}
+                  aria-label={live?`${counts[0]} paid, ${counts[1]} partially paid, ${counts[2]} unpaid recorded sales`:`${counts[0]} paid, ${counts[1]} partially paid, ${counts[2]} unpaid demo sales`}
                   style={{
-                    background: live?"var(--a-border)":`conic-gradient(var(--a-green) 0deg ${paidDeg}deg,var(--a-gold) ${paidDeg}deg ${paidDeg + partialDeg}deg,var(--a-slate) ${paidDeg + partialDeg}deg 360deg)`,
+                    background: `conic-gradient(var(--a-green) 0deg ${paidDeg}deg,var(--a-gold) ${paidDeg}deg ${paidDeg + partialDeg}deg,var(--a-slate) ${paidDeg + partialDeg}deg 360deg)`,
                   }}
                 >
                   <span>
-                    <strong>{live?"\u2014":sales.length}</strong>
-                    <small>{live?"UNAVAILABLE":"DEMO SALES"}</small>
+                    <strong>{live?live.salesCount:sales.length}</strong>
+                    <small>{live?"RECORDED SALES":"DEMO SALES"}</small>
                   </span>
                 </div>
                 <ul className="a-chart-legend">
@@ -434,13 +438,13 @@ export function Dashboard({
                     <li key={label}>
                       <span className={`legend-${i}`} />
                       <strong>{label}</strong>
-                      <b>{live?"\u2014":counts[i]}</b>
+                      <b>{counts[i]}</b>
                     </li>
                   ))}
                 </ul>
               </div>
               <footer className="a-chart-foot">
-                <span>{live?"No verified collection records displayed.":"Counts, not quotation interest."}</span>
+                <span>{live?"Counts of committed sales using posted allocations.":"Counts, not quotation interest."}</span>
                 <button
                   className="a-text-button"
                   disabled={!!live}

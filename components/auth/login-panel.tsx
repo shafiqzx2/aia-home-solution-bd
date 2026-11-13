@@ -17,7 +17,7 @@ export function LoginPanel({ locale = "en",configured=false }: { locale?: Locale
   const router=useRouter();
   async function signIn(event:FormEvent){
     event.preventDefault();if(!configured||busy)return;setBusy(true);setMessage('');
-    try{const result=await authClient.signIn.email({email,password});if(result.error){setMessage(locale==='bn'?'লগইন করা যায়নি। তথ্য যাচাই করে আবার চেষ্টা করুন।':'Sign-in failed. Check your details or request an administrator-issued recovery link.');return;}setPassword('');router.replace((result.data as {twoFactorRedirect?:boolean})?.twoFactorRedirect?`/${locale}/security`:`/${locale}/admin`);router.refresh();}
+    try{const result=await authClient.signIn.email({email,password});if(result.error){setMessage(locale==='bn'?'লগইন করা যায়নি। তথ্য যাচাই করে আবার চেষ্টা করুন।':'Sign-in failed. Check your details or request an administrator-issued recovery link.');return;}setPassword('');const mfa=(result.data as {twoFactorRedirect?:boolean})?.twoFactorRedirect;const identity=mfa?null:await fetch('/api/admin/me',{cache:'no-store'}).then(r=>r.ok?r.json():null);router.replace(mfa?`/${locale}/security`:identity?.customerOnly?`/${locale}/account`:`/${locale}/admin`);router.refresh();}
     catch{setMessage(locale==='bn'?'লগইন সেবা এখন পাওয়া যাচ্ছে না।':'The sign-in service is currently unavailable.');}finally{setBusy(false);}
   }
   const d = dictionaries[locale],

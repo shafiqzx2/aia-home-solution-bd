@@ -279,3 +279,5 @@ export function renderEmail(
 ) {
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><style>${documentCss}</style></head><body><article class="email-body"><p class="eyebrow">${e(company.name)}</p><h1>${e(subject)}</h1><div class="letter-body">${e(body)}</div><footer class="footer">${e(company.address)}<br>${e(company.email)} · ${e(company.phone)}</footer></article></body></html>`;
 }
+
+export {frame as documentFrame};

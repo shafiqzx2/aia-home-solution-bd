@@ -1,0 +1,9 @@
+import 'server-only';
+import {z} from 'zod';
+import {prisma} from '@/lib/prisma';
+import {localized,moneyInput} from '@/lib/business/validation';
+import {audit,HttpError,serializable} from './security';
+import {assertPublicIdentitySafe} from './identity-privacy';
+export const documentSettingsInput=z.object({revision:z.number().int().nonnegative(),taxPercent:moneyInput.refine(v=>Number(v)<=100),validDays:z.number().int().min(0).max(365),terms:localized,paymentTerms:localized,deliveryTerms:localized,documentFooter:localized}).strict();
+export async function documentSettings(){const row=await prisma.companySettings.findUnique({where:{id:'company'}});const terms=(row?.quotationTerms||{}) as Record<string,unknown>;return {revision:row?.revision||0,taxPercent:'0',validDays:30,terms:{en:'',bn:''},paymentTerms:{en:'',bn:''},deliveryTerms:{en:'',bn:''},...terms,documentFooter:row?.documentFooter&&typeof row.documentFooter==='object'&&Object.hasOwn(row.documentFooter,'en')?row.documentFooter:{en:'',bn:''},numbering:(await prisma.numberSequence.findMany({orderBy:[{period:'desc'},{scope:'asc'}],take:50})).map(n=>({...n,nextValue:n.nextValue.toString()}))};}
+export async function saveDocumentSettings(actorId:string,raw:unknown){const input=documentSettingsInput.parse(raw);return serializable(async tx=>{const old=await tx.companySettings.findUnique({where:{id:'company'}});if(!old||old.revision!==input.revision)throw new HttpError(409,'STALE_REVISION');await assertPublicIdentitySafe(tx,input);const {revision,documentFooter,...terms}=input;const row=await tx.companySettings.update({where:{id:'company'},data:{quotationTerms:terms,documentFooter,revision:{increment:1}}});await audit(tx,actorId,'company.document_settings.save','CompanySettings',row.id,{previousRevision:revision,revision:row.revision});return {revision:row.revision};});}

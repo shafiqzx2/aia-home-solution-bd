@@ -1,0 +1,10 @@
+import {existsSync} from 'node:fs';
+import {spawn} from 'node:child_process';
+for(const file of ['.env','.env.local'])if(existsSync(file))process.loadEnvFile(file);
+const source=new URL(process.env.DATABASE_URL),mode=process.argv[2]||'start';
+if(process.env.VERCEL||!['localhost','127.0.0.1'].includes(source.hostname)||source.pathname!=='/aia'||!['start','dev'].includes(mode))throw Error('Existing local source configuration and start/dev mode required.');
+source.pathname='/aia_workflow_verify_20261110_a1';
+const env={...process.env,NODE_ENV:mode==='dev'?'development':'production',DATABASE_URL:source.href,DIRECT_URL:source.href,BETTER_AUTH_URL:'http://localhost:3004',AIA_STORAGE_DRIVER:'local',AIA_BUSINESS_ENABLED:'true',AIA_EMAIL_SENDING_ENABLED:'false',AIA_EMAIL_PROVIDER_VERIFIED:'false'};
+const child=spawn(process.execPath,['node_modules/next/dist/bin/next',mode,'--hostname','127.0.0.1','--port','3004'],{env,stdio:'inherit',windowsHide:true});
+child.on('exit',code=>process.exit(code??1));
+for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>child.kill(signal));
