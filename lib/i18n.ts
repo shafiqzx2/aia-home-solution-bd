@@ -55,12 +55,12 @@ const en = {
     "From a single room to a connected workplace. Find a starting point for your project.",
   featured: "Explore our products.",
   catalogIntro:
-    "Browse Hikvision camera model families and solution concepts for homes and businesses.",
+    "Browse selected Hikvision and Dahua camera models and solution concepts for homes and businesses.",
   catalogNotice:
-    "Concepts are marked as illustrations. Hikvision model information is linked to the manufacturer. Confirm the exact model, lens, revision and availability with our team.",
+    "Concepts are marked as illustrations. Camera model information is linked to the manufacturer. Confirm the exact model, lens, revision and availability with our team.",
   all: "All products",
   search: "Search products",
-  searchPlaceholder: "Try Hikvision, lighting, switches…",
+  searchPlaceholder: "Try Hikvision, Dahua, lighting, switches…",
   categories: "Product categories",
   noResults: "No matching products. Try another search or category.",
   clear: "Clear filters",
@@ -230,12 +230,12 @@ const bn: Dictionary = {
     "একটি ঘর থেকে সংযুক্ত কর্মস্থল। আপনার প্রকল্পের উপযোগী সমাধান খুঁজুন।",
   featured: "আমাদের পণ্য দেখুন।",
   catalogIntro:
-    "বাসা ও ব্যবসার জন্য Hikvision ক্যামেরার মডেল পরিবার ও সমাধানের ধারণাগুলো দেখুন।",
+    "বাসা ও ব্যবসার জন্য Hikvision ও Dahua ক্যামেরার নির্বাচিত মডেল এবং সমাধানের ধারণাগুলো দেখুন।",
   catalogNotice:
-    "ধারণাভিত্তিক চিত্রগুলো আলাদাভাবে চিহ্নিত। Hikvision মডেলের সঙ্গে নির্মাতার তথ্যের লিংক রয়েছে। নির্দিষ্ট মডেল, লেন্স, সংস্করণ ও প্রাপ্যতা আমাদের দলের সঙ্গে নিশ্চিত করুন।",
+    "ধারণাভিত্তিক চিত্রগুলো আলাদাভাবে চিহ্নিত। ক্যামেরার মডেলের সঙ্গে নির্মাতার তথ্যের লিংক রয়েছে। নির্দিষ্ট মডেল, লেন্স, সংস্করণ ও প্রাপ্যতা আমাদের দলের সঙ্গে নিশ্চিত করুন।",
   all: "সব পণ্য",
   search: "পণ্য খুঁজুন",
-  searchPlaceholder: "Hikvision, আলো, সুইচ…",
+  searchPlaceholder: "Hikvision, Dahua, আলো, সুইচ…",
   categories: "পণ্যের বিভাগ",
   noResults: "মিল পাওয়া যায়নি। অন্য শব্দ বা বিভাগ দিয়ে খুঁজুন।",
   clear: "ফিল্টার মুছুন",
