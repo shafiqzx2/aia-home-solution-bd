@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 ? d[key]
                 : company.name;
   return {
-    title: !path ? { absolute: `${company.name} — ${d.intro}` } : title,
+    title: !path ? { absolute: company.name } : title,
     description: item ? item.description[lang] : d.heroDescription,
     alternates: {
       canonical: href(lang, path),
@@ -87,6 +87,7 @@ async function ResolvedPage({ params }: Props) {
   if (slug.length === 2 && slug[0] === "products" && productConcepts.some((p) => p.slug === slug[1] && p.status === "published")) {
     redirect(href(lang, "products") + "?product=" + encodeURIComponent(slug[1]));
   }
+  if (slug.length > 1 && slug[0] === "projects") redirect(href(lang, "projects"));
   if (!routes.includes(slug.join("/"))) notFound();
   return <PublicPage locale={lang} segments={slug} />;
 }

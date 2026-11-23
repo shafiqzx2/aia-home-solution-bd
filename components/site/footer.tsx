@@ -24,7 +24,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
         <Link href={href(locale, "services")}>{d.allServices}</Link>
       </FooterLinks>
       <div className="footer-contact"><h2>{d.contact}</h2><ContactDetails locale={locale} />
-        <Link className="text-link" href={href(locale, "request") + "?entry=direct&type=consultation"}>{requestCopy(locale).consultation}</Link>
+        <Link className="text-link" href={href(locale, "contact")}>{requestCopy(locale).consultation}</Link>
         <p className="footer-location">{company.country[locale]}</p>
       </div>
     </div>

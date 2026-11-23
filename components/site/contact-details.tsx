@@ -3,11 +3,12 @@ import { type Locale } from "@/lib/i18n";
 import { requestCopy } from "@/lib/request-copy";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { mapsUrl } from "@/lib/public-contact";
 export function ContactDetails({ locale }: { locale: Locale }) {
   return <address className="business-contact">
     {company.contact.phone && <a href={`tel:${company.contact.phone}`}>{company.contact.phone}</a>}
     {company.contact.email && <a href={`mailto:${company.contact.email}`}>{company.contact.email}</a>}
-    {company.contact.address && <p>{company.contact.address[locale]}</p>}
+    {company.contact.address && <a href={mapsUrl} target="_blank" rel="noopener noreferrer">{company.contact.address[locale]}</a>}
   </address>;
 }
 function safeSocialUrl(value: string | null, network: string) {

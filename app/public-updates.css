@@ -1,0 +1,13 @@
+.update-announcement { background: var(--surface); border-bottom: 1px solid var(--line); color: var(--foreground); font-size: .8125rem; line-height: 1.5; }
+.update-announcement > .shell { display: flex; align-items: center; justify-content: center; gap: .5rem 1rem; padding-block: .5rem; }
+.update-announcement p { margin: 0; max-width: 76rem; }
+.update-announcement span { flex-shrink: 0; }
+.update-announcement a { text-decoration: underline; text-underline-offset: .2em; }
+.public-contact-notice { padding-block: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.public-contact-notice p { max-width: 70ch; overflow-wrap: anywhere; }
+.public-contact-notice .action-row { margin-top: 1rem; }
+.public-contact-notice [role="status"]:empty { display: none; }
+.business-contact a { overflow-wrap: anywhere; }
+.inquiry-copy { display: grid; gap: .5rem; margin-top: 1rem; }
+.inquiry-copy textarea { width: 100%; padding: .75rem; background: var(--surface); color: var(--foreground); border: 1px solid var(--line); font: inherit; }
+@media (max-width: 767px) { .update-announcement > .shell { display: block; } .update-announcement span { display: inline-block; margin-top: .25rem; } }

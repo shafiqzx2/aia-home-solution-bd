@@ -84,14 +84,14 @@ const en = {
   allServices: "Explore all services",
   projectsTitle: "Spaces with possibility.",
   projectsIntro:
-    "Our verified project portfolio is being prepared. In the meantime, explore clearly marked visual concepts.",
-  projectNotice: "Concept gallery — these are not completed AIA projects.",
+    "Our updated project showcase and interactive 3D previews are coming soon.",
+  projectNotice: "Our updated project showcase and interactive 3D previews are coming soon.",
   conceptProject: "Design concept",
   verifiedProjects: "Completed projects",
   projectsEmpty:
     "Verified project stories will appear here when approved images and details are available.",
   location: "Location",
-  notAssigned: "Not assigned — concept only",
+  notAssigned: "Not assigned - concept only",
   related: "Related solution areas",
   backProjects: "Back to projects",
   aboutTitle: "One considered perspective. More possibilities.",
@@ -227,7 +227,7 @@ const bn: Dictionary = {
   resume: "আলোর অ্যানিমেশন চালু করুন",
   solutionsTitle: "আপনার পরিসরকে ঘিরে পরিকল্পনা।",
   solutionsDescription:
-    "একটি ঘর থেকে সংযুক্ত কর্মস্থল—আপনার প্রকল্পের উপযোগী সমাধান খুঁজুন।",
+    "একটি ঘর থেকে সংযুক্ত কর্মস্থল। আপনার প্রকল্পের উপযোগী সমাধান খুঁজুন।",
   featured: "সম্ভাবনাগুলো দেখুন।",
   catalogIntro:
     "বাসা ও ব্যবসার জন্য সমাধানের ধারণাগুলো দেখুন। যাচাইকৃত পণ্য ও কারিগরি তথ্য ধাপে ধাপে যুক্ত করা হবে।",
@@ -259,14 +259,14 @@ const bn: Dictionary = {
   allServices: "সব সেবা দেখুন",
   projectsTitle: "সম্ভাবনাময় পরিসর।",
   projectsIntro:
-    "যাচাইকৃত প্রকল্পের পোর্টফোলিও প্রস্তুত করা হচ্ছে। আপাতত স্পষ্টভাবে চিহ্নিত নকশার ধারণাগুলো দেখুন।",
-  projectNotice: "ধারণাভিত্তিক গ্যালারি—এগুলো AIA-এর সম্পন্ন প্রকল্প নয়।",
+    "আমাদের আপডেটেড প্রজেক্ট গ্যালারি ও ইন্টারঅ্যাকটিভ 3D প্রিভিউ শিগগিরই আসছে।",
+  projectNotice: "আমাদের আপডেটেড প্রজেক্ট গ্যালারি ও ইন্টারঅ্যাকটিভ 3D প্রিভিউ শিগগিরই আসছে।",
   conceptProject: "নকশার ধারণা",
   verifiedProjects: "সম্পন্ন প্রকল্প",
   projectsEmpty:
     "অনুমোদিত ছবি ও তথ্য পাওয়ার পর যাচাইকৃত প্রকল্প এখানে প্রকাশ করা হবে।",
   location: "অবস্থান",
-  notAssigned: "নির্ধারিত নয়—শুধু ধারণা",
+  notAssigned: "নির্ধারিত নয়। শুধু ধারণা",
   related: "সংশ্লিষ্ট সমাধান",
   backProjects: "প্রকল্পের তালিকায় ফিরুন",
   aboutTitle: "সুচিন্তিত দৃষ্টিভঙ্গি। আরও সম্ভাবনা।",

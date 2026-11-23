@@ -101,8 +101,8 @@ export const company: SiteSettings = {
       "AIA Home Solutions BD, আমার বাসা বা বাণিজ্যিক প্রকল্প নিয়ে আলোচনা করতে চাই।",
     ),
     address: text(
-      "H#30, Sonargaon Janapath, Uttara, Dhaka 1230",
-      "বাসা #৩০, সোনারগাঁও জনপথ, উত্তরা, ঢাকা ১২৩০",
+      "2nd Floor, House 27, Road 10, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh",
+      "২য় তলা, বাড়ি ২৭, রোড ১০, নিকুঞ্জ-২, খিলক্ষেত, ঢাকা-১২২৯, বাংলাদেশ",
     ),
   },
   socialLinks: { facebookUrl: null, instagramUrl: null, youtubeUrl: null, linkedinUrl: null },
@@ -188,7 +188,7 @@ export const categories: SolutionCategory[] = [
   },
   {
     id: "security",
-    name: text("CCTV & security", "CCTV ও নিরাপত্তা"),
+    name: text("CCTV Cameras", "সিসিটিভি ক্যামেরা"),
     description: text(
       "A considered view of surveillance and coverage.",
       "নজরদারি ও কভারেজের সুচিন্তিত পরিকল্পনা।",
@@ -226,7 +226,7 @@ export const solutionPreviews = [
   { id: "automation", icon: "layers", name: text("Smart Home Automation", "স্মার্ট হোম অটোমেশন"), description: text("Connected comfort, shaped around everyday routines.", "দৈনন্দিন অভ্যাসের সঙ্গে মানানসই সংযুক্ত নিয়ন্ত্রণ।") },
   { id: "access", icon: "lock", name: text("Smart Door Locks", "স্মার্ট দরজার লক"), description: text("Thoughtful access for homes and workplaces.", "বাসা ও কর্মস্থলের জন্য সুচিন্তিত প্রবেশব্যবস্থা।") },
   { id: "switches", icon: "controls", name: text("Switches & Sockets", "সুইচ ও সকেট"), description: text("Refined controls and practical power points.", "পরিশীলিত নিয়ন্ত্রণ ও সুবিধাজনক বিদ্যুৎ সংযোগ।") },
-  { id: "security", icon: "camera", name: text("CCTV & Security", "CCTV ও নিরাপত্তা"), description: text("Plan visibility, coverage, and peace of mind.", "নজরদারি, কভারেজ ও নিরাপত্তার পরিকল্পনা।") },
+  { id: "security", icon: "camera", name: text("CCTV Cameras", "সিসিটিভি ক্যামেরা"), description: text("Plan visibility, coverage, and peace of mind.", "নজরদারি, কভারেজ ও নিরাপত্তার পরিকল্পনা।") },
   { id: "audio-digital", icon: "audio", name: text("Audio & Digital Solutions", "অডিও ও ডিজিটাল সমাধান"), description: text("Sound, connectivity, and digital essentials.", "অডিও, সংযোগ ও প্রয়োজনীয় ডিজিটাল ব্যবস্থা।") },
 ] as const;
 
@@ -395,7 +395,7 @@ export const publicServices: Service[] = [
       ),
     ],
     areas: ["lighting", "outdoor"],
-    image: media.home,
+    image: { src: "/images/services/lighting-design.svg", alt: text("Lighting planning concept illustration", "আলোকসজ্জা পরিকল্পনার ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
   {
@@ -416,7 +416,7 @@ export const publicServices: Service[] = [
       ),
     ],
     areas: ["automation", "access", "switches", "sensors"],
-    image: media.home,
+    image: { src: "/images/services/smart-systems.svg", alt: text("Smart control concept illustration", "স্মার্ট নিয়ন্ত্রণের ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
   {
@@ -440,7 +440,7 @@ export const publicServices: Service[] = [
       ),
     ],
     areas: ["security", "access"],
-    image: media.commercial,
+    image: { src: "/images/services/security-planning.svg", alt: text("Camera coverage planning concept illustration", "ক্যামেরার কভারেজ পরিকল্পনার ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
   {
@@ -458,7 +458,7 @@ export const publicServices: Service[] = [
       text("Connectivity and system coordination", "সংযোগ ও ব্যবস্থার সমন্বয়"),
     ],
     areas: ["audio", "digital"],
-    image: media.commercial,
+    image: { src: "/images/services/connected-spaces.svg", alt: text("Network connectivity concept illustration", "নেটওয়ার্ক সংযোগের ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
   {
@@ -482,7 +482,7 @@ export const publicServices: Service[] = [
       ),
     ],
     areas: ["outdoor", "digital", "lighting"],
-    image: media.hero,
+    image: { src: "/images/services/project-support.svg", alt: text("Project coordination concept illustration", "প্রকল্প সমন্বয়ের ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
 ];

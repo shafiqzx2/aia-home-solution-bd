@@ -4,6 +4,8 @@ import { clearCart, setCartQuantity, useCart } from "@/lib/cart";
 import { productConcepts } from "@/lib/public-content";
 import { dictionaries, href, type Locale } from "@/lib/i18n";
 import { requestCopy } from "@/lib/request-copy";
+import { InquiryContact } from "./inquiry-contact";
+import { ContactActions } from "./direct-contact";
 export function CartPage({ locale }: { locale: Locale }) {
   const { items, storageAvailable } = useCart(),
     c = requestCopy(locale);
@@ -91,41 +93,15 @@ export function CartPage({ locale }: { locale: Locale }) {
                 );
               })}
             </ul>
-            <div className="action-row">
-              <Link
-                className="button button-gold"
-                href={`${href(locale, "request")}?entry=cart&type=quotation`}
-              >
-                {c.proceed}
-              </Link>
-              <button type="button" className="text-link" onClick={clearCart}>
-                {c.clear}
-              </button>
-              <Link
-                className="text-link"
-                href={`${href(locale, "request")}?entry=cart&type=consultation`}
-              >
-                {c.consultation}
-              </Link>
-              <Link
-                className="text-link"
-                href={`${href(locale, "request")}?entry=cart&type=service`}
-              >
-                {c.book}
-              </Link>
-            </div>
+            <InquiryContact locale={locale} lines={items} />
+            <button type="button" className="text-link" onClick={clearCart}>{c.clear}</button>
           </>
         )}
         <div className="action-row">
           <Link className="text-link" href={href(locale, "products")}>
             {c.browse}
           </Link>
-          <Link
-            className="text-link"
-            href={`${href(locale, "request")}?entry=direct&type=consultation`}
-          >
-            {c.consultation}
-          </Link>
+          <ContactActions locale={locale} compact />
         </div>
       </div>
     </section>

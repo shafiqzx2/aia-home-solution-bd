@@ -63,14 +63,14 @@ export function ClosingCTA({ locale }: { locale: Locale }) {
           <h2>{d.footerContact}</h2>
           <p>
             {locale === "bn"
-              ? "একটি ভাবনা, একটি ঘর, অথবা পুরো প্রকল্প—আলোচনা দিয়ে শুরু করুন।"
+              ? "একটি ভাবনা, একটি ঘর, অথবা পুরো প্রকল্প। আলোচনা দিয়ে শুরু করুন।"
               : "One idea, one room, or an entire project. Start with a conversation."}
           </p>
         </div>
         <div className="closing-actions">
           <Link
             className="button button-gold"
-            href={`${href(locale, "request")}?entry=direct&type=consultation`}
+            href={href(locale, "contact")}
           >
             {c.consultation}
           </Link>
@@ -120,18 +120,18 @@ export function HomeContent({
     },
     {
       icon: "pin",
-      title: text("Choose a preference", "সময় বাছুন"),
+      title: text("Get in touch", "যোগাযোগ করুন"),
       copy: text(
-        "Choose how to meet and your preferred date in Dhaka time.",
-        "সাক্ষাতের ধরন ও ঢাকার সময় অনুযায়ী পছন্দের তারিখ বাছুন।",
+        "Email, call, or message our team to discuss your requirements.",
+        "ইমেইল, ফোন বা হোয়াটসঅ্যাপে আপনার চাহিদা নিয়ে আলোচনা করুন।",
       ),
     },
     {
       icon: "check",
       title: text("Review & contact AIA", "পর্যালোচনা ও যোগাযোগ"),
       copy: text(
-        "Save your request document and contact AIA for review and confirmation. Online submission is coming later.",
-        "অনুরোধের নথি সংরক্ষণ করে পর্যালোচনা ও নিশ্চিত করার জন্য AIA-এর সঙ্গে যোগাযোগ করুন। অনলাইনে জমা দেওয়া পরে চালু হবে।",
+        "Share your shortlist directly. Our team will discuss scope and confirm the next steps with you.",
+        "আপনার পছন্দের তালিকা সরাসরি পাঠান। আমাদের দল কাজের পরিধি ও পরবর্তী পদক্ষেপ নিয়ে আলোচনা করবে।",
       ),
     },
   ];

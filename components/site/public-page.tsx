@@ -7,19 +7,17 @@ import {
   company,
   jobs,
   media,
-  portfolio,
   productConcepts,
   publicServices,
 } from "@/lib/public-content";
 import { BrandedLoading } from "./branded-loading";
 import { Catalog } from "./catalog";
-import { ProjectBrief } from "./project-brief";
-import { MediaGallery } from "./media-gallery";
 import { ServiceCatalog } from "./service-catalog";
 import { ReviewPreview } from "./review-preview";
-import { flattenCategories } from "@/lib/category-tree";
 import { CartPage } from "./cart-page";
-import { RequestFlow } from "./request-flow";
+import { RequestContact } from "./inquiry-contact";
+import { ContactNotice } from "./direct-contact";
+import { contactText } from "@/lib/public-contact";
 import { requestCopy } from "@/lib/request-copy";
 import { HomeContent, ClosingCTA } from "./home-content";
 import { ServiceActions } from "./service-actions";
@@ -27,7 +25,6 @@ import { TrustPreview } from "./trust-preview";
 import { ContactDetails, SocialLinks } from "./contact-details";
 import { RelatedProducts } from "./related-products";
 
-const allCategories = flattenCategories(categories);
 
 function PageIntro({
   title,
@@ -50,33 +47,7 @@ function QuotationCTA({ locale }: { locale: Locale }) {
   return <ClosingCTA locale={locale} />;
 }
 function ProjectCards({ locale }: { locale: Locale }) {
-  const d = dictionaries[locale];
-  return (
-    <div className="project-grid">
-      {portfolio
-        .filter((p) => p.status === "published")
-        .map((project) => (
-          <article className="project-card" key={project.slug}>
-            <Link href={href(locale, `projects/${project.slug}`)}>
-              <div className="project-image">
-                <Image
-                  src={project.cover.src}
-                  alt={project.cover.alt[locale]}
-                  fill
-                  sizes="(max-width: 767px) 100vw, 50vw"
-                />
-                <span>{d.conceptProject}</span>
-              </div>
-              <div className="project-caption">
-                <p>{project.category[locale]}</p>
-                <h3>{project.name[locale]}</h3>
-                <span className="text-link">{d.viewDetails}</span>
-              </div>
-            </Link>
-          </article>
-        ))}
-    </div>
-  );
+  return <div className="empty-state compact"><h2 className="subheading">{locale === "bn" ? "শিগগিরই আসছে" : "Coming soon"}</h2><p>{contactText(locale, "projects")}</p></div>;
 }
 function Home({ locale }: { locale: Locale }) {
   const d = dictionaries[locale];
@@ -96,7 +67,6 @@ function Home({ locale }: { locale: Locale }) {
             </Link>
           </div>
           <ProjectCards locale={locale} />
-          <p className="content-note">{d.projectNotice}</p>
         </div>
       </section>
       <ReviewPreview locale={locale} />
@@ -119,15 +89,15 @@ function PageContent({
       <section className="section-space">
         <div className="shell privacy-copy">
           <PageIntro title={requestCopy(locale).privacy} />
-          <h2>{locale === "bn" ? "এই ফর্মে কী হয়" : "What this form does"}</h2>
-          <p>{requestCopy(locale).localOnly}</p>
+          <h2>{locale === "bn" ? "অনলাইন জিজ্ঞাসা" : "Online inquiries"}</h2>
+          <p>{contactText(locale, "quotation")}</p>
           <h2>
             {locale === "bn" ? "আপনার ব্রাউজারের সংরক্ষণ" : "Browser storage"}
           </h2>
           <p>
             {locale === "bn"
-              ? "কার্টে শুধু প্রকাশিত পণ্যের পরিচয় ও পরিমাণ সংরক্ষণ করা হয়। থিমের পছন্দও রাখা হয়। নাম, ফোন, ইমেইল, ঠিকানা ও বিবরণ ব্রাউজার স্টোরেজে রাখা হয় না। ডাউনলোড বা প্রিন্ট করা নথির কপি আপনার নিয়ন্ত্রণে থাকে।"
-              : "The cart stores published product identifiers and quantities. Your theme preference is also saved. Names, phone numbers, email, addresses, and request notes are not stored in browser storage. Copies you download or print remain under your control."}
+              ? "কার্টে শুধু প্রকাশিত পণ্যের পরিচয় ও পরিমাণ সংরক্ষণ করা হয়। থিমের পছন্দও রাখা হয়। এই ওয়েবসাইটে অনলাইন বুকিং বা কোটেশন জমা নেওয়া হয় না।"
+              : "The cart stores published product identifiers and quantities. Your theme preference is also saved. This website does not accept online booking or quotation submissions."}
           </p>
           <h2>{locale === "bn" ? "সরাসরি যোগাযোগ" : "Direct contact"}</h2>
           <p>
@@ -146,7 +116,7 @@ function PageContent({
         <div className="shell request-shell">
           <PageIntro title={requestCopy(locale).consultation} />
           <Suspense fallback={<BrandedLoading locale={locale} compact />}>
-            <RequestFlow locale={locale} />
+            <RequestContact locale={locale} />
           </Suspense>
         </div>
       </section>
@@ -161,6 +131,7 @@ function PageContent({
             description={d.catalogIntro}
           />
           <p className="notice">{d.catalogNotice}</p>
+          <ContactNotice locale={locale} />
           <Suspense fallback={<BrandedLoading locale={locale} compact />}>
             <Catalog
               locale={locale}
@@ -181,6 +152,7 @@ function PageContent({
               title={d.servicesTitle}
               description={d.servicesIntro}
             />
+            <ContactNotice locale={locale} kind="booking" />
             <Suspense fallback={<BrandedLoading locale={locale} compact />}>
               <ServiceCatalog
                 locale={locale}
@@ -228,6 +200,7 @@ function PageContent({
                 ))}
               </ul>
               <p className="content-note">{d.servicesIntro}</p>
+              <p className="notice">{contactText(locale, "booking")}</p>
               <ServiceActions locale={locale} id={service.slug} />
             </div>
           </div>
@@ -243,58 +216,11 @@ function PageContent({
           <PageIntro
             label={d.projects}
             title={d.projectsTitle}
-            description={d.projectsIntro}
           />
-          <div className="empty-state compact">
-            <h2 className="subheading">{d.verifiedProjects}</h2>
-            <p>{d.projectsEmpty}</p>
-          </div>
-          <p className="notice">{d.projectNotice}</p>
           <ProjectCards locale={locale} />
         </div>
       </section>
     );
-  if (page === "projects") {
-    const project = portfolio.find(
-      (p) => p.slug === slug && p.status === "published",
-    )!;
-    return (
-      <section className="section-space">
-        <div className="shell">
-          <Link className="text-link back-link" href={href(locale, "projects")}>
-            {d.backProjects}
-          </Link>
-          <PageIntro
-            label={project.category[locale]}
-            title={project.name[locale]}
-            description={project.description[locale]}
-          />
-          <p className="notice">{d.projectNotice}</p>
-          <MediaGallery images={project.gallery} locale={locale} />
-          <div className="project-information">
-            <div>
-              <h2 className="subheading">{d.location}</h2>
-              <p>{project.location?.[locale] || d.notAssigned}</p>
-            </div>
-            <div>
-              <h2 className="subheading">{d.related}</h2>
-              <div className="related-links">
-                {project.areas.map((id) => (
-                  <Link
-                    className="text-link"
-                    key={id}
-                    href={`${href(locale, "products")}?category=${id}`}
-                  >
-                    {allCategories.find((c) => c.id === id)!.name[locale]}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
   if (page === "about")
     return (
       <>
@@ -315,6 +241,7 @@ function PageContent({
                 <h2>{company.name}</h2>
                 <p>{d.aboutCopy}</p>
                 <p>{d.aboutApproach}</p>
+                <ContactDetails locale={locale} />
                 <h2 className="subheading">{d.approach}</h2>
                 <ul className="scope-list">
                   {d.approachItems.map((item) => (
@@ -397,7 +324,7 @@ function PageContent({
             <ContactDetails locale={locale} />
           </div>
           <Suspense fallback={<BrandedLoading locale={locale} compact />}>
-            <ProjectBrief locale={locale} />
+            <ContactNotice locale={locale} />
           </Suspense>
         </div>
         <div className="contact-entry-grid">
@@ -444,8 +371,8 @@ function PageContent({
             </summary>
             <p>
               {locale === "bn"
-                ? "না। সাধারণ পরামর্শের জন্য সরাসরি অনুরোধ প্রস্তুত করতে পারেন।"
-                : "No. You can prepare a general consultation request without selecting any product or service."}
+                ? "না। সাধারণ পরামর্শের জন্য সরাসরি ইমেইল, ফোন বা হোয়াটসঅ্যাপে যোগাযোগ করুন।"
+                : "No. Email, call, or message our team directly for a general consultation."}
             </p>
           </details>
           <details>
@@ -459,13 +386,13 @@ function PageContent({
           <details>
             <summary>
               {locale === "bn"
-                ? "ডাউনলোড করলে কি নথি AIA পাবে?"
-                : "Does downloading send my document to AIA?"}
+                ? "পছন্দের পণ্যের তালিকা কীভাবে পাঠাব?"
+                : "How do I share a product shortlist?"}
             </summary>
             <p>
               {locale === "bn"
-                ? "না। ডাউনলোড ও প্রিন্ট আপনার ডিভাইসে হয়। অনলাইনে জমা দেওয়া এখনো চালু হয়নি। সরাসরি যোগাযোগ করুন।"
-                : "No. Downloading and printing happen on your device. Online submission is not yet available; contact AIA directly."}
+                ? "কার্টে পণ্য যোগ করে ইমেইল বা হোয়াটসঅ্যাপে জিজ্ঞাসা খুলুন। তালিকাটি কপিও করতে পারেন। নির্বাচিত অ্যাপে দেখে পাঠান।"
+                : "Add products to your cart, then open an email or WhatsApp inquiry. You can also copy the list. Review and send it in your chosen app."}
             </p>
           </details>
         </div>

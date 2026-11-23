@@ -76,7 +76,7 @@ export function Hero({
         <div className="hero-actions">
           <Link
             className="button button-gold"
-            href={`${href(locale, "request")}?entry=direct&type=consultation`}
+            href={href(locale, "contact")}
           >
             {c.consultation}
           </Link>

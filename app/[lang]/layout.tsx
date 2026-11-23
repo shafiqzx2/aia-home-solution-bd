@@ -16,6 +16,7 @@ import "../globals.css";
 import "../refinements.css";
 import "../business.css";
 import "../branding.css";
+import "../public-updates.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

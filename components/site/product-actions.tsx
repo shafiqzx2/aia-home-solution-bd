@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { href, type Locale } from "@/lib/i18n";
 import { requestCopy } from "@/lib/request-copy";
+import { productConcepts } from "@/lib/public-content";
+import { inquiryEmail, inquiryWhatsApp, contactText } from "@/lib/public-contact";
 import { addToCart, useCart } from "@/lib/cart";
 
 export function CartLink({ locale }: { locale: Locale }) {
@@ -31,6 +33,8 @@ export function ProductActions({
   detail?: boolean;
 }) {
   const c = requestCopy(locale);
+  const product = productConcepts.find(p => p.slug === id);
+  const message = locale === "bn" ? `AIA Home Solutions BD, ${product?.name[locale] || id} সম্পর্কে জানতে চাই।` : `Hello AIA Home Solutions BD, I would like to inquire about ${product?.name[locale] || id}.`;
   const [quantity, setQuantity] = useState(1),
     [added, setAdded] = useState(false);
   const { storageAvailable } = useCart();
@@ -68,20 +72,8 @@ export function ProductActions({
         >
           {c.add}
         </button>
-        <Link
-          className="product-action-secondary"
-          href={`${href(locale, "request")}?entry=product&product=${encodeURIComponent(id)}&quantity=${quantity}&type=quotation`}
-        >
-          {locale === "bn" ? "কোটেশন অনুরোধ" : "Request Quotation"}
-        </Link>
-        <Link
-            className="product-consultation"
-            href={`${href(locale, "request")}?entry=product&product=${encodeURIComponent(id)}&quantity=${quantity}&type=consultation`}
-          >
-            {locale === "bn"
-              ? "এই পণ্য নিয়ে পরামর্শ"
-              : "Consult About This Product"}
-          </Link>
+        <a className="product-action-secondary" href={inquiryEmail(`${message} Quantity: ${quantity}`)}>{contactText(locale, "email")}</a>
+        <a className="product-consultation" href={inquiryWhatsApp(`${message} Quantity: ${quantity}`) || inquiryEmail(message)} target="_blank" rel="noopener noreferrer">{contactText(locale, "whatsapp")}</a>
       </div>
       <span role="status" className="action-feedback">
         {added ? c.added : ""}

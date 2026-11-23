@@ -92,7 +92,7 @@ export function Header({ locale = "en" }: { locale?: Locale }) {
           </Link>
           <Link
             className="header-contact"
-            href={`${href(locale, "request")}?entry=direct&type=consultation`}
+            href={href(locale, "contact")}
           >
             {requestCopy(locale).consultation}
           </Link>
@@ -155,7 +155,7 @@ export function Header({ locale = "en" }: { locale?: Locale }) {
             {open && <MobileNavigation locale={locale} close={close} />}
             <Link
               className="button button-gold"
-              href={`${href(locale, "request")}?entry=direct&type=consultation`}
+              href={href(locale, "contact")}
               onClick={close}
             >
               {requestCopy(locale).consultation}
