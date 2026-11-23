@@ -1,9 +1,8 @@
 import { text } from "./i18n";
 import type { ProductConcept } from "./public-content";
 
-// Hikvision product images use third-party HTTPS URLs, not downloaded assets.
-// These links can change or disallow hotlinking. Verify commercial reuse permission.
-// Model-specific reference photos were matched to the listed products on 2026-11-23.
+// Camera photos are externally hosted by third parties. These links may change;
+// obtain permission and host approved images locally for reliable production use.
 const network = "IP-Products/Network-Cameras/Pro-Series-EasyIP-/";
 const turbo = "Turbo-HD-Products/Turbo-HD-Cameras/smart-hybrid-light-series/";
 
@@ -12,12 +11,15 @@ const models = [
     model: "DS-2CD2043G2-I(U)", resolution: "4 MP",
     type: "AcuSense IP bullet camera", typeBn: "AcuSense আইপি বুলেট ক্যামেরা",
     technology: "AcuSense", path: network + "ds-2cd2043g2-i-u-/",
-    photo: "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/3278/PMP20000431330/full_image-1.jpeg",
+    // This retailer photo displays the DS-2CD2043G2-IU label and camera.
+    // External photo availability and commercial reuse rights still need confirmation.
+    photo: "https://techonline.vn/media/product/1814-ds-2de7a232iw-aeb---73-.jpg",
   },
   {
     model: "DS-2CD2143G2-I(S)", resolution: "4 MP",
     type: "AcuSense IP dome camera", typeBn: "AcuSense আইপি ডোম ক্যামেরা",
     technology: "AcuSense", path: network + "ds-2cd2143g2-i-s-/",
+    // 2.8mm in the supplier image is lens focal length, not camera resolution.
     photo: "https://cctvexpress.co.uk/cdn/shop/files/DS-2CD2143G2-IS_2.8MM_53860ed3-a125-4660-b5e7-45c69ed480f8.webp?v=1749567538",
   },
   {
@@ -70,10 +72,9 @@ export const hikvisionCameras: ProductConcept[] = models.map(({ model, resolutio
   contentKind: "verified-product",
 }));
 
-// Retain the existing named export for compatibility with other project files.
 export const hikvisionImageRequests = hikvisionCameras.map((camera) => ({
   model: camera.name.en.replace("Hikvision ", ""),
   requestedFile: `${camera.slug}.webp`,
   manufacturerUrl: camera.manufacturerUrl,
-  status: "Online image link mapped; usage permission and link availability must be confirmed",
+  status: "External photo: check reuse permission and live link availability",
 }));
