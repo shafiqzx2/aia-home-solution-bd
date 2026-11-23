@@ -4,6 +4,15 @@ const nextConfig: NextConfig = {
   // Docker builds opt in; ordinary/Vercel builds must not copy local env files.
   output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
   poweredByHeader: false,
+  // Allow only the image sources used by the six Hikvision catalog cards.
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "rimage.ripley.com.pe", pathname: "/home.ripley/Attachment/**" },
+      { protocol: "https", hostname: "cctvexpress.co.uk", pathname: "/cdn/shop/files/**" },
+      { protocol: "https", hostname: "hikvision.az", pathname: "/wp-content/uploads/**" },
+      { protocol: "https", hostname: "i.ebayimg.com", pathname: "/images/**" },
+    ],
+  },
   async headers() {
     const preview = process.env.VERCEL_ENV === "preview"
       ? [
