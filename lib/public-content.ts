@@ -1,6 +1,7 @@
 import { text, type Localized } from "./i18n";
 import { brandingDefaults, type BrandingSettings } from "./branding";
 import { hikvisionCameras } from "./hikvision-cameras";
+import { dahuaCameras } from "./dahua-cameras";
 import { cctvServices } from "./cctv-services";
 
 export type PublishStatus = "draft" | "published";
@@ -18,7 +19,8 @@ export type SolutionCategory = {
   children?: SolutionCategory[];
 };
 export type ProductConcept = {
-  brand?: "Hikvision";
+  brand?: "Hikvision" | "Dahua";
+  cameraType?: "Bullet" | "Dome" | "Turret" | "PTZ";
   manufacturerUrl?: string;
   slug: string;
   category: CategoryId;
@@ -197,6 +199,19 @@ export const categories: SolutionCategory[] = [
       "A considered view of surveillance and coverage.",
       "নজরদারি ও কভারেজের সুচিন্তিত পরিকল্পনা।",
     ),
+    children: [
+      {
+        id: "cctv-accessories",
+        name: text("CCTV accessories", "সিসিটিভি আনুষঙ্গিক"),
+        description: text("Recorders, storage, power, cables and connectors.", "ডিভিআর/এনভিআর, স্টোরেজ, পাওয়ার, কেবল ও কানেক্টর।"),
+        children: [
+          { id: "dvr-nvr", name: text("DVR & NVR", "ডিভিআর ও এনভিআর"), description: text("Recording and network video recorders.", "রেকর্ডিং ও নেটওয়ার্ক ভিডিও রেকর্ডার।") },
+          { id: "cctv-storage", name: text("Storage", "স্টোরেজ"), description: text("Surveillance hard drives and storage.", "সার্ভেইলেন্স হার্ড ড্রাইভ ও স্টোরেজ।") },
+          { id: "cctv-power", name: text("Power supplies", "পাওয়ার সাপ্লাই"), description: text("Power adapters and distribution.", "পাওয়ার অ্যাডাপ্টার ও ডিস্ট্রিবিউশন।") },
+          { id: "cctv-cables", name: text("Cables & connectors", "কেবল ও কানেক্টর"), description: text("CCTV, network and termination accessories.", "সিসিটিভি, নেটওয়ার্ক ও টার্মিনেশন আনুষঙ্গিক।") },
+        ],
+      },
+    ],
   },
   {
     id: "audio",
@@ -382,6 +397,7 @@ export const productConcepts: ProductConcept[] = [
     contentKind: "concept",
   },
   ...hikvisionCameras,
+  ...dahuaCameras,
 ];
 
 export const publicServices: Service[] = [

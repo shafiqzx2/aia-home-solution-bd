@@ -147,12 +147,10 @@ em {
   min-height: 44px;
   font-size: 14px;
   color: var(--gold);
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-color: #bba37370;
+  text-decoration: none;
 }
 .text-link:hover {
-  text-decoration-color: currentColor;
+  text-decoration: none;
 }
 .text-link svg {
   width: 17px;

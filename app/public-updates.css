@@ -2,7 +2,7 @@
 .update-announcement > .shell { display: flex; align-items: center; justify-content: center; gap: .5rem 1rem; padding-block: .5rem; }
 .update-announcement p { margin: 0; max-width: 76rem; }
 .update-announcement span { flex-shrink: 0; }
-.update-announcement a { text-decoration: underline; text-underline-offset: .2em; }
+.update-announcement a { text-decoration: none; }
 .public-contact-notice { padding-block: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
 .public-contact-notice p { max-width: 70ch; overflow-wrap: anywhere; }
 .public-contact-notice .action-row { margin-top: 1rem; }
