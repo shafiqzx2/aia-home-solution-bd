@@ -194,7 +194,7 @@ export function HomeContent({
           </div>
           <div className="home-service-grid">
             {publicServices
-              .filter((s) => s.status === "published")
+              .filter((s) => s.status === "published" && ["lighting-design", "smart-systems", "cctv-installation"].includes(s.slug))
               .slice(0, 3)
               .map((service) => (
                 <article key={service.slug}>

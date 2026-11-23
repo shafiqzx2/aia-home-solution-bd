@@ -1,5 +1,7 @@
 import { text, type Localized } from "./i18n";
 import { brandingDefaults, type BrandingSettings } from "./branding";
+import { hikvisionCameras } from "./hikvision-cameras";
+import { cctvServices } from "./cctv-services";
 
 export type PublishStatus = "draft" | "published";
 export type Media = {
@@ -16,6 +18,8 @@ export type SolutionCategory = {
   children?: SolutionCategory[];
 };
 export type ProductConcept = {
+  brand?: "Hikvision";
+  manufacturerUrl?: string;
   slug: string;
   category: CategoryId;
   name: Localized;
@@ -34,7 +38,7 @@ export type ProductConcept = {
   specifications: { label: Localized; value: Localized }[];
   status: PublishStatus;
   contentKind: "concept" | "verified-product";
-  collections?: ("featured" | "new-arrivals" | "new-designs")[];
+  collections?: ("featured" | "new-arrivals" | "new-designs" | "hikvision")[];
 };
 export type Service = {
   slug: string;
@@ -269,7 +273,7 @@ export const productConcepts: ProductConcept[] = [
       "আলো, নিয়ন্ত্রণ ও দৈনন্দিন কাজ একসঙ্গে পরিচালনার পরিকল্পনা। সামঞ্জস্য যাচাই প্রয়োজন।",
     ),
     illustration: "switch",
-    images: [],
+    images: [{ src: "/images/products/connected-home-concept.svg", alt: text("Illustrative connected home control concept", "সংযুক্ত হোম নিয়ন্ত্রণের ধারণাভিত্তিক চিত্র"), kind: "concept" }],
     specifications: [],
     status: "published",
     contentKind: "concept",
@@ -329,7 +333,7 @@ export const productConcepts: ProductConcept[] = [
     illustration: "camera",
     images: [],
     specifications: [],
-    status: "published",
+    status: "draft",
     contentKind: "concept",
   },
   {
@@ -377,6 +381,7 @@ export const productConcepts: ProductConcept[] = [
     status: "published",
     contentKind: "concept",
   },
+  ...hikvisionCameras,
 ];
 
 export const publicServices: Service[] = [
@@ -414,6 +419,8 @@ export const publicServices: Service[] = [
         "Compatibility and installation review",
         "সামঞ্জস্য ও স্থাপনের বিষয় পর্যালোচনা",
       ),
+      text("Smart switch, lock, sensor and video door phone compatibility", "স্মার্ট সুইচ, লক, সেন্সর ও ভিডিও ডোর ফোনের সামঞ্জস্য"),
+      text("Smart lighting and home automation configuration planning", "স্মার্ট আলো ও হোম অটোমেশন কনফিগারেশনের পরিকল্পনা"),
     ],
     areas: ["automation", "access", "switches", "sensors"],
     image: { src: "/images/services/smart-systems.svg", alt: text("Smart control concept illustration", "স্মার্ট নিয়ন্ত্রণের ধারণাভিত্তিক চিত্র"), kind: "concept" },
@@ -456,6 +463,7 @@ export const publicServices: Service[] = [
     scope: [
       text("Room and device layout", "ঘর ও যন্ত্রপাতির বিন্যাস"),
       text("Connectivity and system coordination", "সংযোগ ও ব্যবস্থার সমন্বয়"),
+      text("Home networking and Wi-Fi coverage planning", "বাসার নেটওয়ার্ক ও ওয়াই-ফাই কভারেজের পরিকল্পনা"),
     ],
     areas: ["audio", "digital"],
     image: { src: "/images/services/connected-spaces.svg", alt: text("Network connectivity concept illustration", "নেটওয়ার্ক সংযোগের ধারণাভিত্তিক চিত্র"), kind: "concept" },
@@ -485,6 +493,7 @@ export const publicServices: Service[] = [
     image: { src: "/images/services/project-support.svg", alt: text("Project coordination concept illustration", "প্রকল্প সমন্বয়ের ধারণাভিত্তিক চিত্র"), kind: "concept" },
     status: "published",
   },
+  ...cctvServices,
 ];
 export const portfolio: PortfolioProject[] = [
   {

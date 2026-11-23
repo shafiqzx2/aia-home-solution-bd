@@ -37,7 +37,7 @@ export function Catalog({
     : "";
   const normalized = query.trim().toLocaleLowerCase(locale);
   const selectedIds = categoryBranchIds(groupedCategories, category);
-  const collections = ["featured", "new-arrivals", "new-designs"];
+  const collections = ["featured", "new-arrivals", "new-designs", "hikvision"];
   const collection = collections.includes(params.get("collection") || "")
     ? params.get("collection")!
     : "";
@@ -47,7 +47,7 @@ export function Catalog({
       (!category || selectedIds.includes(p.category)) &&
       (!collection ||
         p.collections?.includes(
-          collection as "featured" | "new-arrivals" | "new-designs",
+          collection as "featured" | "new-arrivals" | "new-designs" | "hikvision",
         )) &&
       `${p.name[locale]} ${p.description[locale]} ${allCategories.find((c) => c.id === p.category)?.name[locale]}`
         .toLocaleLowerCase(locale)
@@ -57,6 +57,8 @@ export function Catalog({
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
+    if (key === "collection" && value === "hikvision") next.set("category", "security");
+    if (key === "category" && value !== "security" && next.get("collection") === "hikvision") next.delete("collection");
     window.history.replaceState(
       null,
       "",
@@ -77,6 +79,10 @@ export function Catalog({
         />
       </aside>
       <div className="catalog-results">
+        {(category === "security" || collection === "hikvision") && <div className="catalog-collection-intro">
+          <h2>{locale === "bn" ? "Hikvision ক্যামেরা" : "Hikvision cameras"}</h2>
+          <p>{locale === "bn" ? "নির্মাতার তথ্য অনুযায়ী মডেল পরিবারগুলো দেখুন। লেন্স, সংস্করণ, প্রাপ্যতা ও উপযোগিতা আমাদের দলের সঙ্গে নিশ্চিত করুন। পণ্যের ছবি শীঘ্রই যুক্ত হবে।" : "Explore manufacturer-verified model families. Confirm lens, revision, availability and suitability with our team. Product photos are coming soon."}</p>
+        </div>}
         <label className="search-field">
           <span>{d.search}</span>
           <input
@@ -98,6 +104,7 @@ export function Catalog({
             <option value="">{c.allCollections}</option>
             <option value="featured">{c.featured}</option>
             <option value="new-arrivals">{c.newArrivals}</option>
+            <option value="hikvision">Hikvision (CCTV)</option>
             <option value="new-designs">{c.newDesigns}</option>
           </select>
         </label>
